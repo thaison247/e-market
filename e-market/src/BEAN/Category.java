@@ -1,17 +1,15 @@
 package BEAN;
 
 public class Category {
-	private int categoryId;
-	private String categoryName;
+	private int categoryId;  // id danh mục
+	private String categoryName; // tên danh mục
+	private int rootCategoryId; // id danh mục gốc (danh mục cha)
 	
-	public Category() {
-		
-	}
-
-	public Category(int categoryId, String categoryName) {
+	public Category(int categoryId, String categoryName, int rootCategoryId) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
+		this.rootCategoryId = rootCategoryId;
 	}
 
 	public int getCategoryId() {
@@ -30,5 +28,12 @@ public class Category {
 		this.categoryName = categoryName;
 	}
 
-	
+	public int getRootCategoryId() {
+		return rootCategoryId;
+	}
+
+	public void setRootCategoryId(int rootCategoryId) {
+		this.rootCategoryId = rootCategoryId;
+	}
+
 }

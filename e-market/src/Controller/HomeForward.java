@@ -1,6 +1,9 @@
 package Controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +11,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import BEAN.Category;
+import DAO.CategoryDAO;
+import DB.DBConnection;
 
 
 @WebServlet("/HomeForward")
@@ -22,8 +29,34 @@ public class HomeForward extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("da vao servlet roi nha");
+
+		try {
+			// tạo kết nối database
+			Connection conn = DBConnection.createConnection();
+			
+			// lay danh sach Category vao listCategories
+			ArrayList<Category> listCategories = CategoryDAO.getAllCategories(request, conn);
+			
+			// set attribute để truyền dữ liệu đi
+			request.setAttribute("listCategories", listCategories);
+			
+			for(Category cat : listCategories) {
+				System.out.println(cat.getCategoryId());
+				System.out.println(cat.getCategoryName());
+				System.out.println(cat.getRootCategoryId());
+				System.out.println("---------------");
+			}
+			
+			// đóng kết nối database
+			conn.close();
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		// chuyển tới trang HOME
 		RequestDispatcher rd = request.getRequestDispatcher("Views/home.jsp");
 		rd.forward(request, response);
 	}

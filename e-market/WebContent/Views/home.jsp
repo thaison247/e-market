@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,7 +52,9 @@
 		<div class="container">
 			<div class="row">
 				<!-- Sidebar ================================================== -->
-				<jsp:include page="../Sections/sidebar.jsp" flush="true" />
+				<jsp:include page="../Sections/testsidebar.jsp" flush="true">
+					<jsp:param name="listCategories" value="${listCategories}" />
+				</jsp:include>
 				<!-- Sidebar end=============================================== -->
 
 				<div class="span9">

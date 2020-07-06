@@ -28,10 +28,11 @@ public class CategoryDAO {
 			{
 				while (rs.next())
 				{
-					int id = rs.getInt("id_dm");
-					String name = rs.getString("ten_dm");
-
-					Category cat = new Category(id, name);
+					int id = rs.getInt("id_dm"); // id danh mục
+					String name = rs.getString("ten_dm"); // tên danh mục
+					int rootId = rs.getInt("danh_muc_goc"); // id danh mục gốc (danh mục cha)
+					
+					Category cat = new Category(id, name, rootId);
 					
 					listCategories.add(cat);
 				}
