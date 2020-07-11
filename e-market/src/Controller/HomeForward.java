@@ -40,13 +40,6 @@ public class HomeForward extends HttpServlet {
 			// set attribute để truyền dữ liệu đi
 			request.setAttribute("listCategories", listCategories);
 			
-			for(Category cat : listCategories) {
-				System.out.println(cat.getCategoryId());
-				System.out.println(cat.getCategoryName());
-				System.out.println(cat.getRootCategoryId());
-				System.out.println("---------------");
-			}
-			
 			// đóng kết nối database
 			conn.close();
 			

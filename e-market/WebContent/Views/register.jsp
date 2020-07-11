@@ -72,49 +72,52 @@
 		<button type="button" class="close" data-dismiss="alert">×</button>
 		<strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
 	 </div> -->
-						<form class="form-horizontal">
+						<form class="form-horizontal" action="RegisterController" method="post">
 							<h4>Your personal information</h4>
 							<div class="control-group">
-								<label class="control-label" for="inputLnam">Your name <sup>*</sup></label>
+								<label class="control-label" for="input_name">Your name <sup>*</sup></label>
 								<div class="controls">
-									<input type="text" id="inputLnam" placeholder="Last Name">
+									<input type="text" name="input_name" id="input_name" placeholder="Your Name">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="input_email">Email <sup>*</sup></label>
 								<div class="controls">
-									<input type="text" id="input_email" placeholder="Email">
+									<input type="text" name="input_email" id="input_email" placeholder="Email">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="input_phone">Phone <sup>*</sup></label>
 								<div class="controls">
-									<input type="text" id="input_phone" placeholder="Phone">
+									<input type="text" name="input_phone" id="input_phone" placeholder="Phone">
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="address">Address<sup>*</sup></label>
+								<label class="control-label" for="input_address">Address<sup>*</sup></label>
 								<div class="controls">
-									<input type="text" id="address" placeholder="Adress" /> <span>Street address, P.O.
+									<input type="text" name="input_address" id="input_address" placeholder="Adress" />
+									<span>Street address,
+										P.O.
 										box, company name, c/o</span>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="input_password">Password <sup>*</sup></label>
 								<div class="controls">
-									<input type="password" id="input_password" placeholder="Password">
+									<input type="password" name="input_password" id="input_password"
+										placeholder="Password">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="repeat_password">Repeat Password <sup>*</sup></label>
 								<div class="controls">
-									<input type="password" id="repeat_password" placeholder="Password">
+									<input type="password" name="repeat_password" id="repeat_password"
+										placeholder="Password">
 								</div>
 							</div>
 							<div class="alert alert-block alert-error fade in">
 								<button type="button" class="close" data-dismiss="alert">×</button>
-								<strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting
-								industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+								<strong><%= request.getAttribute("msg") %></strong>
 							</div>
 
 							<p><sup>*</sup>Required field </p>
@@ -147,7 +150,7 @@
 	<script src="themes/js/jquery.lightbox-0.5.js"></script>
 
 	<!-- Themes switcher section ============================================================================================= -->
-	<jsp:include page="../Sections/switch_themes.jsp"/>
+	<jsp:include page="../Sections/switch_themes.jsp" />
 </body>
 
 </html>

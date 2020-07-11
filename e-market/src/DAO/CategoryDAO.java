@@ -36,6 +36,7 @@ public class CategoryDAO {
 					
 					listCategories.add(cat);
 				}
+				rs.close(); // đóng đói tượng resultset
 			}
 			else 
 			{
