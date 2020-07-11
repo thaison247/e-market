@@ -6,7 +6,7 @@ public class DBConnection {
 	public static Connection createConnection() throws ClassNotFoundException{
 		Connection conn = null;
 		
-		String url = "jdbc:mysql://localhost:3306/market";
+		String url = "jdbc:mysql://localhost:3306/market?useUnicode=true&characterEncoding=utf-8";
 		String username = "root";
 		String password = "1712730";
 		

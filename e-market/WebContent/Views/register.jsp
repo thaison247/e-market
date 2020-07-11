@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,6 +37,18 @@
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
 	<style type="text/css" id="enject"></style>
+
+	<script type="text/javascript">
+		var validate = function () {
+			var input_password = document.getElementById(input_password);
+			var repeat_password = document.getElementById(repeat_password);
+
+			if (input_password.value !== repeat_password.value) {
+				alert("Password repeated doesn't match!")
+			}
+		}
+	</script>
+
 </head>
 
 <body>
@@ -72,30 +86,33 @@
 		<button type="button" class="close" data-dismiss="alert">×</button>
 		<strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
 	 </div> -->
-						<form class="form-horizontal" action="RegisterController" method="post">
+						<form class="form-horizontal" action="RegisterController" method="post"
+							onsubmit="validate()">
 							<h4>Your personal information</h4>
 							<div class="control-group">
 								<label class="control-label" for="input_name">Your name <sup>*</sup></label>
 								<div class="controls">
-									<input type="text" name="input_name" id="input_name" placeholder="Your Name">
+									<input type="text" name="input_name" id="input_name" placeholder="Your Name"
+										required>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="input_email">Email <sup>*</sup></label>
 								<div class="controls">
-									<input type="text" name="input_email" id="input_email" placeholder="Email">
+									<input type="text" name="input_email" id="input_email" placeholder="Email" required>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="input_phone">Phone <sup>*</sup></label>
 								<div class="controls">
-									<input type="text" name="input_phone" id="input_phone" placeholder="Phone">
+									<input type="text" name="input_phone" id="input_phone" placeholder="Phone" required>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="input_address">Address<sup>*</sup></label>
 								<div class="controls">
-									<input type="text" name="input_address" id="input_address" placeholder="Adress" />
+									<input type="text" name="input_address" id="input_address" placeholder="Adress"
+										required>
 									<span>Street address,
 										P.O.
 										box, company name, c/o</span>
@@ -105,20 +122,23 @@
 								<label class="control-label" for="input_password">Password <sup>*</sup></label>
 								<div class="controls">
 									<input type="password" name="input_password" id="input_password"
-										placeholder="Password">
+										placeholder="Password" required>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="repeat_password">Repeat Password <sup>*</sup></label>
 								<div class="controls">
 									<input type="password" name="repeat_password" id="repeat_password"
-										placeholder="Password">
+										placeholder="Password" required>
 								</div>
 							</div>
-							<div class="alert alert-block alert-error fade in">
-								<button type="button" class="close" data-dismiss="alert">×</button>
-								<strong><%= request.getAttribute("msg") %></strong>
-							</div>
+							<c:if test="${requestScope.registerMsg != null}">
+								<div class="alert alert-block alert-error fade in">
+									<button type="button" class="close" data-dismiss="alert">×</button>
+									<strong><%= request.getAttribute("registerMsg") %></strong>
+								</div>
+							</c:if>
+							
 
 							<p><sup>*</sup>Required field </p>
 
