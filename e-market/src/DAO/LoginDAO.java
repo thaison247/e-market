@@ -7,9 +7,7 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import BEAN.User;
-
-public class RegisterDAO {
+public class LoginDAO {
 	
 	public static boolean isExistedEmail(HttpServletRequest request, Connection conn, String email) {
 		
@@ -38,7 +36,7 @@ public class RegisterDAO {
 			}
 			else 
 			{
-				request.setAttribute("registerDaoMsg","Lỗi kiểm tra email tồn tại");
+				request.setAttribute("checkExistedMailErrMsg","Lỗi kiểm tra email tồn tại");
 			}
 			
 		} catch (SQLException e) {
@@ -49,38 +47,37 @@ public class RegisterDAO {
 		return false;
 	}
 	
-	public static boolean insertUser(Connection conn, User user) {
+	public static String getPassword(HttpServletRequest request, Connection conn, String email) {
 		
-		String sql = "INSERT INTO nguoi_dung(ten_nd, dia_chi, sdt, email, password) VALUES(?,?,?,?,?)";
+		String password = null; // kết quả
 		
+		String sql = "SELECT password FROM nguoi_dung WHERE email = " + "'" + email + "'";
+		
+		PreparedStatement ptmt;
 		try {
-			PreparedStatement ptmt = conn.prepareStatement(sql);
+			ptmt = conn.prepareStatement(sql);
 			
-			String name = user.getName();
-			String address = user.getAddress();
-			String phone = user.getPhone();
-			String email = user.getEmail();
-			String password = user.getPassword();
+			//thực thi câu truy vấn
+			ResultSet rs = ptmt.executeQuery();
 			
-			ptmt.setString(1, name);
-			ptmt.setString(2, address);
-			ptmt.setString(3, phone);
-			ptmt.setString(4, email);
-			ptmt.setString(5, password);
-			
-			int check = ptmt.executeUpdate();
-			
-			if(check > 0) {
-				return true;
+			if(rs.isBeforeFirst()) {
+				
+				while(rs.next()) {
+					password = rs.getString("password");
+				}
+				
+				rs.close();
 			}
-			return false;
+			else {
+				request.setAttribute("getPasswordErrMsg","Lỗi truy vấn password");
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		return password;
 		
-		return false;
 	}
 }

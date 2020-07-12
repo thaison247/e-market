@@ -49,8 +49,8 @@ public class RegisterController extends HttpServlet {
 		String input_phone = request.getParameter("input_phone");
 		
 		// sử dụng Bcrypt để mã hoá password
-		BCrypt bCrypt = new BCrypt();
-		String encodedPassword = bCrypt.hashpw(input_password, bCrypt.gensalt()); // password đã được mã hoá
+		//BCrypt bCrypt = new BCrypt();
+		String encodedPassword = BCrypt.hashpw(input_password, BCrypt.gensalt()); // password đã được mã hoá
 		
 		Connection conn = null;
 		boolean checkExistedEmail = false; // biến ktra email đã tồn tại?
