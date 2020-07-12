@@ -30,7 +30,7 @@ public class LoginController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// lấy origin_url: trang web gọi tới trang login
+		// lấy origin_url: vị trí mà người dùng gửi request login
 		request.setAttribute("from", request.getParameter("from"));
 		
 		RequestDispatcher rd = request.getRequestDispatcher("Views/login.jsp");

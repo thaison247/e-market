@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html>
 
@@ -13,7 +14,12 @@
     <div id="header">
         <div class="container">
             <div id="welcomeLine" class="row">
-                <div class="span6">Welcome!<strong> User</strong></div>
+            	<c:if test="${sessionScope.user != null}">
+                	<div class="span6">Welcome!<strong> ${sessionScope.user.getName()}</strong></div>
+                </c:if>
+                <c:if test="${sessionScope.user == null}">
+                	<div class="span6">Welcome!<strong>  </strong></div>
+                </c:if>
                 <div class="span6">
                     <div class="pull-right">
                         <a href="product_summary.html"><span class="">Fr</span></a>
@@ -53,9 +59,16 @@
                         <li class=""><a href="normal.html">Delivery</a></li>
                         <li class=""><a href="RegisterController">Register</a></li>
                         <li class="">
-                            <a href="LoginController?from=${requestScope['javax.servlet.forward.request_uri']}" role="button" style="padding-right:0">
-                            	<span class="btn btn-large btn-success">Login</span>
-                            </a>
+	                        <c:if test="${sessionScope.user == null}">
+	                            <a href="LoginController?from=${requestScope['javax.servlet.forward.request_uri']}" role="button" style="padding-right:0">
+	                            	<span class="btn btn-large btn-success">Login</span>
+	                            </a>
+	                        </c:if>
+	                        <c:if test="${sessionScope.user != null}">
+	                            <a href="LogoutController?from=${requestScope['javax.servlet.forward.request_uri']}" role="button" style="padding-right:0">
+	                            	<span class="btn btn-large btn-success">Logout</span>
+	                            </a>
+	                        </c:if>
                         </li>
                     </ul>
                 </div>
