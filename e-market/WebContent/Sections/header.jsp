@@ -53,8 +53,9 @@
                         <li class=""><a href="normal.html">Delivery</a></li>
                         <li class=""><a href="RegisterController">Register</a></li>
                         <li class="">
-                            <a href="LoginController" role="button" style="padding-right:0"><span
-                                    class="btn btn-large btn-success">Login</span></a>
+                            <a href="LoginController?from=${requestScope['javax.servlet.forward.request_uri']}" role="button" style="padding-right:0">
+                            	<span class="btn btn-large btn-success">Login</span>
+                            </a>
                         </li>
                     </ul>
                 </div>

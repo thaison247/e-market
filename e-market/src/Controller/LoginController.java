@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import BEAN.User;
 import DAO.LoginDAO;
 import DB.DBConnection;
 import HELPER.BCrypt;
@@ -27,7 +29,10 @@ public class LoginController extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		// lấy origin_url: trang web gọi tới trang login
+		request.setAttribute("from", request.getParameter("from"));
+		
 		RequestDispatcher rd = request.getRequestDispatcher("Views/login.jsp");
 		rd.forward(request, response);
 	}
@@ -49,21 +54,47 @@ public class LoginController extends HttpServlet {
 			// kiểm tra mail có tồn tại trong DB hay không
 			boolean isExistedEmail = LoginDAO.isExistedEmail(request, conn, email);
 			
-			if(isExistedEmail) { // 
+			// nếu mail tồn tại trong DB (có tài khoản đk bằng mail này)
+			if(isExistedEmail) { 
 				String hashedPassword = LoginDAO.getPassword(request, conn, email); // lay hashed password trong DB (password dung)
 				checkPassword = BCrypt.checkpw(rawPassword, hashedPassword); // so sanh 2 password bang Bcrypt
-				request.setAttribute("loginMsg", "Login Successfully!");
+				
+				// nếu đăng nhập đúng password
+				if(checkPassword) {
+					
+					// set giá trị cho session
+					HttpSession session = request.getSession();
+					session.setAttribute("authenticated", true);
+					User user = new User();
+					user = LoginDAO.getUser(request, conn, email); // get User tu DB
+					session.setAttribute("user", user);
+					
+					// chuyển về trang trước đó
+					response.sendRedirect(request.getParameter("from"));
+					return;
+				}
+				
+				// nếu đăng nhập sai password
+				else {
+					
+					// đặt message thông báo ra ngoài
+					request.setAttribute("loginErrMsg", "Mật khẩu không đúng!");
+				}
 			}
+			
+			// nếu không tồn tại mail trong DB
 			else {
-				request.setAttribute("loginMsg", "Login Fail!");
+				
+				// đặt message thông báo ra ngoài
+				request.setAttribute("loginErrMsg", "Mail không tồn tại!");
 			}
 			
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// đặt message thông báo ra ngoài
+			request.setAttribute("loginErrMsg", e.getMessage());
 		}
 		
-		System.out.println(checkPassword);
+		// chuyển vể trang login
 		RequestDispatcher rd = request.getRequestDispatcher("Views/login.jsp");
 		rd.forward(request, response);
 	}

@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import BEAN.User;
+
 public class LoginDAO {
 	
 	public static boolean isExistedEmail(HttpServletRequest request, Connection conn, String email) {
@@ -78,6 +80,44 @@ public class LoginDAO {
 		}
 		
 		return password;
+	}
+	
+	public static User getUser(HttpServletRequest request, Connection conn, String email) {
+		
+		User user = new User();
+		
+		String sql = "SELECT * FROM nguoi_dung WHERE email = " + "'" + email + "'";
+		
+		try {
+			PreparedStatement ptmt = conn.prepareStatement(sql);
+			
+			ResultSet rs = ptmt.executeQuery();
+			
+			if(rs.isBeforeFirst()) {
+				while(rs.next()) {
+					int id = rs.getInt("id_nd");
+					String name = rs.getString("ten_nd");
+					String address = rs.getString("dia_chi");
+					String phone = rs.getString("sdt");
+
+					user.setAddress(address);
+					user.setEmail(email);
+					user.setId(id);
+					user.setName(name);
+					user.setPhone(phone);
+				}
+				
+				rs.close();
+			}
+			else {
+				request.setAttribute("getUserErrMsg", "Lỗi truy vấn User");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			request.setAttribute("getUserErrMsg", e.getMessage());
+		}
+		
+		return user;
 		
 	}
 }

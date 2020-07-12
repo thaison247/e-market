@@ -83,10 +83,15 @@
 												id="input_password" placeholder="Password">
 										</div>
 									</div>
-									<c:if test="${requestScope.loginMsg != null}">
+									<div class="control-group">
+										<div class="controls">
+											<input type="hidden" class="span3" name="from" value="${from}">
+										</div>
+									</div>
+									<c:if test="${requestScope.loginErrMsg != null}">
 										<div class="alert alert-block alert-error fade in">
 											<button type="button" class="close" data-dismiss="alert">×</button>
-											<strong><%= request.getAttribute("loginMsg") %></strong>
+											<strong><%= request.getAttribute("loginErrMsg") %></strong>
 										</div>
 									</c:if>
 									<div class="control-group">

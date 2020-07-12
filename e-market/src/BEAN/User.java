@@ -1,7 +1,7 @@
 package BEAN;
 
 public class User {
-	private String id;
+	private int id;
 	private String name;
 	private String email;
 	private String phone;
@@ -14,10 +14,10 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getName() {

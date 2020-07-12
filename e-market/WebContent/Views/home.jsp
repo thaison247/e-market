@@ -40,7 +40,7 @@
 
 <body>
 	<!-- Header    ======== -->
-	<jsp:include page="../Sections/header.jsp" flush="true" />
+	<jsp:include page="../Sections/header.jsp" flush="true"/>
 	<!-- Header End======== -->
 
 	<!-- Carousel    ========= -->
