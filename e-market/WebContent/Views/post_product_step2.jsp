@@ -54,18 +54,81 @@
 					</ul>
 					<h3> Post your offer</h3>
 					<div class="well">
-						<form class="form-horizontal">
-							<h4>Prime Category</h4>
-							<select class="form-control form-control-lg" required style="width:80%">
-								<option value="" disabled selected hidden>Choose category</option>
-								<option>Large select</option>
-								<option>Large select</option>
-								<option>Large select</option>
-								<option>Large select</option>
-								<option>Large select</option>
-								<option>Large select</option>
-							</select>
-							<button type="submit" class="btn btn-primary">Submit</button>
+						<form class="form-horizontal" onsubmit="validate()">
+							<h4>Provide some information</h4>
+							<div class="control-group">
+								<label class="control-label" for="input_category">Category<sup>*</sup></label>
+								<div class="controls">
+									<select id="input_category" name="input_category" class="form-control form-control-lg" required style="width: 82%;">
+										<option value="" disabled selected hidden>Choose category</option>
+										<c:forEach items="${listCategoriesLV2}" var="category">
+											<option value="${category.getId()}">${category.getName()}</option>
+										</c:forEach>
+									</select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="input_title">Product title <sup>*</sup></label>
+								<div class="controls">
+									<input type="text" id="input_title" name="input_title" placeholder="Product title"
+										style="width: 80%;">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="input_price">Price <sup>*</sup></label>
+								<div class="controls">
+									<input type="number" min="0" step="100000" id="input_price" name="input_price"
+										placeholder="Price">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="input_shortDescription">Short
+									Description<sup>*</sup></label>
+								<div class="controls">
+									<textarea id="input_shortDescription" placeholder="Short Description" rows="3"
+										style="width: 80%;"> </textarea>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="input_description">Detail
+									Description<sup>*</sup></label>
+								<div class="controls">
+									<textarea id="input_description" placeholder="Description" cols="8" rows="8"
+										style="width: 80%;"> </textarea>
+								</div>
+							</div>
+							<h4>Seller information</h4>
+							<div class="control-group">
+								<label class="control-label" for="seller_phone">Phone number <sup>*</sup></label>
+								<div class="controls">
+									<input type="text" name="seller_phone" id="seller_phone" value="0123456789"
+										readonly>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="seller_email">Email <sup>*</sup></label>
+								<div class="controls">
+									<input type="text" name="seller_email" id="seller_email"
+										value="nguyenthaison@gmail.com" readonly>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="seller_address">Address <sup>*</sup></label>
+								<div class="controls">
+									<input type="text" name="seller_address" id="seller_address"
+										value="471A Cách mạng tháng 8, P13, Q10, TP.HCM" readonly style="width: 80%;">
+								</div>
+							</div>
+
+							<p><sup>*</sup>Required field </p>
+
+							<div class=" control-group">
+								<div class="controls">
+									<input type="hidden" name="email_create" value="1">
+									<input type="hidden" name="is_new_customer" value="1">
+									<input class="btn btn-large btn-success" type="submit" value="Register" />
+								</div>
+							</div>
 						</form>
 					</div>
 				</div>

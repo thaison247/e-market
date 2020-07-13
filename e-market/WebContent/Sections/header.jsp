@@ -56,7 +56,7 @@
                     </form>
                     <ul id="topMenu" class="nav pull-right">
                         <c:if test="${sessionScope.user != null}">
-                        	<li class=""><a href="special_offer.html">Post your offers</a></li>
+                        	<li class=""><a href="PostProductS1">Post your offers</a></li>
                         	<li class=""><a href="normal.html">Profile</a></li>
                         </c:if>
                         <li class=""><a href="RegisterController">Register</a></li>

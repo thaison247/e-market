@@ -19,15 +19,15 @@
         <ul id="sideManu" class="nav nav-tabs nav-stacked">
             <!-- For each danh mục cấp 1 -->
             <c:forEach items="${listCategories}" var="category">
-                <c:if test="${category.getRootCategoryId() == 0}">
-                    <li class="subMenu"><a>${category.categoryName}</a>
+                <c:if test="${category.getRootId() == 0}">
+                    <li class="subMenu"><a>${category.getName()}</a>
                     
                         <ul style="display:none">
                             <!-- For each danh mục cấp 2 -->
                             <c:forEach items="${listCategories}" var="category2">
-                                <c:if test="${category2.getRootCategoryId() == category.getCategoryId()}">
+                                <c:if test="${category2.getRootId() == category.getId()}">
                                     <li><a href="products.html"><i
-                                                class="icon-chevron-right"></i>${category2.getCategoryName()}</a></li>
+                                                class="icon-chevron-right"></i>${category2.getName()}</a></li>
                                 </c:if>
                             </c:forEach>
                         </ul>

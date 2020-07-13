@@ -36,6 +36,10 @@
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
 	<style type="text/css" id="enject"></style>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	
 </head>
 
 <body>
@@ -54,18 +58,15 @@
 					</ul>
 					<h3> Post your offer</h3>
 					<div class="well">
-						<form class="form-horizontal">
+						<form class="form-horizontal" action="PostProductS2">
 							<h4>Prime Category</h4>
-							<select class="form-control form-control-lg" required style="width:80%">
+							<select name="category-lv1" class="form-control form-control-lg" required style="width:80%">
 								<option value="" disabled selected hidden>Choose category</option>
-								<option>Large select</option>
-								<option>Large select</option>
-								<option>Large select</option>
-								<option>Large select</option>
-								<option>Large select</option>
-								<option>Large select</option>
+								<c:forEach items="${listCategoriesLV1}" var="category">
+									<option value="${category.getId()}">${category.getName()}</option>
+								</c:forEach>
 							</select>
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="submit" id="submit_btn" class="btn btn-primary">Submit</button>
 						</form>
 					</div>
 				</div>
