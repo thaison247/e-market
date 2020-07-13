@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,86 +38,93 @@
 	<style type="text/css" id="enject"></style>
 </head>
 
-</head>
-
 <body>
 	<!-- Header    ======== -->
-	<jsp:include page="../Sections/header.jsp" flush="true" />
+	<jsp:include page="../Sections/header.jsp" flush="true"/>
 	<!-- Header End======== -->
 
-	<!-- MainBody ============================= -->
+	<!-- Main Body ======== -->
 	<div id="mainBody">
 		<div class="container">
 			<div class="row">
-				<!-- Sidebar ================================================== -->
-				<jsp:include page="../Sections/sidebar.jsp" flush="true">
-					<jsp:param name="listCategories" value="${listCategories}" />
-				</jsp:include>
-				<!-- Sidebar end=============================================== -->
-
 				<div class="span9">
 					<ul class="breadcrumb">
 						<li><a href="index.html">Home</a> <span class="divider">/</span></li>
-						<li class="active">Login</li>
+						<li class="active">Post your offer</li>
 					</ul>
-					<h3> Login</h3>
-					<hr class="soft" />
+					<h3> Post your offer</h3>
+					<div class="well">
+						<form class="form-horizontal" onsubmit="validate()">
+							<h4>Provide some information</h4>
+							<div class="control-group">
+								<label class="control-label" for="input_title">Product title <sup>*</sup></label>
+								<div class="controls">
+									<input type="text" id="input_title" name="input_title" placeholder="Product title"
+										style="width: 80%;">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="input_price">Price <sup>*</sup></label>
+								<div class="controls">
+									<input type="number" min="0" step="100000" id="input_price" name="input_price"
+										placeholder="Price">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="input_shortDescription">Short
+									Description<sup>*</sup></label>
+								<div class="controls">
+									<textarea id="input_shortDescription" placeholder="Short Description" rows="3"
+										style="width: 80%;"> </textarea>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="input_description">Detail
+									Description<sup>*</sup></label>
+								<div class="controls">
+									<textarea id="input_description" placeholder="Description" cols="8" rows="8"
+										style="width: 80%;"> </textarea>
+								</div>
+							</div>
+							<h4>Seller information</h4>
+							<div class="control-group">
+								<label class="control-label" for="seller_phone">Phone number <sup>*</sup></label>
+								<div class="controls">
+									<input type="text" name="seller_phone" id="seller_phone" value="0123456789"
+										readonly>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="seller_email">Email <sup>*</sup></label>
+								<div class="controls">
+									<input type="text" name="seller_email" id="seller_email"
+										value="nguyenthaison@gmail.com" readonly>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="seller_address">Address <sup>*</sup></label>
+								<div class="controls">
+									<input type="text" name="seller_address" id="seller_address"
+										value="471A Cách mạng tháng 8, P13, Q10, TP.HCM" readonly style="width: 80%;">
+								</div>
+							</div>
 
-					<div class="row">
-						<div class="span4">
-							<div class="well">
-								<h5>ALREADY REGISTERED ?</h5>
-								<form action="LoginController" method="POST">
-									<div class="control-group">
-										<label class="control-label" for="input_email">Email</label>
-										<div class="controls">
-											<input class="span3" type="text" name="input_email" id="input_email"
-												placeholder="Email">
-										</div>
-									</div>
-									<div class="control-group">
-										<label class="control-label" for="input_password">Password</label>
-										<div class="controls">
-											<input type="password" class="span3" name="input_password"
-												id="input_password" placeholder="Password">
-										</div>
-									</div>
-									<div class="control-group">
-										<div class="controls">
-											<input type="hidden" class="span3" name="from" value="${from}">
-										</div>
-									</div>
-									<c:if test="${requestScope.loginErrMsg != null}">
-										<div class="alert alert-block alert-error fade in">
-											<button type="button" class="close" data-dismiss="alert">×</button>
-											<strong><%= request.getAttribute("loginErrMsg") %></strong>
-										</div>
-									</c:if>
-									<div class="control-group">
-										<div class="controls">
-											<button type="submit" class="btn">Sign in</button> <a
-												href="forgetpass.html">Forget password?</a>
-										</div>
-									</div>
-								</form>
+							<p><sup>*</sup>Required field </p>
+
+							<div class=" control-group">
+								<div class="controls">
+									<input type="hidden" name="email_create" value="1">
+									<input type="hidden" name="is_new_customer" value="1">
+									<input class="btn btn-large btn-success" type="submit" value="Register" />
+								</div>
 							</div>
-						</div>
-						<div class="span1"> &nbsp;</div>
-						<div class="span4">
-							<div class="well">
-								<h5>CREATE YOUR ACCOUNT</h5><br />
-								Create an account by your email.<br /><br /><br />
-								<form action="RegisterController">
-									<button type="submit" class="btn block">Create Your Account</button>
-								</form>
-							</div>
-						</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- MainBody End ============================= -->
+	<!-- Main Body End ======== -->
 
 	<!-- Footer ========= -->
 	<jsp:include page="../Sections/footer.jsp" flush="true" />
@@ -132,7 +138,7 @@
 	<script src="themes/js/jquery.lightbox-0.5.js"></script>
 
 	<!-- Themes switcher section ============================================================================================= -->
-	<jsp:include page="../Sections/switch_themes.jsp" />
+	<jsp:include page="../Sections/switch_themes.jsp"/>
 </body>
 
 </html>

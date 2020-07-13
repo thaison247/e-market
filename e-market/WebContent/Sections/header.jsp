@@ -14,11 +14,11 @@
     <div id="header">
         <div class="container">
             <div id="welcomeLine" class="row">
-            	<c:if test="${sessionScope.user != null}">
-                	<div class="span6">Welcome!<strong> ${sessionScope.user.getName()}</strong></div>
+                <c:if test="${sessionScope.user != null}">
+                    <div class="span6">Welcome!<strong> ${sessionScope.user.getName()}</strong></div>
                 </c:if>
                 <c:if test="${sessionScope.user == null}">
-                	<div class="span6">Welcome!<strong>  </strong></div>
+                    <div class="span6">Welcome!<strong> </strong></div>
                 </c:if>
                 <div class="span6">
                     <div class="pull-right">
@@ -55,20 +55,24 @@
                         <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
                     </form>
                     <ul id="topMenu" class="nav pull-right">
-                        <li class=""><a href="special_offer.html">Specials Offer</a></li>
-                        <li class=""><a href="normal.html">Delivery</a></li>
+                        <c:if test="${sessionScope.user != null}">
+                        	<li class=""><a href="special_offer.html">Post your offers</a></li>
+                        	<li class=""><a href="normal.html">Profile</a></li>
+                        </c:if>
                         <li class=""><a href="RegisterController">Register</a></li>
                         <li class="">
-	                        <c:if test="${sessionScope.user == null}">
-	                            <a href="LoginController?from=${requestScope['javax.servlet.forward.request_uri']}" role="button" style="padding-right:0">
-	                            	<span class="btn btn-large btn-success">Login</span>
-	                            </a>
-	                        </c:if>
-	                        <c:if test="${sessionScope.user != null}">
-	                            <a href="LogoutController?from=${requestScope['javax.servlet.forward.request_uri']}" role="button" style="padding-right:0">
-	                            	<span class="btn btn-large btn-success">Logout</span>
-	                            </a>
-	                        </c:if>
+                            <c:if test="${sessionScope.user == null}">
+                                <a href="LoginController?from=${requestScope['javax.servlet.forward.request_uri']}"
+                                    role="button" style="padding-right:0">
+                                    <span class="btn btn-large btn-success">Login</span>
+                                </a>
+                            </c:if>
+                            <c:if test="${sessionScope.user != null}">
+                                <a href="LogoutController?from=${requestScope['javax.servlet.forward.request_uri']}"
+                                    role="button" style="padding-right:0">
+                                    <span class="btn btn-large btn-success">Logout</span>
+                                </a>
+                            </c:if>
                         </li>
                     </ul>
                 </div>
