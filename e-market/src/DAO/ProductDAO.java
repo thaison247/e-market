@@ -34,17 +34,17 @@ public class ProductDAO {
 			ptmt.setString(1, name);
 			ptmt.setDate(2, date);
 			ptmt.setInt(3, price);
-			ptmt.setString(4, shortDesc);
+			ptmt.setString(4, detailDesc);
 			ptmt.setBoolean(5, isSold);
 			ptmt.setInt(6,  categoryId);
 			ptmt.setInt(7, sellerId);
-			ptmt.setString(8, detailDesc);
+			ptmt.setString(8, shortDesc);
 			
 			check = ptmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			request.setAttribute("inserPrdDAOErrMsg", e.getMessage());
 		}
 		
 		return check;

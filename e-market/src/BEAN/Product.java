@@ -27,6 +27,19 @@ public class Product {
 		this.sellerId = sellerId;
 	}
 	
+	public Product(String name, Date date, int price, String shortDesc, String detailDesc, boolean isSold,
+			int categoryId, int sellerId) {
+		super();
+		this.name = name;
+		this.date = date;
+		this.price = price;
+		this.shortDesc = shortDesc;
+		this.detailDesc = detailDesc;
+		this.isSold = isSold;
+		this.categoryId = categoryId;
+		this.sellerId = sellerId;
+	}
+	
 	public Product(String name, Date date, int price, String shortDesc, String detailDesc, int categoryId,
 			int sellerId) {
 		super();

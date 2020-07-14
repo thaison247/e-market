@@ -40,7 +40,7 @@
 
 <body>
 	<!-- Header    ======== -->
-	<jsp:include page="../Sections/header.jsp" flush="true"/>
+	<jsp:include page="../Sections/header.jsp" flush="true" />
 	<!-- Header End======== -->
 
 	<!-- Main Body ======== -->
@@ -54,12 +54,13 @@
 					</ul>
 					<h3> Post your offer</h3>
 					<div class="well">
-						<form class="form-horizontal" onsubmit="validate()">
+						<form class="form-horizontal" onsubmit="validate()" action="PostProductS2" method="POST">
 							<h4>Provide some information</h4>
 							<div class="control-group">
 								<label class="control-label" for="input_category">Category<sup>*</sup></label>
 								<div class="controls">
-									<select id="input_category" name="input_category" class="form-control form-control-lg" required style="width: 82%;">
+									<select id="input_category" name="input_category"
+										class="form-control form-control-lg" required style="width: 82%;">
 										<option value="" disabled selected hidden>Choose category</option>
 										<c:forEach items="${listCategoriesLV2}" var="category">
 											<option value="${category.getId()}">${category.getName()}</option>
@@ -85,16 +86,16 @@
 								<label class="control-label" for="input_shortDescription">Short
 									Description<sup>*</sup></label>
 								<div class="controls">
-									<textarea id="input_shortDescription" placeholder="Short Description" rows="3"
+									<textarea name = "input_shortDescription" id="input_shortDescription" placeholder="Short Description" rows="3"
 										style="width: 80%;"> </textarea>
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="input_description">Detail
+								<label class="control-label" for="input_detailDescription">Detail
 									Description<sup>*</sup></label>
 								<div class="controls">
-									<textarea id="input_description" placeholder="Description" cols="8" rows="8"
-										style="width: 80%;"> </textarea>
+									<textarea name="input_detailDescription" id="input_detailDescription" placeholder="Detail Description" cols="8"
+										rows="8" style="width: 80%;"> </textarea>
 								</div>
 							</div>
 							<h4>Seller information</h4>
@@ -121,6 +122,20 @@
 							</div>
 
 							<p><sup>*</sup>Required field </p>
+							
+							<c:if test="${requestScope.postPrdErrMsg != null}">
+										<div class="alert alert-block alert-error fade in">
+											<button type="button" class="close" data-dismiss="alert">×</button>
+											<strong><%= request.getAttribute("postPrdErrMsg") %></strong>
+										</div>
+							</c:if>
+							
+							<c:if test="${requestScope.inserPrdDAOErrMsg != null}">
+										<div class="alert alert-block alert-error fade in">
+											<button type="button" class="close" data-dismiss="alert">×</button>
+											<strong><%= request.getAttribute("inserPrdDAOErrMsg") %></strong>
+										</div>
+							</c:if>
 
 							<div class=" control-group">
 								<div class="controls">
@@ -149,7 +164,7 @@
 	<script src="themes/js/jquery.lightbox-0.5.js"></script>
 
 	<!-- Themes switcher section ============================================================================================= -->
-	<jsp:include page="../Sections/switch_themes.jsp"/>
+	<jsp:include page="../Sections/switch_themes.jsp" />
 </body>
 
 </html>
