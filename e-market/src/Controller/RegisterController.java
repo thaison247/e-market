@@ -37,6 +37,7 @@ public class RegisterController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		// set char encoding UTF-8 de luu ky tu tieng Viet vao DB
 		if(request.getCharacterEncoding() == null) {
 			request.setCharacterEncoding("UTF-8");
 		}

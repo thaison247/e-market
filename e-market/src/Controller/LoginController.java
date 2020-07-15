@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -69,13 +70,35 @@ public class LoginController extends HttpServlet {
 					user = LoginDAO.getUser(request, conn, email); // get User tu DB
 					session.setAttribute("user", user);
 					
+					conn.close();
+					
+					System.out.println("checking ...");
+					System.out.println("checking2 ... :" + request.getParameter("from"));
+					
+					String backUpUrl = null;
+					
 					// chuyển về trang trước đó
-					response.sendRedirect(request.getParameter("from"));
-					return;
+					if(request.getParameter("from") != null) {
+						backUpUrl = request.getParameter("from");
+						session.setAttribute("backUpUrlLogin", backUpUrl);
+						response.sendRedirect(request.getParameter("from"));
+						return;
+					}else {
+						backUpUrl = (String) session.getAttribute("backUpUrlLogin");
+						response.sendRedirect(backUpUrl);
+						return;
+					}
 				}
 				
 				// nếu đăng nhập sai password
 				else {
+					// dong ket noi DB
+					conn.close();
+					
+					String backUpUrl = request.getParameter("from");
+					
+					HttpSession session = request.getSession();
+					session.setAttribute("backUpUrlLogin", backUpUrl);
 					
 					// đặt message thông báo ra ngoài
 					request.setAttribute("loginErrMsg", "Mật khẩu không đúng!");
@@ -84,14 +107,19 @@ public class LoginController extends HttpServlet {
 			
 			// nếu không tồn tại mail trong DB
 			else {
+				// dong ket noi DB
+				conn.close();
 				
 				// đặt message thông báo ra ngoài
-				request.setAttribute("loginErrMsg", "Mail không tồn tại!");
+				request.setAttribute("errMsg", "Mail không tồn tại!");
 			}
 			
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			// đặt message thông báo ra ngoài
-			request.setAttribute("loginErrMsg", e.getMessage());
+			request.setAttribute("errMsg", e.getMessage());
+			RequestDispatcher rd = request.getRequestDispatcher("Views/error.jsp");
+			rd.forward(request, response);
+			return;
 		}
 		
 		// chuyển vể trang login

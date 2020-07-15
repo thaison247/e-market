@@ -2,7 +2,9 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +13,7 @@ import BEAN.Product;
 
 public class ProductDAO {
 	
-	public static int insertProduct(HttpServletRequest request, Connection conn, Product prd) {
+	public static int insertProduct(HttpServletRequest request, Connection conn, Product prd){
 		
 		int check = 0; // biến luưu id của product  khi đc insert vào DB
 		
@@ -19,7 +21,7 @@ public class ProductDAO {
 		
 		try {
 			
-			PreparedStatement ptmt = conn.prepareStatement(sql);
+			PreparedStatement ptmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			
 			String name = prd.getName();
 			Date date = prd.getDate();
@@ -42,9 +44,19 @@ public class ProductDAO {
 			
 			check = ptmt.executeUpdate();
 			
+			if(check == 0) {
+				throw new SQLException("Cannot insert product");
+			}
+			else {
+				ResultSet rs = ptmt.getGeneratedKeys();
+				if (rs.next()) {
+				  int newId = rs.getInt(1);
+				  return newId;				}
+			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			request.setAttribute("inserPrdDAOErrMsg", e.getMessage());
+			request.setAttribute("errMsg", e.getMessage());
 		}
 		
 		return check;

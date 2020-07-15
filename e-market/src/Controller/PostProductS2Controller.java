@@ -2,7 +2,6 @@ package Controller;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -36,7 +35,6 @@ public class PostProductS2Controller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// lay id cua DANH MUC LV1 nguoi dung vua chon 
-		System.out.println(request.getParameter("category-lv1"));
 		int categoryLv1 = Integer.parseInt(request.getParameter("category-lv1"));
 		
 		// lay tat ca DANH MUC LV2 (co id danh muc goc la 'categoryLv1')
@@ -62,9 +60,14 @@ public class PostProductS2Controller extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		// set char encoding UTF-8 de luu ky tu tieng Viet vao DB
+		if(request.getCharacterEncoding() == null) {
+			request.setCharacterEncoding("UTF-8");
+		}
+		
 		HttpSession session = request.getSession();
 		
-		// set cac truong lieu tu
+		// set cac truong lieu
 		String name = request.getParameter("input_title"); // ten san pham
 		int price = Integer.parseInt(request.getParameter("input_price")); // gia san pham
 		int categoryId = Integer.parseInt(request.getParameter("input_category")); // id danh muc (lv2)
@@ -73,10 +76,8 @@ public class PostProductS2Controller extends HttpServlet {
 		boolean isSold = false; // tinh trang da ban: false
 		User user = (User) session.getAttribute("user"); // nguoi dung da dang nhap vao he thong
 		int sellerId = user.getId(); // id nguoi ban
-		//lay ngay hien tai
-		long millis=System.currentTimeMillis();  
-	    java.sql.Date date=new java.sql.Date(millis); 
-	    System.out.println(date);
+		long millis=System.currentTimeMillis();  //lay thoi gian hien tai (milisecond)
+	    java.sql.Date date=new java.sql.Date(millis); // ngay dang san pham
 	    
 	    // khoi tao doi tuong Product
 		Product prd = new Product(name, date, price, shortDesc, detailDesc, isSold, categoryId, sellerId);
@@ -86,27 +87,30 @@ public class PostProductS2Controller extends HttpServlet {
 			Connection conn = DBConnection.createConnection();
 			
 			int productId = ProductDAO.insertProduct(request, conn, prd);
-			
 			conn.close();
 			
 			if(productId > 0) {
-				request.setAttribute("postPrdMsg", "Insert product successfully!");
-				response.sendRedirect("PostProductS3");
+				session.setAttribute("productId", productId); // gui productId de dat ten cho thu muc luu hinh anh cua san pham
+				request.setAttribute("msg", "Insert product successfully!");
+				
+				// chuyen toi trang upload images
+				RequestDispatcher rd = request.getRequestDispatcher("Views/post_product_step3.jsp");
+				rd.forward(request, response);
 				return;
 			}
 			else {
-				request.setAttribute("postPrdErrMsg", "Insert product fail!");
-				RequestDispatcher rd = request.getRequestDispatcher("Views/post_product_step2.jsp");
+				request.setAttribute("errMsg", "Insert product fail!");
+				RequestDispatcher rd = request.getRequestDispatcher("Views/error.jsp");
 				rd.forward(request, response);
 				return;
 			}
 			
-			
-			
-			
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			request.setAttribute("errMsg", e.getMessage());
+			RequestDispatcher rd = request.getRequestDispatcher("Views/error.jsp");
+			rd.forward(request, response);
+			return;
 		}
 		
 	}

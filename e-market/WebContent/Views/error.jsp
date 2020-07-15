@@ -39,62 +39,24 @@
 </head>
 
 <body>
-	<!-- Header    ======== -->
-	<jsp:include page="../Sections/header.jsp" flush="true"/>
-	<!-- Header End======== -->
 
 	<!-- Main Body ======== -->
 	<div id="mainBody">
-		<div class="container">
-			<div class="row">
-				<div class="span9">
-					<ul class="breadcrumb">
-						<li><a href="index.html">Home</a> <span class="divider">/</span></li>
-						<li class="active">Post your offer</li>
-					</ul>
-					<h3> Post your offer</h3>
-					<div class="well">
-						<form action="PostProductS3" class="form-horizontal" enctype="multipart/form-data" method="POST" novalidate>
-							<div class="card shadow">
-								<h4 class="card-header">
-									Upload
-								</h4>
-								<div class="card-body">
-									<div class="form-group">
-										<div class="file-loading">
-											<input id="input_images" name="input_images" accept="image/*" type="file"
-												multiple="multiple">
-										</div>
-									</div>
-								</div>
-								<div class="card-footer text-right">
-									<button type="submit" class="btn btn-lg btn-success btn-block">
-										<i class="fa fa-check" aria-hidden="true"></i>
-										Submit
-									</button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
+		<c:if test="${requestScope.errMsg != null}">
+			<div class="alert alert-block alert-error fade in">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				<strong><%= request.getAttribute("errMsg") %></strong>
 			</div>
-		</div>
+		</c:if>
+		
+		<c:if test="${requestScope.controllerMsg != null}">
+			<div class="alert alert-block alert-error fade in">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				<strong><%= request.getAttribute("controllerMsg") %></strong>
+			</div>
+		</c:if>
 	</div>
-	<!-- Main Body End ======== -->
 
-	<!-- Footer ========= -->
-	<jsp:include page="../Sections/footer.jsp" flush="true" />
-
-	<!-- Placed at the end of the document so the pages load faster ============================================= -->
-	<script src="themes/js/jquery.js" type="text/javascript"></script>
-	<script src="themes/js/bootstrap.min.js" type="text/javascript"></script>
-	<script src="themes/js/google-code-prettify/prettify.js"></script>
-
-	<script src="themes/js/bootshop.js"></script>
-	<script src="themes/js/jquery.lightbox-0.5.js"></script>
-
-	<!-- Themes switcher section ============================================================================================= -->
-	<jsp:include page="../Sections/switch_themes.jsp"/>
 </body>
 
 </html>
