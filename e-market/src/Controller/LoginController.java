@@ -44,6 +44,13 @@ public class LoginController extends HttpServlet {
 		// lấy thông tin đăng nhập từ form 
 		String email = request.getParameter("input_email");
 		String rawPassword = request.getParameter("input_password"); // password nguoi dung nhap vao form Login
+		String backupUrl = request.getParameter("from");//url quay về trang trước (previous page url)
+		
+		// lưu previous page url vào session (chỉ lưu khi thuộc tính prevUrl chưa đc set)
+		HttpSession session = request.getSession();
+		if(session.getAttribute("prevUrl") == null) {
+			session.setAttribute("prevUrl", backupUrl);
+		}
 		
 		Connection conn = null;
 		boolean checkPassword = false; 
@@ -60,11 +67,10 @@ public class LoginController extends HttpServlet {
 				String hashedPassword = LoginDAO.getPassword(request, conn, email); // lay hashed password trong DB (password dung)
 				checkPassword = BCrypt.checkpw(rawPassword, hashedPassword); // so sanh 2 password bang Bcrypt
 				
-				// nếu đăng nhập đúng password
+				// nếu đúng password
 				if(checkPassword) {
 					
 					// set giá trị cho session
-					HttpSession session = request.getSession();
 					session.setAttribute("authenticated", true);
 					User user = new User();
 					user = LoginDAO.getUser(request, conn, email); // get User tu DB
@@ -75,30 +81,23 @@ public class LoginController extends HttpServlet {
 					System.out.println("checking ...");
 					System.out.println("checking2 ... :" + request.getParameter("from"));
 					
-					String backUpUrl = null;
+					String prevUrlLogin = null;
 					
 					// chuyển về trang trước đó
-					if(request.getParameter("from") != null) {
-						backUpUrl = request.getParameter("from");
-						session.setAttribute("backUpUrlLogin", backUpUrl);
-						response.sendRedirect(request.getParameter("from"));
-						return;
-					}else {
-						backUpUrl = (String) session.getAttribute("backUpUrlLogin");
-						response.sendRedirect(backUpUrl);
-						return;
-					}
+					prevUrlLogin = (String) session.getAttribute("prevUrl");
+					
+					// remove thuộc tính prevUrl 
+					session.removeAttribute("prevUrl");
+					
+					// quay về previous page
+					response.sendRedirect(prevUrlLogin);
+					return;
 				}
 				
-				// nếu đăng nhập sai password
+				// nếu sai password
 				else {
 					// dong ket noi DB
 					conn.close();
-					
-					String backUpUrl = request.getParameter("from");
-					
-					HttpSession session = request.getSession();
-					session.setAttribute("backUpUrlLogin", backUpUrl);
 					
 					// đặt message thông báo ra ngoài
 					request.setAttribute("loginErrMsg", "Mật khẩu không đúng!");
