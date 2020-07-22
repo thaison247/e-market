@@ -33,7 +33,6 @@ public class LoginController extends HttpServlet {
 
 		// lấy origin_url: vị trí mà người dùng gửi request login
 		request.setAttribute("from", request.getParameter("from"));
-		
 		RequestDispatcher rd = request.getRequestDispatcher("Views/login.jsp");
 		rd.forward(request, response);
 	}
@@ -71,7 +70,7 @@ public class LoginController extends HttpServlet {
 				if(checkPassword) {
 					
 					// set giá trị cho session
-					session.setAttribute("authenticated", true);
+					session.setAttribute("isAuthenticated", true);
 					User user = new User();
 					user = LoginDAO.getUser(request, conn, email); // get User tu DB
 					session.setAttribute("user", user);

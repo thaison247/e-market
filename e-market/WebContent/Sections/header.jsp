@@ -55,9 +55,9 @@
                         <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
                     </form>
                     <ul id="topMenu" class="nav pull-right">
+                    	<li class=""><a href="PostProductS1">Post your offers</a></li>
                         <c:if test="${sessionScope.user != null}">
-                        	<li class=""><a href="PostProductS1">Post your offers</a></li>
-                        	<li class=""><a href="normal.html">Profile</a></li>
+                        	<li class=""><a href="Profile">Profile</a></li>
                         </c:if>
                         <li class=""><a href="RegisterController">Register</a></li>
                         <li class="">
