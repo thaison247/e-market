@@ -8,17 +8,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import BEAN.User;
 
 
-@WebServlet("/Profile")
-public class ProfileController extends HttpServlet {
+@WebServlet("/PersonalProducts")
+public class PersonalProductsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public ProfileController() {
+    public PersonalProductsController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,22 +23,7 @@ public class ProfileController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
-		
-		// lay thong tin user
-		User user = (User)session.getAttribute("user");
-		String userName = user.getName();
-		String userPhone = user.getPhone();
-		String userEmail = user.getEmail();
-		String userAddress = user.getAddress();
-		
-		//set thong tin user gui qua view profile.jsp
-		request.setAttribute("userName", userName);
-		request.setAttribute("userPhone", userPhone);
-		request.setAttribute("userEmail", userEmail);
-		request.setAttribute("userAddress", userAddress);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("Views/profile.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("Views/personal_product.jsp");
 		rd.forward(request, response);
 		
 	}

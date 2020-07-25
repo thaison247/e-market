@@ -60,35 +60,36 @@
 						<li><a href="index.html">Home</a> <span class="divider">/</span></li>
 						<li class="active">Page Title</li>
 					</ul>
-					<h4>User information</h4>
-					<div class="control-group">
-						<label class="control-label" for="user_name">Name <sup>*</sup></label>
-						<div class="controls">
-							<input type="text" name="user_name" id="user_name" value= "${userName}"
-								readonly>
+					<h4>Personal Products</h4>
+					<div class="tab-pane" id="listView">
+					<div class="row">	  
+						<div class="span2">
+							<img src="themes/images/products/21.jpg" alt=""/>
+						</div>
+						<div class="span4">
+							<h3>New | Available</h3>				
+							<hr class="soft"/>
+							<h5>Product Name </h5>
+							<p>
+							Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - 
+							that is why our goods are so popular..
+							</p>
+							<a class="btn btn-small pull-right" href="product_details.html">View Details</a>
+							<br class="clr"/>
+						</div>
+						<div class="span3 alignR">
+						<form class="form-horizontal qtyFrm">
+							<h3> $140.00</h3>
+							<label class="checkbox">
+								<input type="checkbox">  Adds product to compair
+							</label><br/>
+							
+							  <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+							  <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+						</form>
 						</div>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="seller_phone">Phone number <sup>*</sup></label>
-						<div class="controls">
-							<input type="text" name="seller_phone" id="seller_phone" value="${userPhone}"
-								readonly>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="user_email">Email <sup>*</sup></label>
-						<div class="controls">
-							<input type="text" name="user_email" id="user_email"
-								value="${userEmail}" readonly>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="user_address">Address <sup>*</sup></label>
-						<div class="controls">
-							<input type="text" name="user_address" id="user_address"
-								value= "${userAddress}" readonly style="width: 80%;">
-						</div>
-					</div>
+					<hr class="soft"/>
 				</div>
 			</div>
 		</div>
