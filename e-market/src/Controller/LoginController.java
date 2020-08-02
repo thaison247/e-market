@@ -77,9 +77,6 @@ public class LoginController extends HttpServlet {
 					
 					conn.close();
 					
-					System.out.println("checking ...");
-					System.out.println("checking2 ... :" + request.getParameter("from"));
-					
 					String prevUrlLogin = null;
 					
 					// chuyển về trang trước đó

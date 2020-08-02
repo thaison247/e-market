@@ -36,6 +36,7 @@
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
 	<style type="text/css" id="enject"></style>
+	<script type="text/javascript" src="libraries/ckeditor/ckeditor.js"></script>
 </head>
 
 <body>
@@ -154,6 +155,10 @@
 
 	<!-- Footer ========= -->
 	<jsp:include page="../Sections/footer.jsp" flush="true" />
+	
+	<script type="text/javascript">
+		CKEDITOR.replace('input_detailDescription');
+	</script>
 
 	<!-- Placed at the end of the document so the pages load faster ============================================= -->
 	<script src="themes/js/jquery.js" type="text/javascript"></script>

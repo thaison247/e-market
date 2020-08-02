@@ -99,7 +99,7 @@ public class PostProductS2Controller extends HttpServlet {
 				return;
 			}
 			else {
-				request.setAttribute("errMsg", "Insert product fail!");
+//				request.setAttribute("errMsg", "Insert product fail!");
 				RequestDispatcher rd = request.getRequestDispatcher("Views/error.jsp");
 				rd.forward(request, response);
 				return;
