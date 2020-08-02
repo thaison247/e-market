@@ -53,6 +53,10 @@ public class Product {
 		this.isSold = false;
 	}
 	
+	public Product() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
 		return id;
 	}

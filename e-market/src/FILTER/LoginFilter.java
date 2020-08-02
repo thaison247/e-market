@@ -40,7 +40,12 @@ public class LoginFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession session = req.getSession();
 
-		if(null == session.getAttribute("isAuthenticated")) {
+		if(null != session.getAttribute("isAuthenticated")) {
+
+			// pass the request along the filter chain
+			chain.doFilter(request, response);
+		}
+		else {
 			
 			if(req.getRequestURI().contains("PostProduct")) {
 				session.setAttribute("from", "/e-market/PostProductS1");
@@ -52,11 +57,6 @@ public class LoginFilter implements Filter {
 			RequestDispatcher rd = request.getRequestDispatcher("Views/login.jsp");
 			rd.forward(request, response);
 			return;
-		}
-		else {
-
-			// pass the request along the filter chain
-			chain.doFilter(request, response);
 		}
 
 		// xử lý response

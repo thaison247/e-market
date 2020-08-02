@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
+import BEAN.Category;
 import BEAN.Product;
 
 public class ProductDAO {
@@ -63,4 +65,53 @@ public class ProductDAO {
 		
 	}
 	
+	public static Product getProductById(HttpServletRequest request, Connection conn, int productId) {
+		
+		Product prd = new Product();
+		
+		String sql = "SELECT * FROM san_pham WHERE id_sp = " + productId;
+		
+		try {
+			PreparedStatement ptmt = conn.prepareStatement(sql);
+			//thuc thi cau truy van -> luu vao RS
+			ResultSet rs = ptmt.executeQuery();
+			
+			//duyet danh sach trong RS roi dua vao listCategories
+			if (rs.isBeforeFirst())
+			{
+				while(rs.next()) {
+					int id = rs.getInt("id_sp");
+					String name = rs.getString("ten_sp");
+					Date date = rs.getDate("ngay_dang");
+					int price = rs.getInt("gia_sp");
+					String shortDesc = rs.getString("mo_ta_ngan");
+					String detailDesc = rs.getString("mo_ta");
+					boolean isSold = rs.getBoolean("is_sold");
+					int categoryId = rs.getInt("id_dm");
+					int sellerId = rs.getInt("nguoi_ban");
+
+					prd.setId(id);
+					prd.setName(name);
+					prd.setDate(date);
+					prd.setPrice(price);
+					prd.setShortDesc(shortDesc);
+					prd.setDetailDesc(detailDesc);
+					prd.setSold(isSold);
+					prd.setCategoryId(categoryId);
+					prd.setSellerId(sellerId);
+				}
+				System.out.println(prd.getName());
+				rs.close(); // đóng đói tượng resultset
+			}
+			// xảy ra lỗi
+			else 
+			{
+				request.setAttribute("errMsg","không có sản phẩm");
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return prd;
+	}
 }

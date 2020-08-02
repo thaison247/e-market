@@ -38,15 +38,24 @@ public class PostProductS3Controller extends HttpServlet {
 	
 	}
 
+	@SuppressWarnings("deprecation")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+//		String filePath;
+//		System.out.println("Current folder: " + (new File(".")).getCanonicalPath());
+//		System.out.println("Real path: " + session.getServletContext().getResource("productimages"));
+//		System.out.println(new File(".").getAbsolutePath());
+//		filePath = session.getServletContext().getRealPath("productimages");
+//		System.out.println("newwwwwwwww: " + this.getServletContext().getRealPath("/productimages"));
+//		File f = new File(filePath);
+//		File f = new File("productimages"+ File.separator + Integer.toString(productId));
 
 		HttpSession session = request.getSession();
 		
-		// tao folder luu hinh anh: ProductImages/<productId>/
+		/* KHÔNG GET ĐƯỢC ĐƯỜNG DẪN TƯƠNG DỐI CỦA PROJECT NÊN PHẢI DÙNG ĐƯỜNG DẪN TUYỆT ĐỐI :< */
 		int productId = (int) session.getAttribute("productId");
-		String filePath = "D:/ProductImages" + File.separator + Integer.toString(productId);
-		
-		File f = new File(filePath); 
+		String filePath = "D:\\TKPM\\WebProject\\e-market\\e-market\\WebContent\\productimages" + File.separator + Integer.toString(productId);
+		File f = new File(filePath); // TẠO FOLDER
 		 
 		// neu tao folder that bai: chuyen toi trang bao loi error.jsp
         if (!f.mkdirs()) {  
@@ -56,39 +65,31 @@ public class PostProductS3Controller extends HttpServlet {
             return;
         } 
         
-//		System.out.println("Current folder: " + (new File(".")).getCanonicalPath());
-//		System.out.println("Real path: " + session.getServletContext().getResource("ProductImages"));
-//		System.out.println(new File(".").getAbsolutePath());
-//		filePath = session.getServletContext().getRealPath("ProductImages");
-		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			List<FileItem> multiparts;
 			try {
 				multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
 				
-				int imgNumber = 1; // stt cua file anh
+				int imgNumber = 1; // đặt số thứ tự của file ảnh từ 1, 2, ...
 				for(FileItem item : multiparts) {
 					int temp = imgNumber++;
 					String fileName = Integer.toString(temp); // ten file anh: 1, 2, 3, 4,...
 					
 					//upload
 					item.write(new File(filePath + File.separator + fileName + ".jpg"));
-					
 				}
 				
-				//
+				// up load ảnh thành công
 				request.setAttribute("msg", "File uploaded successfully!");
 				RequestDispatcher rd = request.getRequestDispatcher("Views/message.jsp");
 				rd.forward(request, response);
 				return;
+				
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				request.setAttribute("errMsg", e1.getMessage());
 				RequestDispatcher rd = request.getRequestDispatcher("Views/error.jsp");
 				rd.forward(request, response);
 			}
-			
-			
 		}
 		
 	}

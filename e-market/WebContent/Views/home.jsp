@@ -68,7 +68,7 @@
 											<li class="span3">
 												<div class="thumbnail">
 													<i class="tag"></i>
-													<a href="ProductController"><img src="themes/images/products/b1.jpg"
+													<a href="ProductDetail?product_id=28"><img src="themes/images/products/b1.jpg"
 															alt=""></a>
 													<div class="caption">
 														<h5>Product name</h5>
