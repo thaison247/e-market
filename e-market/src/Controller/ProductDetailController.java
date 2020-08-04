@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,9 +36,16 @@ public class ProductDetailController extends HttpServlet {
 		try {
 			Connection conn = DBConnection.createConnection();
 			
+			// lấy dữ liệu của sản phẩm từ DB
 			Product prd = ProductDAO.getProductById(request, conn, productId);
 			
+			// lấy ds sản phẩm liên quan (sản phẩm cùng danh mục), số lượng = limit
+			int catId = prd.getCategoryId(); // id danh mục
+			int limit = 8;
+			List<Product> listRelativeProducts = ProductDAO.getRelativeProducts(request, conn, catId, limit);
+			
 			request.setAttribute("product", prd);
+			request.setAttribute("listRelativeProducts", listRelativeProducts);
 			RequestDispatcher rd = request.getRequestDispatcher("Views/product_details.jsp");
 			rd.forward(request, response);
 			

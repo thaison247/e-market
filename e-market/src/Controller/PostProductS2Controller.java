@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import BEAN.Category;
+import BEAN.PersonalProduct;
 import BEAN.Product;
 import BEAN.User;
 import DAO.CategoryDAO;
@@ -80,13 +81,17 @@ public class PostProductS2Controller extends HttpServlet {
 	    java.sql.Date date=new java.sql.Date(millis); // ngay dang san pham
 	    
 	    // khoi tao doi tuong Product
-		Product prd = new Product(name, date, price, shortDesc, detailDesc, isSold, categoryId, sellerId);
+		PersonalProduct prd = new PersonalProduct(name, date, price, shortDesc, detailDesc, isSold, categoryId, sellerId);
+		
+		System.out.println(prd.getName());
+		System.out.println(prd.getPrice());
+		System.out.println(prd.getCategoryId());
 		
 		// ghi xuong DB
 		try {
 			Connection conn = DBConnection.createConnection();
 			
-			int productId = ProductDAO.insertProduct(request, conn, prd);
+			int productId = ProductDAO.insertPersonalProduct(request, conn, prd);
 			conn.close();
 			
 			if(productId > 0) {

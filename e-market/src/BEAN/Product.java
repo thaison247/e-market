@@ -3,15 +3,15 @@ package BEAN;
 import java.sql.Date;
 
 public class Product {
-	private int id;
-	private String name;
-	private Date date;
-	private int price;
-	private String shortDesc;
-	private String detailDesc;
-	private boolean isSold;
-	private int categoryId;
-	private int sellerId;
+	protected int id;
+	protected String name;
+	protected Date date;
+	protected int price;
+	protected String shortDesc;
+	protected String detailDesc;
+	protected boolean isSold;
+	protected int categoryId;
+	protected int sellerId;
 	
 	public Product(int id, String name, Date date, int price, String shortDesc, String detailDesc, boolean isSold,
 			int categoryId, int sellerId) {

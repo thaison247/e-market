@@ -79,7 +79,7 @@
 							<div class="control-group">
 								<label class="control-label" for="input_price">Price <sup>*</sup></label>
 								<div class="controls">
-									<input type="number" min="0" step="100000" id="input_price" name="input_price"
+									<input type="number" min="0" step="1" id="input_price" name="input_price"
 										placeholder="Price">
 								</div>
 							</div>
