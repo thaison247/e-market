@@ -105,7 +105,7 @@
 	                    <div class="form-group">
 	                      <label for="input_detailDescription">Detail
 									Description</label>
-	                      <textarea id="input_detailDescription" placeholder="Detail Description" rows="10" name="input_shortDescription" class="form-control"></textarea>
+	                      <textarea id="input_detailDescription" placeholder="Detail Description" rows="10" name="input_detailDescription" class="form-control"></textarea>
 	                    </div>
 	                  </div>
                   </div>

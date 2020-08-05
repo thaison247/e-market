@@ -16,7 +16,7 @@ import DAO.ProductDAO;
 import DB.DBConnection;
 
 
-@WebServlet("/ProductDetail")
+@WebServlet("/product-detail")
 public class ProductDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -46,8 +46,6 @@
   <div id="all">
 	<!-- Header    ======== -->
 	<jsp:include page="../Sections/header.jsp" flush="true"/>
-	<!-- Header End======== -->
-
     <div id="heading-breadcrumbs">
       <div class="container">
         <div class="row d-flex align-items-center flex-wrap">

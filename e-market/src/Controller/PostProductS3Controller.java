@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,6 +19,8 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.taglibs.standard.resources.Resources;
+import org.omg.CORBA.IRObject;
 
 import BEAN.Product;
 import BEAN.User;
@@ -79,7 +82,7 @@ public class PostProductS3Controller extends HttpServlet {
 					item.write(new File(filePath + File.separator + fileName + ".jpg"));
 				}
 				
-				// up load ảnh thành công
+				// upload ảnh thành công
 				request.setAttribute("msg", "File uploaded successfully!");
 				RequestDispatcher rd = request.getRequestDispatcher("Views/message.jsp");
 				rd.forward(request, response);
