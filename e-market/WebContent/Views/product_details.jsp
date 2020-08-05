@@ -187,43 +187,33 @@
 										</c:forEach>
 										</div>
 										<div class="tab-pane active" id="blockView">
+										
 											<ul class="thumbnails">
+												<c:forEach  items="${listRelativeProducts}" var="prd">
 												<li class="span3">
 													<div class="thumbnail">
 														<a href="product_details.html"><img
 																src="themes/images/products/10.jpg" alt="" /></a>
 														<div class="caption">
-															<h5>Manicure &amp; Pedicure</h5>
+															<h5>${prd.getName()}</h5>
 															<p>
-																Lorem Ipsum is simply dummy text.
+																${prd.getShortDesc()}
 															</p>
 															<h4 style="text-align:center"><a class="btn"
 																	href="product_details.html"> <i
 																		class="icon-zoom-in"></i></a> <a class="btn"
 																	href="#">Add to <i
 																		class="icon-shopping-cart"></i></a> <a
-																	class="btn btn-primary" href="#">&euro;222.00</a>
+																	class="btn btn-primary" href="#">&euro;${prd.getPrice()}</a>
 															</h4>
 														</div>
 													</div>
 												</li>
-													<div class="thumbnail">
-														<a href="product_details.html"><img
-															src="themes/images/products/2.jpg" alt="" /></a>
-														<div class="caption">
-															<h5>Manicure &amp; Pedicure</h5>
-															<p>Lorem Ipsum is simply dummy text.</p>
-															<h4 style="text-align: center">
-																<a class="btn" href="product_details.html"> <i
-																	class="icon-zoom-in"></i></a> <a class="btn" href="#">Add
-																	to <i class="icon-shopping-cart"></i>
-																</a> <a class="btn btn-primary" href="#">&euro;222.00</a>
-															</h4>
-														</div>
-													</div>
-												</li>
+												</c:forEach>
 											</ul>
 											<hr class="soft" />
+										
+											
 										</div>
 									</div>
 									<br class="clr">

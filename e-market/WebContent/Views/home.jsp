@@ -2,385 +2,410 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-	<meta charset="utf-8">
-	<title>Bootshop online Shopping cart</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<!--Less styles -->
-	<!-- Other Less css file //different less files has different color scheam
-	<link rel="stylesheet/less" type="text/css" href="themes/less/simplex.less">
-	<link rel="stylesheet/less" type="text/css" href="themes/less/classified.less">
-	<link rel="stylesheet/less" type="text/css" href="themes/less/amelia.less">  MOVE DOWN TO activate
-	-->
-	<!--<link rel="stylesheet/less" type="text/css" href="themes/less/bootshop.less">
-	<script src="themes/js/less.js" type="text/javascript"></script> -->
-
-	<!-- Bootstrap style -->
-	<link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen" />
-	<link href="themes/css/base.css" rel="stylesheet" media="screen" />
-	<!-- Bootstrap style responsive -->
-	<link href="themes/css/bootstrap-responsive.min.css" rel="stylesheet" />
-	<link href="themes/css/font-awesome.css" rel="stylesheet" type="text/css">
-	<!-- Google-code-prettify -->
-	<link href="themes/js/google-code-prettify/prettify.css" rel="stylesheet" />
-	<!-- fav and touch icons -->
-	<link rel="shortcut icon" href="themes/images/ico/favicon.ico">
-	<link rel="apple-touch-icon-precomposed" sizes="144x144"
-		href="themes/images/ico/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114"
-		href="themes/images/ico/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
-	<style type="text/css" id="enject"></style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Universal - All In 1 Template</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+  <!-- Bootstrap CSS-->
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome CSS-->
+  <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+  <!-- Google fonts - Roboto-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700">
+  <!-- Bootstrap Select-->
+  <link rel="stylesheet" href="vendor/bootstrap-select/css/bootstrap-select.min.css">
+  <!-- owl carousel-->
+  <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.carousel.css">
+  <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.theme.default.css">
+  <!-- theme stylesheet-->
+  <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+  <!-- Custom stylesheet - for your changes-->
+  <link rel="stylesheet" href="css/custom.css">
+  <!-- Favicon and apple touch icons-->
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="img/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="img/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="img/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/apple-touch-icon-152x152.png">
+  <!-- Tweaks for older IEs-->
+  <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
 
 <body>
+  <div id="all">
 	<!-- Header    ======== -->
 	<jsp:include page="../Sections/header.jsp" flush="true"/>
 	<!-- Header End======== -->
 
-	<!-- Carousel    ========= -->
-	<jsp:include page="../Sections/carousel.jsp" flush="true" />
-	<!-- Carousel End========= -->
-
-	<!-- Main Body ======== -->
-	<div id="mainBody">
-		<div class="container">
-			<div class="row">
-				<!-- Sidebar ================================================== -->
-				<jsp:include page="../Sections/sidebar.jsp" flush="true">
-					<jsp:param name="listCategories" value="${listCategories}" />
-				</jsp:include>
-				<!-- Sidebar end=============================================== -->
-
-				<div class="span9">
-					<div class="well well-small">
-						<h4>Featured Products <small class="pull-right">200+ featured products</small></h4>
-						<div class="row-fluid">
-							<div id="featured" class="carousel slide">
-								<div class="carousel-inner">
-									<div class="item active">
-										<ul class="thumbnails">
-											<li class="span3">
-												<div class="thumbnail">
-													<i class="tag"></i>
-													<a href="ProductDetail?product_id=28"><img src="themes/images/products/b1.jpg"
-															alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4><a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span></h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<i class="tag"></i>
-													<a href="product_details.html"><img
-															src="themes/images/products/b2.jpg" alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4><a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span></h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<i class="tag"></i>
-													<a href="product_details.html"><img
-															src="themes/images/products/b3.jpg" alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4><a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span></h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<i class="tag"></i>
-													<a href="product_details.html"><img
-															src="themes/images/products/b4.jpg" alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4><a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span></h4>
-													</div>
-												</div>
-											</li>
-										</ul>
-									</div>
-									<div class="item">
-										<ul class="thumbnails">
-											<li class="span3">
-												<div class="thumbnail">
-													<i class="tag"></i>
-													<a href="product_details.html"><img
-															src="themes/images/products/5.jpg" alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4><a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span></h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<i class="tag"></i>
-													<a href="product_details.html"><img
-															src="themes/images/products/6.jpg" alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4><a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span></h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-															src="themes/images/products/7.jpg" alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4><a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span></h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-															src="themes/images/products/8.jpg" alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4><a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span></h4>
-													</div>
-												</div>
-											</li>
-										</ul>
-									</div>
-									<div class="item">
-										<ul class="thumbnails">
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-															src="themes/images/products/9.jpg" alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4><a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span></h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-															src="themes/images/products/10.jpg" alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4><a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span></h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-															src="themes/images/products/11.jpg" alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4><a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span></h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-															src="themes/images/products/1.jpg" alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4><a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span></h4>
-													</div>
-												</div>
-											</li>
-										</ul>
-									</div>
-									<div class="item">
-										<ul class="thumbnails">
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-															src="themes/images/products/2.jpg" alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4><a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span></h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-															src="themes/images/products/3.jpg" alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4><a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span></h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-															src="themes/images/products/4.jpg" alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4><a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span></h4>
-													</div>
-												</div>
-											</li>
-											<li class="span3">
-												<div class="thumbnail">
-													<a href="product_details.html"><img
-															src="themes/images/products/5.jpg" alt=""></a>
-													<div class="caption">
-														<h5>Product name</h5>
-														<h4><a class="btn" href="product_details.html">VIEW</a> <span
-																class="pull-right">$222.00</span></h4>
-													</div>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<a class="left carousel-control" href="#featured" data-slide="prev">‹</a>
-								<a class="right carousel-control" href="#featured" data-slide="next">›</a>
-							</div>
-						</div>
-					</div>
-					<h4>Latest Products </h4>
-					<ul class="thumbnails">
-						<li class="span3">
-							<div class="thumbnail">
-								<a href="product_details.html"><img src="themes/images/products/6.jpg" alt="" /></a>
-								<div class="caption">
-									<h5>Product name</h5>
-									<p>
-										Lorem Ipsum is simply dummy text.
-									</p>
-
-									<h4 style="text-align:center"><a class="btn" href="product_details.html"> <i
-												class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i
-												class="icon-shopping-cart"></i></a> <a class="btn btn-primary"
-											href="#">$222.00</a></h4>
-								</div>
-							</div>
-						</li>
-						<li class="span3">
-							<div class="thumbnail">
-								<a href="product_details.html"><img src="themes/images/products/7.jpg" alt="" /></a>
-								<div class="caption">
-									<h5>Product name</h5>
-									<p>
-										Lorem Ipsum is simply dummy text.
-									</p>
-									<h4 style="text-align:center"><a class="btn" href="product_details.html"> <i
-												class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i
-												class="icon-shopping-cart"></i></a> <a class="btn btn-primary"
-											href="#">$222.00</a></h4>
-								</div>
-							</div>
-						</li>
-						<li class="span3">
-							<div class="thumbnail">
-								<a href="product_details.html"><img src="themes/images/products/8.jpg" alt="" /></a>
-								<div class="caption">
-									<h5>Product name</h5>
-									<p>
-										Lorem Ipsum is simply dummy text.
-									</p>
-									<h4 style="text-align:center"><a class="btn" href="product_details.html"> <i
-												class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i
-												class="icon-shopping-cart"></i></a> <a class="btn btn-primary"
-											href="#">$222.00</a></h4>
-								</div>
-							</div>
-						</li>
-						<li class="span3">
-							<div class="thumbnail">
-								<a href="product_details.html"><img src="themes/images/products/9.jpg" alt="" /></a>
-								<div class="caption">
-									<h5>Product name</h5>
-									<p>
-										Lorem Ipsum is simply dummy text.
-									</p>
-									<h4 style="text-align:center"><a class="btn" href="product_details.html"> <i
-												class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i
-												class="icon-shopping-cart"></i></a> <a class="btn btn-primary"
-											href="#">$222.00</a></h4>
-								</div>
-							</div>
-						</li>
-						<li class="span3">
-							<div class="thumbnail">
-								<a href="product_details.html"><img src="themes/images/products/10.jpg" alt="" /></a>
-								<div class="caption">
-									<h5>Product name</h5>
-									<p>
-										Lorem Ipsum is simply dummy text.
-									</p>
-									<h4 style="text-align:center"><a class="btn" href="product_details.html"> <i
-												class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i
-												class="icon-shopping-cart"></i></a> <a class="btn btn-primary"
-											href="#">$222.00</a></h4>
-								</div>
-							</div>
-						</li>
-						<li class="span3">
-							<div class="thumbnail">
-								<a href="product_details.html"><img src="themes/images/products/11.jpg" alt="" /></a>
-								<div class="caption">
-									<h5>Product name</h5>
-									<p>
-										Lorem Ipsum is simply dummy text.
-									</p>
-									<h4 style="text-align:center"><a class="btn" href="product_details.html"> <i
-												class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i
-												class="icon-shopping-cart"></i></a> <a class="btn btn-primary"
-											href="#">$222.00</a></h4>
-								</div>
-							</div>
-						</li>
-					</ul>
-
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Main Body End ======== -->
-
-	<!-- Footer ========= -->
-	<jsp:include page="../Sections/footer.jsp" flush="true" />
-
-	<!-- Placed at the end of the document so the pages load faster ============================================= -->
-	<script src="themes/js/jquery.js" type="text/javascript"></script>
-	<script src="themes/js/bootstrap.min.js" type="text/javascript"></script>
-	<script src="themes/js/google-code-prettify/prettify.js"></script>
-
-	<script src="themes/js/bootshop.js"></script>
-	<script src="themes/js/jquery.lightbox-0.5.js"></script>
-
-	<!-- Themes switcher section ============================================================================================= -->
-	<jsp:include page="../Sections/switch_themes.jsp"/>
+    <div id="heading-breadcrumbs">
+      <div class="container">
+        <div class="row d-flex align-items-center flex-wrap">
+          <div class="col-md-7">
+            <h1 class="h2">Portfolio - 4 columns</h1>
+          </div>
+          <div class="col-md-5">
+            <ul class="breadcrumb d-flex justify-content-end">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item active">Portfolio - 4 columns</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="content">
+      <div class="container">
+        <section class="bar">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="heading">
+                <h2>Portfolio</h2>
+              </div>
+              <p class="lead">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+                egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero
+                sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+            </div>
+          </div>
+          <div class="row portfolio text-center">
+            <div class="col-md-3">
+              <div class="box-image">
+                <div class="image"><img src="img/portfolio-1.jpg" alt="" class="img-fluid">
+                  <div class="overlay d-flex align-items-center justify-content-center">
+                    <div class="content">
+                      <div class="name mb-small">
+                        <h3><a href="portfolio-detail.html" class="color-white">Portfolio item</a></h3>
+                      </div>
+                      <div class="text">
+                        <p class="d-none">Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
+                        <p class="buttons"><a href="portfolio-detail.html"
+                            class="btn btn-template-outlined-white">View</a><a href="#"
+                            class="btn btn-template-outlined-white">Website</a></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box-image">
+                <div class="image"><img src="img/portfolio-2.jpg" alt="" class="img-fluid">
+                  <div class="overlay d-flex align-items-center justify-content-center">
+                    <div class="content">
+                      <div class="name mb-small">
+                        <h3><a href="portfolio-detail.html" class="color-white">Portfolio item</a></h3>
+                      </div>
+                      <div class="text">
+                        <p class="d-none">Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
+                        <p class="buttons"><a href="portfolio-detail.html"
+                            class="btn btn-template-outlined-white">View</a><a href="#"
+                            class="btn btn-template-outlined-white">Website</a></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box-image">
+                <div class="image"><img src="img/portfolio-3.jpg" alt="" class="img-fluid">
+                  <div class="overlay d-flex align-items-center justify-content-center">
+                    <div class="content">
+                      <div class="name mb-small">
+                        <h3><a href="portfolio-detail.html" class="color-white">Portfolio item</a></h3>
+                      </div>
+                      <div class="text">
+                        <p class="d-none">Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
+                        <p class="buttons"><a href="portfolio-detail.html"
+                            class="btn btn-template-outlined-white">View</a><a href="#"
+                            class="btn btn-template-outlined-white">Website</a></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box-image">
+                <div class="image"><img src="img/portfolio-4.jpg" alt="" class="img-fluid">
+                  <div class="overlay d-flex align-items-center justify-content-center">
+                    <div class="content">
+                      <div class="name mb-small">
+                        <h3><a href="portfolio-detail.html" class="color-white">Portfolio item</a></h3>
+                      </div>
+                      <div class="text">
+                        <p class="d-none">Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
+                        <p class="buttons"><a href="portfolio-detail.html"
+                            class="btn btn-template-outlined-white">View</a><a href="#"
+                            class="btn btn-template-outlined-white">Website</a></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box-image">
+                <div class="image"><img src="img/portfolio-5.jpg" alt="" class="img-fluid">
+                  <div class="overlay d-flex align-items-center justify-content-center">
+                    <div class="content">
+                      <div class="name mb-small">
+                        <h3><a href="portfolio-detail.html" class="color-white">Portfolio item</a></h3>
+                      </div>
+                      <div class="text">
+                        <p class="d-none">Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
+                        <p class="buttons"><a href="portfolio-detail.html"
+                            class="btn btn-template-outlined-white">View</a><a href="#"
+                            class="btn btn-template-outlined-white">Website</a></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box-image">
+                <div class="image"><img src="img/portfolio-6.jpg" alt="" class="img-fluid">
+                  <div class="overlay d-flex align-items-center justify-content-center">
+                    <div class="content">
+                      <div class="name mb-small">
+                        <h3><a href="portfolio-detail.html" class="color-white">Portfolio item</a></h3>
+                      </div>
+                      <div class="text">
+                        <p class="d-none">Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
+                        <p class="buttons"><a href="portfolio-detail.html"
+                            class="btn btn-template-outlined-white">View</a><a href="#"
+                            class="btn btn-template-outlined-white">Website</a></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box-image">
+                <div class="image"><img src="img/portfolio-7.jpg" alt="" class="img-fluid">
+                  <div class="overlay d-flex align-items-center justify-content-center">
+                    <div class="content">
+                      <div class="name mb-small">
+                        <h3><a href="portfolio-detail.html" class="color-white">Portfolio item</a></h3>
+                      </div>
+                      <div class="text">
+                        <p class="d-none">Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
+                        <p class="buttons"><a href="portfolio-detail.html"
+                            class="btn btn-template-outlined-white">View</a><a href="#"
+                            class="btn btn-template-outlined-white">Website</a></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box-image">
+                <div class="image"><img src="img/portfolio-9.jpg" alt="" class="img-fluid">
+                  <div class="overlay d-flex align-items-center justify-content-center">
+                    <div class="content">
+                      <div class="name mb-small">
+                        <h3><a href="portfolio-detail.html" class="color-white">Portfolio item</a></h3>
+                      </div>
+                      <div class="text">
+                        <p class="d-none">Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
+                        <p class="buttons"><a href="portfolio-detail.html"
+                            class="btn btn-template-outlined-white">View</a><a href="#"
+                            class="btn btn-template-outlined-white">Website</a></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="box-image">
+                <div class="image"><img src="img/portfolio-8.jpg" alt="" class="img-fluid">
+                  <div class="overlay d-flex align-items-center justify-content-center">
+                    <div class="content">
+                      <div class="name mb-small">
+                        <h3><a href="portfolio-detail.html" class="color-white">Portfolio item</a></h3>
+                      </div>
+                      <div class="text">
+                        <p class="d-none">Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
+                        <p class="buttons"><a href="portfolio-detail.html"
+                            class="btn btn-template-outlined-white">View</a><a href="#"
+                            class="btn btn-template-outlined-white">Website</a></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <section class="bar background-pentagon no-mb">
+        <div class="container">
+          <div class="row showcase text-center">
+            <div class="col-md-3 col-sm-6">
+              <div class="item">
+                <div class="icon-outlined icon-sm icon-thin"><i class="fa fa-align-justify"></i></div>
+                <h4><span class="h1 counter">580</span><br> Websites</h4>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="item">
+                <div class="icon-outlined icon-sm icon-thin"><i class="fa fa-users"></i></div>
+                <h4><span class="h1 counter">100</span><br>Satisfied Clients</h4>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="item">
+                <div class="icon-outlined icon-sm icon-thin"><i class="fa fa-copy"></i></div>
+                <h4><span class="h1 counter">320</span><br>Projects</h4>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="item">
+                <div class="icon-outlined icon-sm icon-thin"><i class="fa fa-font"></i></div>
+                <h4><span class="h1 counter">923</span><br>Magazines and Brochures</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="bar bg-gray">
+        <div class="container">
+          <div class="heading text-center">
+            <h2>Our Clients</h2>
+          </div>
+          <ul class="list-unstyled owl-carousel customers no-mb">
+            <li class="item"><img src="img/customer-1.png" alt="" class="img-fluid"></li>
+            <li class="item"><img src="img/customer-2.png" alt="" class="img-fluid"></li>
+            <li class="item"><img src="img/customer-3.png" alt="" class="img-fluid"></li>
+            <li class="item"><img src="img/customer-4.png" alt="" class="img-fluid"></li>
+            <li class="item"><img src="img/customer-5.png" alt="" class="img-fluid"></li>
+            <li class="item"><img src="img/customer-6.png" alt="" class="img-fluid"></li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <!-- GET IT-->
+    <div class="get-it">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 text-center p-3">
+            <h3>Do you want cool website like this one?</h3>
+          </div>
+          <div class="col-lg-4 text-center p-3"> <a href="#" class="btn btn-template-outlined-white">Buy this template
+              now</a></div>
+        </div>
+      </div>
+    </div>
+    <!-- FOOTER -->
+    <footer class="main-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3">
+            <h4 class="h6">About Us</h4>
+            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+            <hr>
+            <h4 class="h6">Join Our Monthly Newsletter</h4>
+            <form>
+              <div class="input-group">
+                <input type="text" class="form-control">
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-secondary"><i class="fa fa-send"></i></button>
+                </div>
+              </div>
+            </form>
+            <hr class="d-block d-lg-none">
+          </div>
+          <div class="col-lg-3">
+            <h4 class="h6">Blog</h4>
+            <ul class="list-unstyled footer-blog-list">
+              <li class="d-flex align-items-center">
+                <div class="image"><img src="img/detailsquare.jpg" alt="..." class="img-fluid"></div>
+                <div class="text">
+                  <h5 class="mb-0"> <a href="post.html">Blog post name</a></h5>
+                </div>
+              </li>
+              <li class="d-flex align-items-center">
+                <div class="image"><img src="img/detailsquare.jpg" alt="..." class="img-fluid"></div>
+                <div class="text">
+                  <h5 class="mb-0"> <a href="post.html">Blog post name</a></h5>
+                </div>
+              </li>
+              <li class="d-flex align-items-center">
+                <div class="image"><img src="img/detailsquare.jpg" alt="..." class="img-fluid"></div>
+                <div class="text">
+                  <h5 class="mb-0"> <a href="post.html">Very very long blog post name</a></h5>
+                </div>
+              </li>
+            </ul>
+            <hr class="d-block d-lg-none">
+          </div>
+          <div class="col-lg-3">
+            <h4 class="h6">Contact</h4>
+            <p class="text-uppercase"><strong>Universal Ltd.</strong><br>13/25 New Avenue <br>Newtown upon River <br>45Y
+              73J <br>England <br><strong>Great Britain</strong></p><a href="contact.html"
+              class="btn btn-template-main">Go to contact page</a>
+            <hr class="d-block d-lg-none">
+          </div>
+          <div class="col-lg-3">
+            <ul class="list-inline photo-stream">
+              <li class="list-inline-item"><a href="#"><img src="img/detailsquare.jpg" alt="..." class="img-fluid"></a>
+              </li>
+              <li class="list-inline-item"><a href="#"><img src="img/detailsquare2.jpg" alt="..." class="img-fluid"></a>
+              </li>
+              <li class="list-inline-item"><a href="#"><img src="img/detailsquare3.jpg" alt="..." class="img-fluid"></a>
+              </li>
+              <li class="list-inline-item"><a href="#"><img src="img/detailsquare3.jpg" alt="..." class="img-fluid"></a>
+              </li>
+              <li class="list-inline-item"><a href="#"><img src="img/detailsquare2.jpg" alt="..." class="img-fluid"></a>
+              </li>
+              <li class="list-inline-item"><a href="#"><img src="img/detailsquare.jpg" alt="..." class="img-fluid"></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="copyrights">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4 text-center-md">
+              <p>&copy; 2020. Your company / name goes here</p>
+            </div>
+            <div class="col-lg-8 text-right text-center-md">
+              <p>Template design by <a href="https://bootstrapious.com/snippets">Bootstrapious </a>& <a
+                  href="https://fity.cz/">Fity</a></p>
+              <!-- Please do not remove the backlink to us unless you purchase the Attribution-free License at https://bootstrapious.com/donate. Thank you. -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <!-- Javascript files-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/popper.js/umd/popper.min.js"> </script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+  <script src="vendor/waypoints/lib/jquery.waypoints.min.js"> </script>
+  <script src="vendor/jquery.counterup/jquery.counterup.min.js"> </script>
+  <script src="vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
+  <script src="js/jquery.parallax-1.1.3.js"></script>
+  <script src="vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+  <script src="vendor/jquery.scrollto/jquery.scrollTo.min.js"></script>
+  <script src="js/front.js"></script>
 </body>
 
 </html>
