@@ -17,7 +17,7 @@ import DAO.CategoryDAO;
 import DB.DBConnection;
 
 
-@WebServlet("/PostProductS1")
+@WebServlet("/post-product-s1")
 public class PostProductS1Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

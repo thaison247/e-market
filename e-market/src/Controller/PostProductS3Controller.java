@@ -22,7 +22,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import BEAN.Product;
 import BEAN.User;
 
-@WebServlet("/PostProductS3")
+@WebServlet("/post-product-s3")
 public class PostProductS3Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

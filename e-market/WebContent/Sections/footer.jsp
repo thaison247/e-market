@@ -9,46 +9,88 @@
 </head>
 
 <body>
-    <div id="footerSection">
+	<footer class="main-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3">
+            <h4 class="h6">About Us</h4>
+            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+            <hr>
+            <h4 class="h6">Join Our Monthly Newsletter</h4>
+            <form>
+              <div class="input-group">
+                <input type="text" class="form-control">
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-secondary"><i class="fa fa-send"></i></button>
+                </div>
+              </div>
+            </form>
+            <hr class="d-block d-lg-none">
+          </div>
+          <div class="col-lg-3">
+            <h4 class="h6">Blog</h4>
+            <ul class="list-unstyled footer-blog-list">
+              <li class="d-flex align-items-center">
+                <div class="image"><img src="img/detailsquare.jpg" alt="..." class="img-fluid"></div>
+                <div class="text">
+                  <h5 class="mb-0"> <a href="post.html">Blog post name</a></h5>
+                </div>
+              </li>
+              <li class="d-flex align-items-center">
+                <div class="image"><img src="img/detailsquare.jpg" alt="..." class="img-fluid"></div>
+                <div class="text">
+                  <h5 class="mb-0"> <a href="post.html">Blog post name</a></h5>
+                </div>
+              </li>
+              <li class="d-flex align-items-center">
+                <div class="image"><img src="img/detailsquare.jpg" alt="..." class="img-fluid"></div>
+                <div class="text">
+                  <h5 class="mb-0"> <a href="post.html">Very very long blog post name</a></h5>
+                </div>
+              </li>
+            </ul>
+            <hr class="d-block d-lg-none">
+          </div>
+          <div class="col-lg-3">
+            <h4 class="h6">Contact</h4>
+            <p class="text-uppercase"><strong>Universal Ltd.</strong><br>13/25 New Avenue <br>Newtown upon River <br>45Y
+              73J <br>England <br><strong>Great Britain</strong></p><a href="contact.html"
+              class="btn btn-template-main">Go to contact page</a>
+            <hr class="d-block d-lg-none">
+          </div>
+          <div class="col-lg-3">
+            <ul class="list-inline photo-stream">
+              <li class="list-inline-item"><a href="#"><img src="img/detailsquare.jpg" alt="..." class="img-fluid"></a>
+              </li>
+              <li class="list-inline-item"><a href="#"><img src="img/detailsquare2.jpg" alt="..." class="img-fluid"></a>
+              </li>
+              <li class="list-inline-item"><a href="#"><img src="img/detailsquare3.jpg" alt="..." class="img-fluid"></a>
+              </li>
+              <li class="list-inline-item"><a href="#"><img src="img/detailsquare3.jpg" alt="..." class="img-fluid"></a>
+              </li>
+              <li class="list-inline-item"><a href="#"><img src="img/detailsquare2.jpg" alt="..." class="img-fluid"></a>
+              </li>
+              <li class="list-inline-item"><a href="#"><img src="img/detailsquare.jpg" alt="..." class="img-fluid"></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="copyrights">
         <div class="container">
-            <div class="row">
-                <div class="span3">
-                    <h5>ACCOUNT</h5>
-                    <a href="login.html">YOUR ACCOUNT</a>
-                    <a href="login.html">PERSONAL INFORMATION</a>
-                    <a href="login.html">ADDRESSES</a>
-                    <a href="login.html">DISCOUNT</a>
-                    <a href="login.html">ORDER HISTORY</a>
-                </div>
-                <div class="span3">
-                    <h5>INFORMATION</h5>
-                    <a href="contact.html">CONTACT</a>
-                    <a href="register.html">REGISTRATION</a>
-                    <a href="legal_notice.html">LEGAL NOTICE</a>
-                    <a href="tac.html">TERMS AND CONDITIONS</a>
-                    <a href="faq.html">FAQ</a>
-                </div>
-                <div class="span3">
-                    <h5>OUR OFFERS</h5>
-                    <a href="#">NEW PRODUCTS</a>
-                    <a href="#">TOP SELLERS</a>
-                    <a href="special_offer.html">SPECIAL OFFERS</a>
-                    <a href="#">MANUFACTURERS</a>
-                    <a href="#">SUPPLIERS</a>
-                </div>
-                <div id="socialMedia" class="span3 pull-right">
-                    <h5>SOCIAL MEDIA </h5>
-                    <a href="#"><img width="60" height="60" src="themes/images/facebook.png" title="facebook"
-                            alt="facebook" /></a>
-                    <a href="#"><img width="60" height="60" src="themes/images/twitter.png" title="twitter"
-                            alt="twitter" /></a>
-                    <a href="#"><img width="60" height="60" src="themes/images/youtube.png" title="youtube"
-                            alt="youtube" /></a>
-                </div>
+          <div class="row">
+            <div class="col-lg-4 text-center-md">
+              <p>&copy; 2020. Your company / name goes here</p>
             </div>
-            <p class="pull-right">&copy; Bootshop</p>
-        </div><!-- Container End -->
-    </div>
+            <div class="col-lg-8 text-right text-center-md">
+              <p>Template design by <a href="https://bootstrapious.com/snippets">Bootstrapious </a>& <a
+                  href="https://fity.cz/">Fity</a></p>
+              <!-- Please do not remove the backlink to us unless you purchase the Attribution-free License at https://bootstrapious.com/donate. Thank you. -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>   
 </body>
 
 </html>

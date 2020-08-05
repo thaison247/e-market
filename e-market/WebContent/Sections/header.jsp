@@ -37,8 +37,8 @@
               </c:if>
               <c:if test="${sessionScope.user != null}">
 	              <div class="login">
-		              <a href="login" data-toggle="modal" data-target="#login-modal" class="login-btn"><i
-		                    class="fa fa-sign-in"></i><span class="d-none d-md-inline-block">Log out</span>
+		              <a href="logout?from=${requestScope['javax.servlet.forward.request_uri']}" class="login-btn"><i
+		                    class="fa fa-sign-out"></i><span class="d-none d-md-inline-block">Log out</span>
 		              </a>
 	              </div>
               </c:if>
@@ -89,9 +89,9 @@
     </div>
     <!-- Login modal end-->
     <!-- Navbar Start-->
-    <header class="header mb-5">
+    <header class="header mb-0">
       <nav class="navbar navbar-expand-lg">
-        <div class="container"><a href="index.html" class="navbar-brand home"><img src="img/logo.png" alt="Obaju logo"
+        <div class="container"><a href="HomeForward" class="navbar-brand home"><img src="img/logo.png" alt="Obaju logo"
               class="d-none d-md-inline-block"><img src="img/logo-small.png" alt="Obaju logo"
               class="d-inline-block d-md-none"><span class="sr-only">Obaju - go to homepage</span></a>
           <div class="navbar-buttons">
@@ -208,10 +208,14 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item menu-large">
-                <button type="button" class="btn btn-sm btn-success"
-                  style="margin-top: 2pt;padding: 0.6rem 0.6rem;">Post Your Offer</button>
-              </li>
+              <c:if test="${sessionScope.user != null}">
+	              <li class="nav-item menu-large">
+		              <a href="post-product-s1">
+			              <button type="button" class="btn btn-sm btn-success"
+			                  style="margin-top: 2pt;padding: 0.6rem 0.6rem;">Post Your Offer</button>
+		              </a>
+	              </li>
+              </c:if>
             </ul>
             <div class="navbar-buttons d-flex justify-content-end">
               <!-- /.nav-collapse-->

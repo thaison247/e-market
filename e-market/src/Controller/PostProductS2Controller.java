@@ -22,7 +22,7 @@ import DAO.ProductDAO;
 import DB.DBConnection;
 
 
-@WebServlet("/PostProductS2")
+@WebServlet("/post-product-s2")
 public class PostProductS2Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
