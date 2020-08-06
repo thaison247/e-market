@@ -1,6 +1,10 @@
 package FILTER;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -12,16 +16,20 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import BEAN.Category;
+import DAO.CategoryDAO;
+import DB.DBConnection;
+
 /**
- * Servlet Filter implementation class LoginFilter
+ * Servlet Filter implementation class AccessFilter
  */
-@WebFilter(urlPatterns = {"/post-product-s1", "/post-product-s2", "/post-product-s3", "/profile"})
-public class LoginFilter implements Filter {
+@WebFilter(urlPatterns = {"/", "/*"})
+public class AccessFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public LoginFilter() {
+    public AccessFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -39,27 +47,29 @@ public class LoginFilter implements Filter {
 		// xử lý request đến
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession session = req.getSession();
-
-		if(null != session.getAttribute("isAuthenticated")) {
-
-			// pass the request along the filter chain
-			chain.doFilter(request, response);
-		}
-		else {
+		System.out.println("in access filter");
+		
+		try {
+			// tạo kết nối database
+			Connection conn = DBConnection.createConnection();
+			// lay danh sach Category vao allCategories
+			ArrayList<Category> allCategories = CategoryDAO.getAllCategories(req, conn);
+		
+			// set attribute để truyền dữ liệu đi
+			session.setAttribute("allCategories", allCategories);
 			
-			if(req.getRequestURI().contains("PostProduct")) {
-				session.setAttribute("from", "/e-market/PostProductS1");
-			}
-			else if(req.getRequestURI().contains("Profile")) {
-				session.setAttribute("from", "/e-market/Profile");
-			}
+			// đóng kết nối database
+			conn.close();
 			
-			RequestDispatcher rd = request.getRequestDispatcher("Views/login.jsp");
-			rd.forward(request, response);
-			return;
+		} catch (ClassNotFoundException | SQLException e) {
+			// thông báo lỗi ở trang error
+			req.setAttribute("errMsg", e.getMessage());
+			RequestDispatcher rd = req.getRequestDispatcher("Views/error.jsp");
+			rd.forward(req, response);
 		}
-
-		// xử lý response
+		
+		// pass the request along the filter chain
+		chain.doFilter(request, response);
 	}
 
 	/**

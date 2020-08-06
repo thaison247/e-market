@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import BEAN.User;
 
 
-@WebServlet("/Profile")
+@WebServlet("/profile")
 public class ProfileController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
