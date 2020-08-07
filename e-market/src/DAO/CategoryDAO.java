@@ -126,5 +126,34 @@ public class CategoryDAO {
 		return listCategories;
 	}
 	
-	
+	// get category's name by id
+	public static Category getCategoryById(HttpServletRequest request, Connection conn, int catId) {
+		Category cat = new Category();
+		
+		String sql = "SELECT * FROM danh_muc WHERE id_dm = " + catId;
+		
+		try {
+			PreparedStatement ptmt = conn.prepareStatement(sql);
+			
+			ResultSet rs = ptmt.executeQuery();
+			
+			if(rs.isBeforeFirst()) {
+
+				while(rs.next()) {
+				
+					cat.setId(catId);
+					cat.setName(rs.getString("ten_dm"));
+					cat.setRootId(rs.getInt("danh_muc_goc"));
+				}
+			}
+			
+			rs.close();
+			
+		} catch (SQLException e) {
+			
+			request.setAttribute("errMsg", e.getMessage());
+		}
+		
+		return cat;
+	}
 }

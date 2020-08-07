@@ -27,7 +27,7 @@
                 </ul>
                 <c:if test="${sessionScope.user == null}">
               	<div class="login">
-              		<a href="login?from=${requestScope['javax.servlet.forward.request_uri']}" class="login-btn">
+              		<a href="login?from=${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']} " class="login-btn">
               			<i class="fa fa-sign-in"></i><span class="d-none d-md-inline-block">Log In</span>
                     </a>
                     <a href="login" class="signup-btn"><i class="fa fa-user"></i><span
@@ -35,7 +35,7 @@
               </c:if>
               <c:if test="${sessionScope.user != null}">
 	              <div class="login">
-		              <a href="logout?from=${requestScope['javax.servlet.forward.request_uri']}" class="login-btn"><i
+		              <a href="logout?from=${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']}" class="login-btn"><i
 		                    class="fa fa-sign-out"></i><span class="d-none d-md-inline-block">Log out</span>
 		              </a>
 	              </div>
@@ -108,13 +108,13 @@
 				            <c:forEach items="${sessionScope.allCategories}" var="cat">
 				                <c:if test="${cat.getRootId() == 0}">
 				                	<div class="col-md-6 col-lg-3">
-                        				<h5><a href="product-detail?product_id=${cat2.getId()}">${cat.getName()}</a></h5>
+                        				<h5><a href="category?cat_id=${cat.getId()}">${cat.getName()}</a></h5>
                         				<div>
                           					<ul class="list-unstyled mb-3">
                           					<!-- For each danh mục cấp 2 -->
 					                            <c:forEach items="${sessionScope.allCategories}" var="cat2">
 					                                <c:if test="${cat2.getRootId() == cat.getId()}">
-					                                    <li class="nav-item"><a href="product-detail?product_id=${cat2.getId()}" class="nav-link">${cat2.getName()}</a></li>
+					                                    <li class="nav-item"><a href="category?cat_id=${cat.getId()}" class="nav-link">${cat2.getName()}</a></li>
 					                                </c:if>
 					                            </c:forEach>
                           					</ul>

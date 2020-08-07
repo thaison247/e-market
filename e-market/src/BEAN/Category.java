@@ -5,6 +5,10 @@ public class Category {
 	private String name; // tên danh mục
 	private int rootId; // id danh mục gốc (danh mục cha)
 	
+	public Category() {
+		
+	}
+	
 	public Category(int id, String name, int rootId) {
 		super();
 		this.id = id;

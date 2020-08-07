@@ -165,7 +165,7 @@ public class ProductDAO {
 					prd.setCategoryId(categoryId);
 					prd.setSellerId(sellerId);
 				}
-				System.out.println(prd.getName());
+
 				rs.close(); // đóng đói tượng resultset
 			}
 			// xảy ra lỗi
@@ -225,6 +225,87 @@ public class ProductDAO {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			request.setAttribute("errMsg", e.getMessage());
+		}
+		
+		return listProducts;
+	}
+	
+	/*get total number of products in a category by category id*/
+	public static int getNumberOfPrdsInCat(HttpServletRequest request, Connection conn, int catId) {
+		int result = 0;
+		
+		String sql = "SELECT COUNT(*) AS count FROM san_pham s"
+					+" WHERE s.id_dm = " + catId + " OR s.id_dm IN "
+					+ "(SELECT d.id_dm FROM danh_muc d WHERE d.danh_muc_goc = " + catId + ")";
+		
+		try {
+			PreparedStatement ptmt = conn.prepareStatement(sql);
+			//thuc thi cau truy van -> luu vao RS
+			ResultSet rs = ptmt.executeQuery();
+			
+			//duyet danh sach trong RS roi dua vao listCategories
+			if (rs.isBeforeFirst())
+			{
+				while(rs.next()) {
+					result = rs.getInt("count");
+				}
+
+				rs.close(); // đóng đối tượng resultset
+			}
+			
+		} catch (SQLException e) {
+			// send error message to caller
+			request.setAttribute("errMsg", e.getMessage());
+		}
+		
+		return result;
+	}
+	
+	/*get products in a category by categoryId*/
+	public static List<Product> getProductsByCatId(HttpServletRequest request, Connection conn, int catId, int limit, int offset){
+		
+		List<Product> listProducts= new ArrayList<>();
+		
+		String sql = "SELECT * FROM san_pham s WHERE s.id_dm = ? OR s.id_dm IN (SELECT d.id_dm FROM danh_muc d WHERE d.danh_muc_goc = ?) LIMIT ? OFFSET ?";
+		
+		PreparedStatement ptmt;
+		try {
+			ptmt = conn.prepareStatement(sql);
+			
+			// set gia tri tham so cho cau truy van sql
+			ptmt.setInt(1, catId);
+			ptmt.setInt(2, catId);
+			ptmt.setInt(3, limit);
+			ptmt.setInt(4, offset);
+			
+			ResultSet rs = ptmt.executeQuery();
+			
+			if (rs.isBeforeFirst())
+			{
+				
+				while(rs.next()) {
+					
+					Product prd = new Product();
+					prd.setId(rs.getInt("id_sp"));
+					prd.setName(rs.getString("ten_sp"));
+					prd.setDate(rs.getDate("ngay_dang"));
+					prd.setPrice(rs.getInt("gia_sp"));
+					prd.setShortDesc(rs.getString("mo_ta_ngan"));
+					prd.setDetailDesc(rs.getString("mo_ta"));
+					prd.setSold(rs.getBoolean("is_sold"));
+					prd.setCategoryId(rs.getInt("id_dm"));
+					prd.setSellerId(rs.getInt("nguoi_ban"));
+					
+					// add this to listProducts
+					listProducts.add(prd);
+				}
+
+				rs.close(); // đóng đối tượng resultset
+			}
+			
+		} catch (SQLException e) {
+			// send error message to caller
 			request.setAttribute("errMsg", e.getMessage());
 		}
 		
