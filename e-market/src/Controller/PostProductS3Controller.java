@@ -1,10 +1,7 @@
 package Controller;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -16,14 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.taglibs.standard.resources.Resources;
-import org.omg.CORBA.IRObject;
 
-import BEAN.Product;
-import BEAN.User;
 
 @WebServlet("/post-product-s3")
 public class PostProductS3Controller extends HttpServlet {
@@ -41,7 +33,6 @@ public class PostProductS3Controller extends HttpServlet {
 	
 	}
 
-	@SuppressWarnings("deprecation")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 //		String filePath;

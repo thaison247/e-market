@@ -30,7 +30,7 @@
               		<a href="login?from=${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']} " class="login-btn">
               			<i class="fa fa-sign-in"></i><span class="d-none d-md-inline-block">Log In</span>
                     </a>
-                    <a href="login" class="signup-btn"><i class="fa fa-user"></i><span
+                    <a href="register?from=${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']}" class="signup-btn"><i class="fa fa-user"></i><span
                     class="d-none d-md-inline-block">Register</span></a></div>
               </c:if>
               <c:if test="${sessionScope.user != null}">
@@ -108,8 +108,7 @@
 				            <c:forEach items="${sessionScope.allCategories}" var="cat">
 				                <c:if test="${cat.getRootId() == 0}">
 				                	<div class="col-md-6 col-lg-3">
-                        				<h5><a href="category?cat_id=${cat.getId()}">${cat.getName()}<span
-			                    class="badge badge-secondary">${cat.getQuantity()}</span></a></h5>
+                        				<h5><a href="category?cat_id=${cat.getId()}">${cat.getName()} (${cat.getQuantity()})</a></h5>
                         				<div>
                           					<ul class="list-unstyled mb-3">
                           					<!-- For each danh mục cấp 2 -->

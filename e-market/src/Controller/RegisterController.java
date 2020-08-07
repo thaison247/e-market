@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import BEAN.User;
 import DAO.RegisterDAO;
@@ -17,7 +18,7 @@ import DB.DBConnection;
 import HELPER.BCrypt;
 
 
-@WebServlet("/RegisterController")
+@WebServlet("/register")
 public class RegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,6 +31,7 @@ public class RegisterController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setAttribute("from", request.getParameter("from"));
 		RequestDispatcher rd = request.getRequestDispatcher("Views/register.jsp");
 		rd.forward(request, response);
 	}
@@ -68,8 +70,10 @@ public class RegisterController extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("Views/register.jsp");
 				rd.forward(request, response);
 			}
+			
 			// nếu email chưa tồn tại
 			else {
+				
 				User user = new User();
 				user.setName(input_name);
 				user.setAddress(input_address);
@@ -80,9 +84,15 @@ public class RegisterController extends HttpServlet {
 				boolean check = RegisterDAO.insertUser(conn, user); // thêm user vào database, true: thêm thành công
 				conn.close(); // đóng kết nối database
 				
+				// insert user thành công -> tự động đăng nhập
 				if(check) {
-					request.setAttribute("registerMsg", "Register Successfully!");
-					RequestDispatcher rd = request.getRequestDispatcher("Views/register.jsp");
+					// set giá trị cho session
+					HttpSession session = request.getSession();
+					session.setAttribute("isAuthenticated", true);
+					session.setAttribute("user", user);
+					
+					request.setAttribute("msg", "Register Successfully!");
+					RequestDispatcher rd = request.getRequestDispatcher("Views/message.jsp");
 					rd.forward(request, response);
 				}
 				else {

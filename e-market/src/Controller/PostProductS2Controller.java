@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import BEAN.Category;
 import BEAN.PersonalProduct;
-import BEAN.Product;
 import BEAN.User;
 import DAO.CategoryDAO;
 import DAO.ProductDAO;

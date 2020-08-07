@@ -37,9 +37,8 @@ public class CategoryController extends HttpServlet {
 			pageNumber = Integer.parseInt(request.getParameter("page"));
 		}
 		
-		// set current category id to session scope
-		HttpSession session = request.getSession();
-		session.setAttribute("currCatId", catId);
+		// set current category id to request scope
+		request.setAttribute("currCatId", catId);
 
 		// pagination, get data, send data to jsp file
 		try {

@@ -96,7 +96,7 @@ public class LoginController extends HttpServlet {
 					conn.close();
 					
 					// đặt message thông báo ra ngoài
-					request.setAttribute("loginErrMsg", "Mật khẩu không đúng!");
+					request.setAttribute("loginErrMsg", "Wrong Password!");
 				}
 			}
 			
@@ -106,7 +106,7 @@ public class LoginController extends HttpServlet {
 				conn.close();
 				
 				// đặt message thông báo ra ngoài
-				request.setAttribute("errMsg", "Mail không tồn tại!");
+				request.setAttribute("loginErrMsg", "Invalid Email!");
 			}
 			
 		} catch (ClassNotFoundException | SQLException e) {
