@@ -108,7 +108,8 @@
 				            <c:forEach items="${sessionScope.allCategories}" var="cat">
 				                <c:if test="${cat.getRootId() == 0}">
 				                	<div class="col-md-6 col-lg-3">
-                        				<h5><a href="category?cat_id=${cat.getId()}">${cat.getName()}</a></h5>
+                        				<h5><a href="category?cat_id=${cat.getId()}">${cat.getName()}<span
+			                    class="badge badge-secondary">${cat.getQuantity()}</span></a></h5>
                         				<div>
                           					<ul class="list-unstyled mb-3">
                           					<!-- For each danh mục cấp 2 -->

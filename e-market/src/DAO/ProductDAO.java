@@ -9,10 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
-import BEAN.Category;
 import BEAN.PersonalProduct;
 import BEAN.Product;
 

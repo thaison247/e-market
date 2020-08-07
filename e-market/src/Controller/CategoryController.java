@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import BEAN.Category;
 import BEAN.Product;
@@ -35,6 +36,10 @@ public class CategoryController extends HttpServlet {
 		if(request.getParameter("page") != null) { // the case there is 'page' value in query parameters 
 			pageNumber = Integer.parseInt(request.getParameter("page"));
 		}
+		
+		// set current category id to session scope
+		HttpSession session = request.getSession();
+		session.setAttribute("currCatId", catId);
 
 		// pagination, get data, send data to jsp file
 		try {
@@ -44,8 +49,10 @@ public class CategoryController extends HttpServlet {
 			int totalPrdsInCat = ProductDAO.getNumberOfPrdsInCat(request, conn, catId); // total number of products in a category
 			int noPrdsPerPage = HELPER.ConstNumbers.prdsPerPage; // number of products per page 
 			int noPages = totalPrdsInCat/noPrdsPerPage; // number of pages
-			noPages = (totalPrdsInCat % noPrdsPerPage == 0) ? noPages++ : noPages; // number of pages
-			
+			noPages = noPages==0 ? 1 : noPages; // number of pages
+			noPages = (totalPrdsInCat % noPages == 0) ? noPages : noPages++; // number of pages
+
+			// limit and offset used for sql query
 			int limit = noPrdsPerPage;
 			int offset = (pageNumber - 1) * noPrdsPerPage;
 			

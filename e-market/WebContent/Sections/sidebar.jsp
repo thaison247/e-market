@@ -10,57 +10,52 @@
 </head>
 
 <body>
-    <div id="sidebar" class="span3">
-        <div class="well well-small"><a id="myCart" href="product_summary.html"><img src="themes/images/ico-cart.png"
-                    alt="cart">3 Items in your cart <span class="badge badge-warning pull-right">$155.00</span></a>
+    <div class="col-md-3">
+        <!-- MENUS AND FILTERS-->
+        <div class="panel panel-default sidebar-menu">
+          <div class="panel-heading">
+            <h3 class="h4 panel-title">Categories</h3>
+          </div>
+          <div class="panel-body">
+            <ul class="nav nav-pills flex-column text-sm category-menu">
+            
+	            <!-- For each danh mục cấp 1 -->
+	            <c:forEach items="${sessionScope.allCategories}" var="cat">
+	            	<c:if test="${cat.getRootId() == 0}">
+	            		<c:if test="${cat.getId() == sessionScope.currCatId}">
+		            		<li class="nav-item "><a href="category?cat_id=${cat.getId()}"
+				                  class="nav-link active d-flex align-items-center justify-content-between"><span>${cat.getName()} </span><span
+				                    class="badge badge-secondary">${cat.getQuantity()}</span></a>
+	            		</c:if>
+	            		<c:if test="${cat.getId() != sessionScope.currCatId}">
+		            		<li class="nav-item"><a href="category?cat_id=${cat.getId()}"
+				                  class="nav-link d-flex align-items-center justify-content-between"><span>${cat.getName()} </span><span
+				                    class="badge badge-secondary">${cat.getQuantity()}</span></a>
+	            		</c:if>
+		                    <ul class="nav nav-pills flex-column">
+		                    
+		                    	<!-- For each danh mục cấp 2 -->
+	                            <c:forEach items="${sessionScope.allCategories}" var="cat2">
+	                                <c:if test="${cat2.getRootId() == cat.getId()}">
+	                                	<c:if test="${cat2.getId() == sessionScope.currCatId}">
+	                                		<li class="nav-item "><a href="category?cat_id=${cat2.getId()}" class="nav-link active">${cat2.getName()}</a></li>
+	                                	</c:if>
+	                                	<c:if test="${cat2.getId() != sessionScope.currCatId}">
+	                                		<li class="nav-item"><a href="category?cat_id=${cat2.getId()}" class="nav-link">${cat2.getName()}</a></li>
+	                                	</c:if>
+	                                </c:if>
+	                            </c:forEach>
+		                    </ul>
+			            </li>
+	            	</c:if>
+	            </c:forEach>
+	        </ul>
+          </div>
         </div>
-
-        <!-- DANH MỤC -->
-        <ul id="sideManu" class="nav nav-tabs nav-stacked">
-            <!-- For each danh mục cấp 1 -->
-            <c:forEach items="${listCategories}" var="category">
-                <c:if test="${category.getRootId() == 0}">
-                    <li class="subMenu"><a>${category.getName()}</a>
-                    
-                        <ul style="display:none">
-                            <!-- For each danh mục cấp 2 -->
-                            <c:forEach items="${listCategories}" var="category2">
-                                <c:if test="${category2.getRootId() == category.getId()}">
-                                    <li><a href="products.html"><i
-                                                class="icon-chevron-right"></i>${category2.getName()}</a></li>
-                                </c:if>
-                            </c:forEach>
-                        </ul>
-                    </li>
-                </c:if>
-            </c:forEach>
-        </ul>
-        <br />
-        <div class="thumbnail">
-            <img src="themes/images/products/panasonic.jpg" alt="Bootshop panasonoc New camera" />
-            <div class="caption">
-                <h5>Panasonic</h5>
-                <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i
-                            class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i
-                            class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-            </div>
-        </div><br />
-        <div class="thumbnail">
-            <img src="themes/images/products/kindle.png" title="Bootshop New Kindel" alt="Bootshop Kindel">
-            <div class="caption">
-                <h5>Kindle</h5>
-                <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i
-                            class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i
-                            class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-            </div>
-        </div><br />
-        <div class="thumbnail">
-            <img src="themes/images/payment_methods.png" title="Bootshop Payment Methods" alt="Payments Methods">
-            <div class="caption">
-                <h5>Payment Methods</h5>
-            </div>
+        <div class="banner"><a href="shop-category.html"><img src="img/banner.jpg" alt="sales 2014"
+              class="img-fluid"></a>
         </div>
-    </div>
+   </div>
 </body>
 
 </html>

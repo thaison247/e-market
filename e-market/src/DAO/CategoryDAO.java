@@ -32,8 +32,9 @@ public class CategoryDAO {
 					int id = rs.getInt("id_dm"); // id danh mục
 					String name = rs.getString("ten_dm"); // tên danh mục
 					int rootId = rs.getInt("danh_muc_goc"); // id danh mục gốc (danh mục cha)
+					int quantity = getQuantityById(request, conn, id); // số lượng sản phẩm thuộc danh mục này
 					
-					Category cat = new Category(id, name, rootId);
+					Category cat = new Category(id, name, rootId, quantity);
 					
 					listCategories.add(cat);
 				}
@@ -155,5 +156,41 @@ public class CategoryDAO {
 		}
 		
 		return cat;
+	}
+
+	// get category's quantity by id
+	public static int getQuantityById(HttpServletRequest request, Connection conn, int catId) {
+		int result = 0;
+		
+		String sql = "SELECT COUNT(*) AS so_luong FROM san_pham s WHERE s.id_dm = ? OR s.id_dm IN (SELECT d.id_dm FROM danh_muc d WHERE d.danh_muc_goc = ?)";
+		
+		PreparedStatement ptmt;
+		try {
+			ptmt = conn.prepareStatement(sql);
+			
+			// set gia tri tham so cho cau truy van sql
+			ptmt.setInt(1, catId);
+			ptmt.setInt(2, catId);
+			
+			ResultSet rs = ptmt.executeQuery();
+			
+			if (rs.isBeforeFirst())
+			{
+				
+				while(rs.next()) {
+					
+					result = rs.getInt("so_luong");
+				}
+
+				rs.close(); // đóng đối tượng resultset
+			}
+			
+		} catch (SQLException e) {
+			// send error message to caller
+			request.setAttribute("errMsg", e.getMessage());
+		}
+		
+		return result;
+		
 	}
 }

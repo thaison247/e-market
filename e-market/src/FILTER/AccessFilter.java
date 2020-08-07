@@ -43,7 +43,7 @@ public class AccessFilter implements Filter {
 				Connection conn = DBConnection.createConnection();
 				// lay danh sach Category vao allCategories
 				ArrayList<Category> allCategories = CategoryDAO.getAllCategories(req, conn);
-			
+				
 				// set attribute để truyền dữ liệu đi
 				session.setAttribute("allCategories", allCategories);
 				
