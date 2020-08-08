@@ -76,7 +76,7 @@
               <form action="register" method="POST">
               	<div class="form-group">
                   <label for="input_name">Your Name</label>
-                  <input name=""input_name"" id=""input_name"" type="text" placeholder="Example: Tran Duc Bo" class="form-control" required>
+                  <input name="input_name" id="input_name" type="text" placeholder="Example: Tran Duc Bo" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label for="input_email">Email</label>

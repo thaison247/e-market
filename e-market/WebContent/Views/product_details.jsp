@@ -86,7 +86,7 @@
                         <h3>${product.getName()}</h3>
                         <p class="lead">${product.getShortDesc()}</p>
                       </div>
-                      <p class="price"><h4><i class="fas fa-dollar-sign"></i><strong style="color: red; font-size: 24pt;">$</strong>${product.getPrice()}</h4></p>
+                      <p class="price" style="text-align: left;"><strong style="color: red; font-size: 30pt;">$</strong>${product.getPrice()}</p>
                       <p>
                         <button type="submit" class="btn btn-template-outlined"><i class="fa fa-shopping-cart"></i> Add to cart</button>
                         <button type="submit" data-toggle="tooltip" data-placement="top" title="Add to wishlist" class="btn btn-default"><i class="fa fa-heart-o"></i></button>
@@ -100,11 +100,53 @@
                   </div>
                 </div>
               </div>
-              <div id="details" class="box mb-4 mt-4">
-                <p></p>
-                <h4>Product details</h4>
-                ${product.getDetailDesc()}
-              </div>
+	            <ul id="pills-tab" role="tablist" class="nav nav-pills nav-justified">
+	              <li id="details" class="nav-item"><a id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+	                  aria-controls="pills-home" aria-selected="false" class="nav-link">Detail Description</a></li>
+	              <li class="nav-item"><a id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+	                  aria-controls="pills-profile" aria-selected="true" class="nav-link active">Comments</a></li>
+	            </ul>
+	            <div id="pills-tabContent" class="tab-content">
+	              <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" class="tab-pane fade">
+	                <div id="details" class="box mb-4 mt-4">
+					    <p></p>
+					    <h4>Product details</h4>
+					    ${product.getDetailDesc()}
+					</div>
+	              </div>
+	              <div id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" class="tab-pane fade active show">
+	                <div id="comments">
+	                  <h4 class="text-uppercase">2 comments</h4>
+	                  <div class="row comment">
+	                    <div class="col-sm-3 col-md-2 text-center-xs">
+	                      <p><img src="img/blog-avatar2.jpg" alt="" class="img-fluid rounded-circle"></p>
+	                    </div>
+	                    <div class="col-sm-9 col-md-10">
+	                      <h5 class="text-uppercase">Julie Alma</h5>
+	                      <p class="posted"><i class="fa fa-clock-o"></i> September 23, 2011 at 12:00 am</p>
+	                      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+	                        Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero
+	                        sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+	                      <p class="reply"><a href="#"><i class="fa fa-reply"></i> Reply</a></p>
+	                    </div>
+	                  </div>
+	                  <div class="row comment last">
+	                    <div class="col-sm-3 col-md-2 text-center-xs">
+	                      <p><img src="img/blog-avatar.jpg" alt="" class="img-fluid rounded-circle"></p>
+	                    </div>
+	                    <div class="col-sm-9 col-md-10">
+	                      <h5 class="text-uppercase">Louise Armero</h5>
+	                      <p class="posted"><i class="fa fa-clock-o"></i> September 23, 2012 at 12:00 am</p>
+	                      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+	                        Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero
+	                        sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+	                      <p class="reply"><a href="#"><i class="fa fa-reply"></i> Reply</a></p>
+	                    </div>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+              
               <div id="product-social" class="box social text-center mb-5 mt-5">
                 <h4 class="heading-light">Show it to your friends</h4>
                 <ul class="social list-inline">
