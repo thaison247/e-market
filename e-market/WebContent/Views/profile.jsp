@@ -2,110 +2,140 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
-	<link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen" />
-	<link href="themes/css/base.css" rel="stylesheet" media="screen" />
-	<!-- Bootstrap style responsive -->
-	<link href="themes/css/bootstrap-responsive.min.css" rel="stylesheet" />
-	<link href="themes/css/font-awesome.css" rel="stylesheet" type="text/css">
-	<!-- Google-code-prettify -->
-	<link href="themes/js/google-code-prettify/prettify.css" rel="stylesheet" />
-	<!-- fav and touch icons -->
-	<link rel="shortcut icon" href="themes/images/ico/favicon.ico">
-	<link rel="apple-touch-icon-precomposed" sizes="144x144"
-		href="themes/images/ico/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114"
-		href="themes/images/ico/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
-	<style type="text/css" id="enject"></style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>${sessionScope.user.getName()}</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+  <!-- Bootstrap CSS-->
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome CSS-->
+  <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+  <!-- Google fonts - Roboto-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700">
+  <!-- Bootstrap Select-->
+  <link rel="stylesheet" href="vendor/bootstrap-select/css/bootstrap-select.min.css">
+  <!-- owl carousel-->
+  <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.carousel.css">
+  <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.theme.default.css">
+  <!-- theme stylesheet-->
+  <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+  <!-- Custom stylesheet - for your changes-->
+  <link rel="stylesheet" href="css/custom.css">
+  <!-- Favicon and apple touch icons-->
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="img/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="img/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="img/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/apple-touch-icon-152x152.png">
+  <!-- Tweaks for older IEs-->
+  <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
 
 <body>
-
+  <div id="all">
 	<!-- Header    ======== -->
-	<jsp:include page="../Sections/header.jsp" flush="true" />
+	<jsp:include page="../Sections/header.jsp" flush="true"/>
 	<!-- Header End======== -->
 
-	<div id="mainBody">
-		<div class="container">
-			<div class="row">
-				<!-- Sidebar ================================================== -->
-				<div id="sidebar" class="span3">
-					<div class="well well-small"><a id="myCart" href="product_summary.html"><img
-								src="themes/images/user-icon.png" alt="cart">3 Items in your cart <span
-								class="badge badge-warning pull-right">$155.00</span></a></div>
-					<ul id="sideManu" class="nav nav-tabs nav-stacked">
-						<li><a href="Profile">Information</a></li>
-						<li class="subMenu open"><a> Your Products </a>
-							<ul style="display:block">
-								<li><a href="PersonalProducts"><i class="icon-chevron-right"></i>Personal Pruducts (4)</a></li>
-								<li><a href="ShopProducts"><i class="icon-chevron-right"></i>Shop Products (32)</a></li>												
-							</ul>
-						</li>
-						<li><a href="Profile">Wishlist</a></li>
-					</ul>
-					<br />
-				</div>
-				<!-- Sidebar end=============================================== -->
-				
-				<div class="span9" id="mainCol">
-					<ul class="breadcrumb">
-						<li><a href="index.html">Home</a> <span class="divider">/</span></li>
-						<li class="active">Page Title</li>
-					</ul>
-					<h4>User information</h4>
-					<div class="control-group">
-						<label class="control-label" for="user_name">Name <sup>*</sup></label>
-						<div class="controls">
-							<input type="text" name="user_name" id="user_name" value= "${userName}"
-								readonly>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="seller_phone">Phone number <sup>*</sup></label>
-						<div class="controls">
-							<input type="text" name="seller_phone" id="seller_phone" value="${userPhone}"
-								readonly>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="user_email">Email <sup>*</sup></label>
-						<div class="controls">
-							<input type="text" name="user_email" id="user_email"
-								value="${userEmail}" readonly>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="user_address">Address <sup>*</sup></label>
-						<div class="controls">
-							<input type="text" name="user_address" id="user_address"
-								value= "${userAddress}" readonly style="width: 80%;">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Footer ========= -->
-	<jsp:include page="../Sections/footer.jsp" flush="true" />
-
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-	</script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-	</script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
-	</script>
+    <div id="heading-breadcrumbs">
+      <div class="container">
+        <div class="row d-flex align-items-center flex-wrap">
+          <div class="col-md-7">
+            <h1 class="h2">${sessionScope.user.getName()}</h1>
+          </div>
+          <div class="col-md-5">
+            <ul class="breadcrumb d-flex justify-content-end">
+							<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item active">Portfolio - 4 columns</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="content">
+        <div class="container">
+	          <div class="row bar">
+	          	<div class="col-lg-3 mt-4 mt-lg-0">
+	              <!-- CUSTOMER MENU -->
+	              <div class="panel panel-default sidebar-menu">
+	                <div class="panel-heading">
+	                  <h3 class="h4 panel-title">Customer section</h3>
+	                </div>
+	                <div class="panel-body">
+	                  <ul class="nav nav-pills flex-column text-sm">
+	                  	<li class="nav-item"><a href="profile" class="nav-link active"><i class="fa fa-user fa-lg"></i> Profile</a></li>
+	                    <li class="nav-item"><a href="personal-products" class="nav-link "><i class="fa fa-list"></i> Personal products</a></li>
+	                    <li class="nav-item"><a href="my-shop" class="nav-link "><i class="fa fa-list"></i> Shop</a></li>
+	                    <li class="nav-item"><a href="my-wishlist" class="nav-link"><i class="fa fa-heart"></i> My wishlist</a></li>
+	                    <li class="nav-item"><a href="logout" class="nav-link"><i class="fa fa-sign-out"></i> Logout</a></li>
+	                  </ul>
+	                </div>
+	              </div>
+	            </div>
+	          
+	            <div class="col-lg-9">
+	              <div class="box mt-5">
+		              <div class="heading">
+		                <h3 class="text-uppercase">Basic Information</h3>
+		              </div>
+		              <form>
+		                <div class="row">
+		                  <div class="col-md-9">
+		                    <div class="form-group">
+		                      <label for="input_name">Name</label>
+		                      <input id="input_name" type="text" name="input_name" class="form-control" value="${sessionScope.user.getName()}" readonly>
+		                    </div>
+		                  </div>
+		                </div>
+		                <div class="row">
+		                  <div class="col-md-9">
+		                    <div class="form-group">
+		                      <label for="input_email">Email</label>
+		                      <input id="input_email" type="text" name="input_email" class="form-control" value="${sessionScope.user.getEmail()}" readonly>
+		                    </div>
+		                  </div>
+		                </div>
+		                <div class="row">
+		                  <div class="col-md-9">
+		                    <div class="form-group">
+		                      <label for="input_phone">Phone number</label>
+		                      <input id="input_phone" type="text" name="input_phone" class="form-control" value="${sessionScope.user.getPhone()}" readonly>
+		                    </div>
+		                  </div>
+		                </div>
+		                <div class="row">
+		                  <div class="col-md-9">
+		                    <div class="form-group">
+		                      <label for="input_address">Address</label>
+		                      <input id="input_address" type="text" name="input_address" class="form-control" value="${sessionScope.user.getAddress()}" readonly>
+		                    </div>
+		                  </div>
+		                </div>
+		                <!-- <div class="text-center">
+		                  <button type="submit" class="btn btn-template-outlined"><i class="fa fa-save"></i> Save new
+		                    password</button>
+		                </div> -->
+		              </form>
+           		</div>
+	          </div>
+	        </div>
+        </div>
+      </div>
+  	</div>
+  <!-- Javascript files-->
+  <jsp:include page="../Sections/js_files.jsp" flush="true"/>
 </body>
 
 </html>
