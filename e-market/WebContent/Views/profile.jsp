@@ -79,14 +79,14 @@
 	                    <li class="nav-item"><a href="personal-products" class="nav-link "><i class="fa fa-list"></i> Personal products</a></li>
 	                    <li class="nav-item"><a href="my-shop" class="nav-link "><i class="fa fa-list"></i> Shop</a></li>
 	                    <li class="nav-item"><a href="my-wishlist" class="nav-link"><i class="fa fa-heart"></i> My wishlist</a></li>
-	                    <li class="nav-item"><a href="logout" class="nav-link"><i class="fa fa-sign-out"></i> Logout</a></li>
+	                    <li class="nav-item"><a href="logout?from=${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']}" class="nav-link"><i class="fa fa-sign-out"></i> Logout</a></li>
 	                  </ul>
 	                </div>
 	              </div>
 	            </div>
 	          
 	            <div class="col-lg-9">
-	              <div class="box mt-5">
+	              <div class="box mt-3">
 		              <div class="heading">
 		                <h3 class="text-uppercase">Basic Information</h3>
 		              </div>

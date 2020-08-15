@@ -29,10 +29,14 @@ public class LogoutController extends HttpServlet {
 		session.removeAttribute("isAuthenticated");
 		
 		// lấy origin_url: vị trí mà người dùng gửi request logout
-		request.setAttribute("from", request.getParameter("from"));
-				
+		String from = request.getParameter("from");
+
+		if(from.contains("profile")) from = "/e-market";
+
+		request.setAttribute("from", from);
+
 		// chuyển về trang trước đó
-		response.sendRedirect(request.getParameter("from"));
+		response.sendRedirect(from);
 		
 	}
 
