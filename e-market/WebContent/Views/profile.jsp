@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>${sessionScope.user.getName()}</title>
+  <title>${user.getName()}</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
@@ -52,12 +52,11 @@
       <div class="container">
         <div class="row d-flex align-items-center flex-wrap">
           <div class="col-md-7">
-            <h1 class="h2">${sessionScope.user.getName()}</h1>
+            <h1 class="h2">${user.getName()}</h1>
           </div>
           <div class="col-md-5">
             <ul class="breadcrumb d-flex justify-content-end">
-							<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item active">Portfolio - 4 columns</li>
+              <li class="breadcrumb-item active">USER PROFILE</li>
             </ul>
           </div>
         </div>
@@ -75,11 +74,13 @@
 	                </div>
 	                <div class="panel-body">
 	                  <ul class="nav nav-pills flex-column text-sm">
-	                  	<li class="nav-item"><a href="profile" class="nav-link active"><i class="fa fa-user fa-lg"></i> Profile</a></li>
-	                    <li class="nav-item"><a href="personal-products" class="nav-link "><i class="fa fa-list"></i> Personal products</a></li>
-	                    <li class="nav-item"><a href="my-shop" class="nav-link "><i class="fa fa-list"></i> Shop</a></li>
-	                    <li class="nav-item"><a href="my-wishlist" class="nav-link"><i class="fa fa-heart"></i> My wishlist</a></li>
-	                    <li class="nav-item"><a href="logout?from=${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']}" class="nav-link"><i class="fa fa-sign-out"></i> Logout</a></li>
+	                  	<li class="nav-item"><a href="profile?user_id=${user.getId()}" class="nav-link active"><i class="fa fa-user fa-lg"></i> Profile</a></li>
+	                    <li class="nav-item"><a href="personal-products?user_id=${user.getId()}" class="nav-link "><i class="fa fa-list"></i> Personal products</a></li>
+	                    <li class="nav-item"><a href="shop?user_id=${user.getId()}" class="nav-link "><i class="fa fa-list"></i> Shop</a></li>
+	                    <c:if test="${sessionScope.user.getId() ==  user.getId()}">
+		                    <li class="nav-item"><a href="my-wishlist" class="nav-link"><i class="fa fa-heart"></i> My wishlist</a></li>
+		                    <li class="nav-item"><a href="logout?from=${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']}" class="nav-link"><i class="fa fa-sign-out"></i> Logout</a></li>
+	                    </c:if>
 	                  </ul>
 	                </div>
 	              </div>
@@ -95,7 +96,7 @@
 		                  <div class="col-md-9">
 		                    <div class="form-group">
 		                      <label for="input_name">Name</label>
-		                      <input id="input_name" type="text" name="input_name" class="form-control" value="${sessionScope.user.getName()}" readonly>
+		                      <input id="input_name" type="text" name="input_name" class="form-control" value="${user.getName()}" readonly>
 		                    </div>
 		                  </div>
 		                </div>
@@ -103,7 +104,7 @@
 		                  <div class="col-md-9">
 		                    <div class="form-group">
 		                      <label for="input_email">Email</label>
-		                      <input id="input_email" type="text" name="input_email" class="form-control" value="${sessionScope.user.getEmail()}" readonly>
+		                      <input id="input_email" type="text" name="input_email" class="form-control" value="${user.getEmail()}" readonly>
 		                    </div>
 		                  </div>
 		                </div>
@@ -111,7 +112,7 @@
 		                  <div class="col-md-9">
 		                    <div class="form-group">
 		                      <label for="input_phone">Phone number</label>
-		                      <input id="input_phone" type="text" name="input_phone" class="form-control" value="${sessionScope.user.getPhone()}" readonly>
+		                      <input id="input_phone" type="text" name="input_phone" class="form-control" value="${user.getPhone()}" readonly>
 		                    </div>
 		                  </div>
 		                </div>
@@ -119,7 +120,7 @@
 		                  <div class="col-md-9">
 		                    <div class="form-group">
 		                      <label for="input_address">Address</label>
-		                      <input id="input_address" type="text" name="input_address" class="form-control" value="${sessionScope.user.getAddress()}" readonly>
+		                      <input id="input_address" type="text" name="input_address" class="form-control" value="${user.getAddress()}" readonly>
 		                    </div>
 		                  </div>
 		                </div>

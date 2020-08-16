@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter(urlPatterns = {"/post-product-s1", "/post-product-s2", "/post-product-s3", "/profile"})
+@WebFilter(urlPatterns = {"/post-product-s1", "/post-product-s2", "/post-product-s3"})
 public class LoginFilter implements Filter {
 
     /**
@@ -62,9 +62,7 @@ public class LoginFilter implements Filter {
 		// xử lý response
 	}
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
+	
 	public void init(FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
 	}

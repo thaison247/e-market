@@ -97,7 +97,7 @@
                 <c:if test="${sessionScope.user != null}">
 	                <li class="nav-item dropdown"><a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-user-circle fa-lg"></i> &nbsp;${sessionScope.user.getName()}<b class="caret"></b></a>
 	                  <ul class="dropdown-menu">
-	                  	<li class="dropdown-item"><a href="profile" class="nav-link"><i class="fa fa-user"></i> Profile</a></li>
+	                  	<li class="dropdown-item"><a href="profile?user_id=${sessionScope.user.getId()}" class="nav-link"><i class="fa fa-user"></i> Profile</a></li>
 	                    <li class="dropdown-item"><a href="personal-products" class="nav-link"><i class="fa fa-list"></i> My Products</a></li>
 	                    <li class="dropdown-item"><a href="my-wishlist" class="nav-link"><i class="fa fa-heart"></i> My Wishlist</a></li>
 	                    <li class="dropdown-item"><a href="logout" class="nav-link"><i class="fa fa-sign-out"></i> Logout</a></li>

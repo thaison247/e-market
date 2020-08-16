@@ -307,7 +307,6 @@ public class ProductDAO {
 			}
 			else {
 //				request.setAttribute("errMsg","không tìm thấy sản phẩm liên quan");
-				System.out.println("không tìm thấy sản phẩm liên quan");
 			}
 			
 		}catch(SQLException e){

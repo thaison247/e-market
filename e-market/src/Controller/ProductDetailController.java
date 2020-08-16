@@ -11,8 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import BEAN.Comment;
 import BEAN.Product;
+import BEAN.User;
+import DAO.CommentDAO;
 import DAO.ProductDAO;
+import DAO.UserDAO;
 import DB.DBConnection;
 
 
@@ -39,12 +43,20 @@ public class ProductDetailController extends HttpServlet {
 			// lấy dữ liệu của sản phẩm từ DB
 			Product prd = ProductDAO.getProductById(request, conn, productId);
 			
+			// lấy thông tin người bán
+			User seller = UserDAO.getUserById(request, conn, prd.getSellerId());
+			
+			// lấy danh sách bình luận
+			List<Comment> listComments = CommentDAO.getListCommentsByPrdId(request, conn, prd.getId());
+			
 			// lấy ds sản phẩm liên quan (sản phẩm cùng danh mục), số lượng = limit
 			int catId = prd.getCategoryId(); // id danh mục
 			int limit = 8;
 			List<Product> listRelativeProducts = ProductDAO.getRelativeProducts(request, conn, catId, limit);
 			
 			request.setAttribute("product", prd);
+			request.setAttribute("seller", seller);
+			request.setAttribute("listComments", listComments);
 			request.setAttribute("listRelativeProducts", listRelativeProducts);
 			RequestDispatcher rd = request.getRequestDispatcher("Views/product_details.jsp");
 			rd.forward(request, response);

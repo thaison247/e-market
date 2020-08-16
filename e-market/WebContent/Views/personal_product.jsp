@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>${sessionScope.user.getName()}</title>
+  <title>${user.getName()}</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
@@ -36,10 +36,7 @@
   <link rel="apple-touch-icon" sizes="120x120" href="img/apple-touch-icon-120x120.png">
   <link rel="apple-touch-icon" sizes="144x144" href="img/apple-touch-icon-144x144.png">
   <link rel="apple-touch-icon" sizes="152x152" href="img/apple-touch-icon-152x152.png">
-  <!-- Tweaks for older IEs-->
-  <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+  
 </head>
 
 <body>
@@ -52,12 +49,11 @@
       <div class="container">
         <div class="row d-flex align-items-center flex-wrap">
           <div class="col-md-7">
-            <h1 class="h2">${sessionScope.user.getName()}</h1>
+            <h1 class="h2">${user.getName()}</h1>
           </div>
           <div class="col-md-5">
             <ul class="breadcrumb d-flex justify-content-end">
-							<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item active">Portfolio - 4 columns</li>
+              <li class="breadcrumb-item active">USER PROFILE</li>
             </ul>
           </div>
         </div>
@@ -75,11 +71,13 @@
                 </div>
                 <div class="panel-body">
                   <ul class="nav nav-pills flex-column text-sm">
-                    	<li class="nav-item"><a href="profile" class="nav-link "><i class="fa fa-user fa-lg"></i> Profile</a></li>
-	                    <li class="nav-item"><a href="personal-products" class="nav-link active"><i class="fa fa-list"></i> Personal products</a></li>
-	                    <li class="nav-item"><a href="my-shop" class="nav-link "><i class="fa fa-list"></i> Shop</a></li>
-	                    <li class="nav-item"><a href="my-wishlist" class="nav-link"><i class="fa fa-heart"></i> My wishlist</a></li>
-	                    <li class="nav-item"><a href="logout" class="nav-link"><i class="fa fa-sign-out"></i> Logout</a></li>
+                    	<li class="nav-item"><a href="profile?user_id=${user.getId()}" class="nav-link"><i class="fa fa-user fa-lg"></i> Profile</a></li>
+	                    <li class="nav-item"><a href="personal-products?user_id=${user.getId()}" class="nav-link active"><i class="fa fa-list"></i> Personal products</a></li>
+	                    <li class="nav-item"><a href="shop?user_id=${user.getId()}" class="nav-link "><i class="fa fa-list"></i> Shop</a></li>
+	                    <c:if test="${sessionScope.user.getId() ==  user.getId()}">
+		                    <li class="nav-item"><a href="my-wishlist" class="nav-link"><i class="fa fa-heart"></i> My wishlist</a></li>
+		                    <li class="nav-item"><a href="logout?from=${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']}" class="nav-link"><i class="fa fa-sign-out"></i> Logout</a></li>
+	                    </c:if>
                   </ul>
                 </div>
               </div>
@@ -96,6 +94,7 @@
                         <th class="border-top-0">Price</th>
                         <!-- <th class="border-top-0">Seller</th> -->
                         <th class="border-top-0">Status</th>
+                        <th class="border-top-0">Operator</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -106,14 +105,41 @@
 		                        <td>${prd.getDate()}</td>
 		                        <td>${prd.getPrice()}</td>
 		                        <%-- <td>${prd.getSellerId()}</td> --%>
-		                        <td>
-		                        	<c:if test="${prd.isSold() == false}">
-		                        		<span class="badge badge-success">Available</span>
-		                        	</c:if>
-		                        	<c:if test="${prd.isSold() != false}">
-		                        		<span class="badge badge-danger">Sold</span>
-		                        	</c:if>
-		                        </td>
+		                        <c:if test="${sessionScope.user != null && user.getId() == sessionScope.user.getId()}">
+		                        	<td>
+			                        	<c:if test="${prd.isSold() == false}">
+			                        		<form action="change-product-status" method="POST">
+			                        			<div title="Mark this product as sold">
+								                  <button type="submit" class="btn btn-sm btn-info">
+								                    <i class="fa fa-check"></i>
+								                  </button>
+								                </div>
+			                        		</form>
+			                        	</c:if>
+			                        	<c:if test="${prd.isSold() != false}">
+			                        		<span class="badge badge-warning">SOLD</span>
+			                        	</c:if>
+			                        </td>
+			                        <td>
+		                        		<form action="delete-product" method="POST">
+		                        			<div>
+							                  <button type="submit" class="btn btn-sm btn-danger">
+							                    <i class="fa fa-trash" aria-hidden="true"></i>
+							                  </button>
+							                </div>
+		                        		</form>
+		                        	</td>
+		                        </c:if>
+		                        <c:if test="${sessionScope.user == null || user.getId() != sessionScope.user.getId()}">
+		                        	<td>
+			                        	<c:if test="${prd.isSold() == false}">
+			                        		<span class="badge badge-success">Available</span>
+			                        	</c:if>
+			                        	<c:if test="${prd.isSold() != false}">
+			                        		<span class="badge badge-danger">Sold</span>
+			                        	</c:if>
+		                        	</td>
+		                        </c:if>
 	                      	</tr>
 	                    </c:forEach>
                    </table>

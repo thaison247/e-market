@@ -84,7 +84,12 @@
                     <form>
                       <div class="sizes" style="text-align: left;">
                         <h3>${product.getName()}</h3>
-                        <p class="lead">${product.getShortDesc()}</p>
+                      </div>
+                      <div class="sizes" style="text-align: left;">
+                        <h5 style="margin-bottom: 5px;">Seller: <a href="profile?user_id=${seller.getId()}">${seller.getName()}</a></h5>
+                        <p class="lead" style="margin-bottom: 5px; font-size: 1rem;"><strong>Address: </strong>${seller.getAddress()}</p>
+                        <p class="lead" style="margin-bottom: 5px; font-size: 1rem;"><strong>Phone: </strong>${seller.getPhone()}</p>
+                        <p class="lead" style="margin-bottom: 5px; font-size: 1rem;"><strong>Email: </strong>${seller.getEmail()}</p>
                       </div>
                       <p class="price" style="text-align: left;"><strong style="color: red; font-size: 30pt;">$</strong>${product.getPrice()}</p>
                       <p>
@@ -115,35 +120,79 @@
 					</div>
 	              </div>
 	              <div id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" class="tab-pane fade active show">
-	                <div id="comments">
-	                  <h4 class="text-uppercase">2 comments</h4>
-	                  <div class="row comment">
-	                    <div class="col-sm-3 col-md-2 text-center-xs">
-	                      <p><img src="img/blog-avatar2.jpg" alt="" class="img-fluid rounded-circle"></p>
-	                    </div>
-	                    <div class="col-sm-9 col-md-10">
-	                      <h5 class="text-uppercase">Julie Alma</h5>
-	                      <p class="posted"><i class="fa fa-clock-o"></i> September 23, 2011 at 12:00 am</p>
-	                      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-	                        Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero
-	                        sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-	                      <p class="reply"><a href="#"><i class="fa fa-reply"></i> Reply</a></p>
-	                    </div>
-	                  </div>
-	                  <div class="row comment last">
-	                    <div class="col-sm-3 col-md-2 text-center-xs">
-	                      <p><img src="img/blog-avatar.jpg" alt="" class="img-fluid rounded-circle"></p>
-	                    </div>
-	                    <div class="col-sm-9 col-md-10">
-	                      <h5 class="text-uppercase">Louise Armero</h5>
-	                      <p class="posted"><i class="fa fa-clock-o"></i> September 23, 2012 at 12:00 am</p>
-	                      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-	                        Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero
-	                        sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-	                      <p class="reply"><a href="#"><i class="fa fa-reply"></i> Reply</a></p>
-	                    </div>
-	                  </div>
-	                </div>
+	              
+		              <div id="comments">
+			              <h4 class="text-uppercase"> comments</h4>
+			              <c:forEach items="${listComments}" var="cmt">
+			              	<c:if test="${cmt.rootId == 0}">
+			              		<div class="row comment">
+					                <div class="col-sm-1 col-md-1 col-1 text-center-xs">
+					                  <p><img src="img/blog-avatar2.jpg" alt="" class="img-fluid rounded-circle"></p>
+					                </div>
+					                <div class="col-sm-9 col-md-10">
+					                  <h5 class="text-uppercase">${cmt.getUser().getName()}</h5>
+					                  <p class="posted"><i class="fa fa-clock-o"></i> ${cmt.getTime()}</p>
+					                  <p>${cmt.getContent()}</p>
+					                  
+					                  <c:forEach items="${listComments}" var="cmt2">
+					                  	
+					                  		<c:if test="${cmt2.rootId == cmt.getId()}">
+					                  		
+					                  			<div class="row comment mb-0">
+								                    <div class="col-sm-3 col-md-2 text-center-xs">
+								                      <p><img src="img/blog-avatar2.jpg" alt="" class="img-fluid rounded-circle"></p>
+								                    </div>
+								                    <div class="col-sm-9 col-md-10">
+								                      <h5 class="text-uppercase">${cmt2.getUser().getName()}</h5>
+								                      <p class="posted"><i class="fa fa-clock-o"></i>${cmt.getContent()}</p>
+							                    	</div>
+					                  			</div>
+					                  		
+					                  		</c:if>
+					                  
+					                  </c:forEach>
+					                  
+					                  <div id="comment-form">
+					                    <form name="inside-cmtfrm">
+					                      <div class="row">
+					                        <div class="col-sm-12">
+					                          <div class="form-group">
+					                            <textarea id="comment" rows="1" name="input_comment" class="form-control"></textarea>
+					                          </div>
+					                        </div>
+					                      </div>
+					                      <div class="row">
+					                        <div class="col-sm-12 text-right">
+					                          <button class="btn btn-sm btn-template-outlined" onClick=""><i class="fa fa-comment-o" ></i> Post
+					                            comment</button>
+					                        </div>
+					                      </div>
+					                    </form>
+					                  </div>
+			                		</div>
+			              		</div>
+			              	</c:if>
+			              </c:forEach>
+			              <div id="comment-form">
+			                <h4 class="text-uppercase">Leave a comment</h4>
+			                <form  name="outside-cmtfrm">
+			                  <div class="row">
+			                    <div class="col-sm-12">
+			                      <div class="form-group">
+			                        <label for="comment">Comment <span class="required text-primary">*</span></label>
+			                        <textarea id="comment" name="input_comment" rows="2" class="form-control"></textarea>
+			                      </div>
+			                    </div>
+			                  </div>
+			                  <div class="row">
+			                    <div class="col-sm-12 text-right">
+			                      <button class="btn btn-template-outlined" onClick=""><i class="fa fa-comment-o"></i> Post comment</button>
+			                    </div>
+			                  </div>
+			                </form>
+			              </div>
+			          </div>
+	              
 	              </div>
 	            </div>
               

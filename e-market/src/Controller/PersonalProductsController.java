@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import BEAN.PersonalProduct;
 import BEAN.User;
 import DAO.ProductDAO;
+import DAO.UserDAO;
 import DB.DBConnection;
 
 
@@ -31,9 +32,12 @@ public class PersonalProductsController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		//get user in session
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("user");
+//		//get user in session
+//		HttpSession session = request.getSession();
+//		User user = (User)session.getAttribute("user");
+		
+		// get user id from request parameter
+		int userId = Integer.parseInt(request.getParameter("user_id"));
 		
 		//get list personal products
 		Connection conn;
@@ -41,10 +45,14 @@ public class PersonalProductsController extends HttpServlet {
 			// open DB connection
 			conn = DBConnection.createConnection();
 			
+			// GET USER
+			User user = UserDAO.getUserById(request, conn, userId);
+			
 			// get products
-			List<PersonalProduct> listProducts = ProductDAO.getProductsByUserId(request, conn, user.getId());
+			List<PersonalProduct> listProducts = ProductDAO.getProductsByUserId(request, conn, userId);
 			
 			// send data to view
+			request.setAttribute("user", user);
 			request.setAttribute("listProducts", listProducts);
 			RequestDispatcher rd = request.getRequestDispatcher("Views/personal_product.jsp");
 			rd.forward(request, response);
