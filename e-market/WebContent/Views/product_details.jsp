@@ -77,6 +77,7 @@
                     <div> <img src="productimages/${product.getId()}/1.jpg" alt="" class="img-fluid"></div>
                     <div> <img src="productimages/${product.getId()}/2.jpg" alt="" class="img-fluid"></div>
                     <div> <img src="productimages/${product.getId()}/3.jpg" alt="" class="img-fluid"></div>
+                    <div> <img src="productimages/${product.getId()}/4.jpg" alt="" class="img-fluid"></div>
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -122,29 +123,40 @@
 	              <div id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" class="tab-pane fade active show">
 	              
 		              <div id="comments">
-			              <h4 class="text-uppercase"> comments</h4>
+			              <h4 class="text-uppercase">${listComments.size()} comments</h4>
 			              <c:forEach items="${listComments}" var="cmt">
 			              	<c:if test="${cmt.rootId == 0}">
 			              		<div class="row comment">
 					                <div class="col-sm-1 col-md-1 col-1 text-center-xs">
-					                  <p><img src="img/blog-avatar2.jpg" alt="" class="img-fluid rounded-circle"></p>
+						                <c:if test="${cmt.getUser().getId() == product.getSellerId()}">
+						                	<p><img src="img/seller.jpg" alt="" class="img-fluid rounded-circle"></p>
+						                </c:if>
+						                <c:if test="${cmt.getUser().getId() != product.getSellerId()}">
+						                	<p><img src="img/user.png" alt="" class="img-fluid rounded-circle"></p>
+						                </c:if>
 					                </div>
-					                <div class="col-sm-9 col-md-10">
-					                  <h5 class="text-uppercase">${cmt.getUser().getName()}</h5>
-					                  <p class="posted"><i class="fa fa-clock-o"></i> ${cmt.getTime()}</p>
-					                  <p>${cmt.getContent()}</p>
+					                <div class="col-sm-11 col-md-11">
+					                  <h5 class="text-uppercase"style="margin-bottom: 0;"><a href="profile?user_id=${cmt.getUser().getId()}">${cmt.getUser().getName()}</a></h5>
+					                  <p class="posted" style="color: yellowgreen"><i class="fa fa-clock-o"></i> ${cmt.getTime()}</p>
+					                  <p style="border-bottom: black;border-width: thin; border-style: ridge;border-right: none;border-top: none;border-left: none;">${cmt.getContent()}</p>
 					                  
 					                  <c:forEach items="${listComments}" var="cmt2">
 					                  	
 					                  		<c:if test="${cmt2.rootId == cmt.getId()}">
 					                  		
 					                  			<div class="row comment mb-0">
-								                    <div class="col-sm-3 col-md-2 text-center-xs">
-								                      <p><img src="img/blog-avatar2.jpg" alt="" class="img-fluid rounded-circle"></p>
+								                    <div class="col-sm-1 col-md-1 col-1 text-center-xs">
+								                      <c:if test="${cmt2.getUser().getId() == product.getSellerId()}">
+										                	<p><img src="img/seller.jpg" alt="" class="img-fluid rounded-circle"></p>
+										                </c:if>
+										                <c:if test="${cmt2.getUser().getId() != product.getSellerId()}">
+										                	<p><img src="img/user.png" alt="" class="img-fluid rounded-circle"></p>
+										                </c:if>
 								                    </div>
-								                    <div class="col-sm-9 col-md-10">
-								                      <h5 class="text-uppercase">${cmt2.getUser().getName()}</h5>
-								                      <p class="posted"><i class="fa fa-clock-o"></i>${cmt.getContent()}</p>
+								                    <div class="col-sm-11 col-md-11">
+								                      <h5 class="text-uppercase" style="margin-bottom: 0;"><a href="profile?user_id=${cmt2.getUser().getId()}">${cmt2.getUser().getName()}</a></h5>
+								                      <p class="posted" style="color: yellowgreen"><i class="fa fa-clock-o"></i>${cmt2.getTime()}</p>
+								                      <p style="border-bottom: black;border-width: thin; border-style: ridge;border-right: none;border-top: none;border-left: none;">${cmt2.getContent()}</p>
 							                    	</div>
 					                  			</div>
 					                  		
@@ -153,17 +165,20 @@
 					                  </c:forEach>
 					                  
 					                  <div id="comment-form">
-					                    <form name="inside-cmtfrm">
+					                    <form action="comment" method="POST" name="inside-cmtfrm">
+					                    	<input name="user_id" type="hidden" value="${sessionScope.user.getId()}">
+		                      				<input name="root_id" type="hidden" value="${cmt.getId()}">
+		                      				<input name="product_id" type="hidden" value="${product.getId()}">
 					                      <div class="row">
 					                        <div class="col-sm-12">
 					                          <div class="form-group">
-					                            <textarea id="comment" rows="1" name="input_comment" class="form-control"></textarea>
+					                            <textarea name="content" style="border-left:white;border-right:white;border-top:white;" rows="1" class="form-control" placeholder="Reply ${cmt.getUser().getName()}'s comment ..."></textarea>
 					                          </div>
 					                        </div>
 					                      </div>
 					                      <div class="row">
 					                        <div class="col-sm-12 text-right">
-					                          <button class="btn btn-sm btn-template-outlined" onClick=""><i class="fa fa-comment-o" ></i> Post
+					                          <button class="btn btn-sm btn-template-outlined" type="submit"><i class="fa fa-comment-o" ></i> Post
 					                            comment</button>
 					                        </div>
 					                      </div>
@@ -175,18 +190,21 @@
 			              </c:forEach>
 			              <div id="comment-form">
 			                <h4 class="text-uppercase">Leave a comment</h4>
-			                <form  name="outside-cmtfrm">
+			                <form action="comment" method="POST" name="outside-cmtfrm">
+			                  <input name="user_id" type="hidden" value="${sessionScope.user.getId()}">
+		                      <input name="root_id" type="hidden" value="0">
+		                      <input name="product_id" type="hidden" value="${product.getId()}">
 			                  <div class="row">
 			                    <div class="col-sm-12">
 			                      <div class="form-group">
-			                        <label for="comment">Comment <span class="required text-primary">*</span></label>
-			                        <textarea id="comment" name="input_comment" rows="2" class="form-control"></textarea>
+			                        <label for="content">Your Comment<span class="required text-primary"></span></label>
+			                        <textarea id="content" name="content" rows="2" class="form-control" placeholder="Type your comment here ..."></textarea>
 			                      </div>
 			                    </div>
 			                  </div>
 			                  <div class="row">
 			                    <div class="col-sm-12 text-right">
-			                      <button class="btn btn-template-outlined" onClick=""><i class="fa fa-comment-o"></i> Post comment</button>
+			                      <button type="submit" class="btn btn-template-outlined"><i class="fa fa-comment-o"></i> Post comment</button>
 			                    </div>
 			                  </div>
 			                </form>
@@ -241,6 +259,7 @@
     
     <!-- FOOTER -->
     <jsp:include page="../Sections/footer.jsp" flush="true"/>
+  </div>
   </div>
   
   <!-- Javascript files-->
