@@ -108,19 +108,19 @@
               </div>
 	            <ul id="pills-tab" role="tablist" class="nav nav-pills nav-justified">
 	              <li id="details" class="nav-item"><a id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-	                  aria-controls="pills-home" aria-selected="false" class="nav-link">Detail Description</a></li>
+	                  aria-controls="pills-home" aria-selected="false" class="nav-link active">Detail Description</a></li>
 	              <li class="nav-item"><a id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-	                  aria-controls="pills-profile" aria-selected="true" class="nav-link active">Comments</a></li>
+	                  aria-controls="pills-profile" aria-selected="true" class="nav-link ">Comments</a></li>
 	            </ul>
 	            <div id="pills-tabContent" class="tab-content">
-	              <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" class="tab-pane fade">
+	              <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" class="tab-pane fade active show">
 	                <div id="details" class="box mb-4 mt-4">
 					    <p></p>
 					    <h4>Product details</h4>
 					    ${product.getDetailDesc()}
 					</div>
 	              </div>
-	              <div id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" class="tab-pane fade active show">
+	              <div id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" class="tab-pane fade">
 	              
 		              <div id="comments">
 			              <h4 class="text-uppercase">${listComments.size()} comments</h4>
