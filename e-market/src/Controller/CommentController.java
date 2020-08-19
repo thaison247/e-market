@@ -55,7 +55,7 @@ public class CommentController extends HttpServlet {
 			
 			// get current time
 			Timestamp now = new Timestamp(System.currentTimeMillis());
-			System.out.println(now.toString());
+
 			// create Comment object
 			Comment cmt = new Comment();
 			cmt.setUser(user);
@@ -63,7 +63,7 @@ public class CommentController extends HttpServlet {
 			cmt.setProductId(productId);
 			cmt.setTime(now);
 			cmt.setContent(content);
-			System.out.println(cmt.toString());
+
 			// insert comment to DB
 			int check = CommentDAO.insertComment(request, conn, cmt);
 			

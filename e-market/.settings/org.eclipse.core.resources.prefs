@@ -1,0 +1,15 @@
+eclipse.preferences.version=1
+encoding//src/BEAN/Category.java=UTF-8
+encoding//src/Controller/HomeForward.java=UTF-8
+encoding//src/Controller/LoginController.java=UTF-8
+encoding//src/Controller/LogoutController.java=UTF-8
+encoding//src/Controller/PostProductS3Controller.java=UTF-8
+encoding//src/Controller/ProductDetailController.java=UTF-8
+encoding//src/Controller/RegisterController.java=UTF-8
+encoding//src/DAO/CategoryDAO.java=UTF-8
+encoding//src/DAO/LoginDAO.java=UTF-8
+encoding//src/DAO/NormalUserDAO.java=UTF-8
+encoding//src/DAO/ProductDAO.java=UTF-8
+encoding//src/DAO/RegisterDAO.java=UTF-8
+encoding//src/DAO/UserDAO.java=UTF-8
+encoding//src/FILTER/LoginFilter.java=UTF-8

@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import BEAN.User;
-import DAO.LoginDAO;
+import BEAN.NormalUser;
+import DAO.NormalUserDAO;
+import DAO.UserDAO;
 import DB.DBConnection;
 import HELPER.BCrypt;
 
@@ -59,11 +60,11 @@ public class LoginController extends HttpServlet {
 			conn = DBConnection.createConnection();
 			
 			// kiểm tra mail có tồn tại trong DB hay không
-			boolean isExistedEmail = LoginDAO.isExistedEmail(request, conn, email);
+			boolean isExistedEmail = UserDAO.isExistedEmail(request, conn, email);
 			
 			// nếu mail tồn tại trong DB (có tài khoản đk bằng mail này)
 			if(isExistedEmail) { 
-				String hashedPassword = LoginDAO.getPassword(request, conn, email); // lay hashed password trong DB (password dung)
+				String hashedPassword = UserDAO.getPassword(request, conn, email); // lay hashed password trong DB (password dung)
 				checkPassword = BCrypt.checkpw(rawPassword, hashedPassword); // so sanh 2 password bang Bcrypt
 				
 				// nếu đúng password
@@ -71,8 +72,8 @@ public class LoginController extends HttpServlet {
 					
 					// set giá trị cho session
 					session.setAttribute("isAuthenticated", true);
-					User user = new User();
-					user = LoginDAO.getUser(request, conn, email); // get User tu DB
+					NormalUser user = new NormalUser();
+					user = NormalUserDAO.getUserByEmail(request, conn, email); // get User tu DB
 					session.setAttribute("user", user);
 					
 					conn.close();

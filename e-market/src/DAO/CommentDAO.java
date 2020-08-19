@@ -107,6 +107,7 @@ public class CommentDAO {
 					// get user
 					int userId = rs.getInt("id_nd");
 					User user = UserDAO.getUserById(request, conn, userId);
+					
 					//
 					int productId = rs.getInt("id_sp");
 					

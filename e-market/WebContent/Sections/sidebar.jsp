@@ -26,11 +26,13 @@
 		            		<li class="nav-item "><a href="category?cat_id=${cat.getId()}"
 				                  class="nav-link active d-flex align-items-center justify-content-between"><span>${cat.getName()} </span><span
 				                    class="badge badge-secondary">${cat.getQuantity()}</span></a>
+				            </li>
 	            		</c:if>
 	            		<c:if test="${cat.getId() != requestScope.currCatId}">
 		            		<li class="nav-item"><a href="category?cat_id=${cat.getId()}"
 				                  class="nav-link d-flex align-items-center justify-content-between"><span>${cat.getName()} </span><span
 				                    class="badge badge-secondary">${cat.getQuantity()}</span></a>
+				            </li>
 	            		</c:if>
 		                    <ul class="nav nav-pills flex-column">
 		                    
@@ -46,7 +48,7 @@
 	                                </c:if>
 	                            </c:forEach>
 		                    </ul>
-			            </li>
+			            
 	            	</c:if>
 	            </c:forEach>
 	        </ul>

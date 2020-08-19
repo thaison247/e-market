@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import BEAN.Comment;
+import BEAN.NormalUser;
 import BEAN.Product;
-import BEAN.User;
 import DAO.CommentDAO;
+import DAO.NormalUserDAO;
 import DAO.ProductDAO;
-import DAO.UserDAO;
 import DB.DBConnection;
 
 
@@ -44,7 +44,7 @@ public class ProductDetailController extends HttpServlet {
 			Product prd = ProductDAO.getProductById(request, conn, productId);
 			
 			// lấy thông tin người bán
-			User seller = UserDAO.getUserById(request, conn, prd.getSellerId());
+			NormalUser seller = NormalUserDAO.getUserById(request, conn, prd.getSellerId());
 			
 			// lấy danh sách bình luận
 			List<Comment> listComments = CommentDAO.getListCommentsByPrdId(request, conn, prd.getId());

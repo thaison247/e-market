@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import BEAN.User;
-import DAO.RegisterDAO;
+import BEAN.NormalUser;
+import DAO.NormalUserDAO;
 import DB.DBConnection;
 import HELPER.BCrypt;
 
@@ -61,7 +61,7 @@ public class RegisterController extends HttpServlet {
 		try {
 			conn = DBConnection.createConnection();// mở kết nối database
 			
-			checkExistedEmail = RegisterDAO.isExistedEmail(request, conn, input_email);
+			checkExistedEmail = NormalUserDAO.isExistedEmail(request, conn, input_email);
 			
 			// nếu email đã tồn tại
 			if (checkExistedEmail) {
@@ -74,18 +74,21 @@ public class RegisterController extends HttpServlet {
 			// nếu email chưa tồn tại
 			else {
 				
-				User user = new User();
+				NormalUser user = new NormalUser();
 				user.setName(input_name);
 				user.setAddress(input_address);
 				user.setPhone(input_phone);
 				user.setEmail(input_email);
 				user.setPassword(encodedPassword);
 				
-				boolean check = RegisterDAO.insertUser(conn, user); // thêm user vào database, true: thêm thành công
+				int userId = NormalUserDAO.insertUser(request, conn, user); // thêm user vào database
 				conn.close(); // đóng kết nối database
 				
 				// insert user thành công -> tự động đăng nhập
-				if(check) {
+				if(userId != 0) {
+					
+					user.setId(userId);
+					
 					// set giá trị cho session
 					HttpSession session = request.getSession();
 					session.setAttribute("isAuthenticated", true);
