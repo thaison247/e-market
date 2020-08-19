@@ -108,9 +108,9 @@
               </ul>
             </div>
             <div id="search" class="clearfix">
-              <form role="search" class="navbar-form">
+              <form action="search" method="get" class="navbar-form">
                 <div class="input-group">
-                  <input type="text" placeholder="Search" class="form-control"><span class="input-group-btn">
+                  <input name="input_text" type="text" placeholder="Search" class="form-control"><span class="input-group-btn">
                     <button type="submit" class="btn btn-template-main"><i class="fa fa-search"></i></button></span>
                 </div>
               </form>

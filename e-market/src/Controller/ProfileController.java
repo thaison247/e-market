@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import BEAN.User;
-import DAO.UserDAO;
+import BEAN.NormalUser;
+import DAO.NormalUserDAO;
 import DB.DBConnection;
 
 
@@ -36,10 +36,10 @@ public class ProfileController extends HttpServlet {
 		int userId = Integer.parseInt(request.getParameter("user_id"));
 		
 		// get user
-		User user = null;
+		NormalUser user = null;
 		
 		if(session.getAttribute("authenticated") != null) { // if user has been logging in
-			user = (User)session.getAttribute("user");
+			user = (NormalUser)session.getAttribute("user");
 			
 			if(userId != user.getId()) { 
 				Connection conn = null;
@@ -47,7 +47,7 @@ public class ProfileController extends HttpServlet {
 					conn = DBConnection.createConnection();
 
 					//get user from DB
-					user = UserDAO.getUserById(request, conn, userId);
+					user = NormalUserDAO.getUserById(request, conn, userId);
 					
 					//close DB connection
 					conn.close();
@@ -66,7 +66,7 @@ public class ProfileController extends HttpServlet {
 				conn = DBConnection.createConnection();
 
 				//get user from DB
-				user = UserDAO.getUserById(request, conn, userId);
+				user = NormalUserDAO.getUserById(request, conn, userId);
 				
 				//close DB connection
 				conn.close();

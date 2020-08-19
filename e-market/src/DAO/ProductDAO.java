@@ -316,10 +316,48 @@ public class ProductDAO {
 		return listProducts;
 	}
 	
-	/* get personal products uploaded by one user by userId */
-//	public static List<ShopProduct> getProductsByShopId(HttpServletRequest request, Connection conn, int shopId){
-//		List<ShopProduct> listProducts = new ArrayList<>();
-//		
-//		return listProducts;
-//	}
+	/* search product: full-text search*/
+	public static List<Product> findProducts(HttpServletRequest request, Connection conn, String text){
+		
+		List<Product> listProducts = new ArrayList<>();
+
+		String sql = "SELECT * FROM san_pham WHERE MATCH(ten_sp, mo_ta_ngan) AGAINST(? IN boolean mode)";
+		
+		try {
+			PreparedStatement ptmt = conn.prepareStatement(sql);
+			
+			ptmt.setString(1, text);
+			
+			ResultSet rs = ptmt.executeQuery();
+			
+			if(rs.isBeforeFirst()) {
+				
+				while(rs.next()) {
+					
+					int id = rs.getInt("id_sp");
+					String name = rs.getString("ten_sp");
+					Date date = rs.getDate("ngay_dang");
+					int price = rs.getInt("gia_sp");
+					String shortDesc = rs.getString("mo_ta_ngan");
+					String detailDesc = rs.getString("mo_ta");
+					boolean isSold = rs.getBoolean("is_sold");
+					int categoryId = rs.getInt("id_dm");
+					int sellerId = rs.getInt("nguoi_ban");
+
+					Product prd = new Product(id, name, date, price, shortDesc, detailDesc, isSold, categoryId, sellerId);
+					listProducts.add(prd);
+				}
+				
+				rs.close();
+			}
+			
+			ptmt.close();
+			
+		}catch(SQLException e){
+			request.setAttribute("errMsg", e.getMessage());
+		}
+		
+		return listProducts;
+	}
+	
 }

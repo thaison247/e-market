@@ -65,12 +65,12 @@
     </div>
           <div id="content">
         <div class="container">
-          <div class="row bar">
+          <div class="row bar" style="padding: 30px 0;">
             <!-- LEFT COLUMN _________________________________________________________-->
             <div class="col-lg-12">
               <h4>${product.getName()}</h4>
-              <p class="lead">${product.getShortDesc()}</p>
-              <p class="goToDescription"><a href="#details" class="scroll-to text-uppercase">Scroll to product details, material & care and sizing</a></p>
+              <p class="lead" style="margin-bottom: 10px;">${product.getShortDesc()}</p>
+              <p class="goToDescription" style="margin-bottom: 10px;"><a href="#details" class="scroll-to text-uppercase">Scroll to product details, material & care and sizing</a></p>
               <div id="productMain" class="row">
                 <div class="col-sm-6">
                   <div data-slider-id="1" class="owl-carousel shop-detail-carousel">
@@ -112,7 +112,7 @@
 	              <li class="nav-item"><a id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
 	                  aria-controls="pills-profile" aria-selected="true" class="nav-link ">Comments</a></li>
 	            </ul>
-	            <div id="pills-tabContent" class="tab-content">
+	            <div id="pills-tabContent" style="background: azure;" class="tab-content">
 	              <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" class="tab-pane fade active show">
 	                <div id="details" class="box mb-4 mt-4">
 					    <p></p>
@@ -120,7 +120,7 @@
 					    ${product.getDetailDesc()}
 					</div>
 	              </div>
-	              <div id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" class="tab-pane fade">
+	              <div id="pills-profile" style="background: azure;" role="tabpanel" aria-labelledby="pills-profile-tab" class="tab-pane fade">
 	              
 		              <div id="comments">
 			              <h4 class="text-uppercase">${listComments.size()} comments</h4>
