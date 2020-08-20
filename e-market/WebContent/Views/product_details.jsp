@@ -82,7 +82,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="box" style="margin: 0px 0;">
-                    <form>
+                    <form action="add-to-wishlist" method="post">
                       <div class="sizes" style="text-align: left;">
                         <h3>${product.getName()}</h3>
                       </div>
@@ -93,9 +93,12 @@
                         <p class="lead" style="margin-bottom: 5px; font-size: 1rem;"><strong>Email: </strong>${seller.getEmail()}</p>
                       </div>
                       <p class="price" style="text-align: left;"><strong style="color: red; font-size: 30pt;">$</strong>${product.getPrice()}</p>
+                      <input type="hidden" name="product_id" value="${product.getId()}">
+                      <input type="hidden" name="user_id" value="${sessionScope.user.getId()}">
                       <p>
-                        <button type="submit" class="btn btn-template-outlined"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-                        <button type="submit" data-toggle="tooltip" data-placement="top" title="Add to wishlist" class="btn btn-default"><i class="fa fa-heart-o"></i></button>
+                      	<c:if test="${sessionScope.isAuthenticated == true}">
+                      		<button type="submit" class="btn btn-template-outlined"><i class="fa fa-heart" aria-hidden="true"></i> Add to wishlist</button>
+                      	</c:if>
                       </p>
                     </form>
                   </div>
