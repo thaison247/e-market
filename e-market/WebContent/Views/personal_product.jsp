@@ -104,42 +104,45 @@
 		                        <td style="width: 230px;"><a href="product-detail?product_id=${prd.getId()}">${prd.getName()}</a></td>
 		                        <td>${prd.getDate()}</td>
 		                        <td>${prd.getPrice()}</td>
-		                        <%-- <td>${prd.getSellerId()}</td> --%>
+		                        <td>
+		                        	<c:if test="${prd.isSold() == false}">
+		                        		<span class="badge badge-success">Available</span>
+		                        	</c:if>
+		                        	<c:if test="${prd.isSold() != false}">
+		                        		<span class="badge badge-danger">Sold</span>
+		                        	</c:if>
+	                        	</td>
 		                        <c:if test="${sessionScope.user != null && user.getId() == sessionScope.user.getId()}">
 		                        	<td>
-			                        	<c:if test="${prd.isSold() == false}">
-			                        		<form action="change-product-status" method="POST">
-			                        			<div title="Mark this product as sold">
-								                  <button type="submit" class="btn btn-sm btn-info">
-								                    <i class="fa fa-check"></i>
+		                        		<div class="row">
+			                        		<c:if test="${prd.isSold() == false}">
+				                        		<form action="change-status" method="POST">
+				                        			<input name="product_id" type="hidden" value="${prd.getId()}">
+				                        			<div title="Mark this product as sold">
+									                  <button type="submit" class="btn btn-sm btn-info">
+									                    <i class="fa fa-check" aria-hidden="true"></i>
+									                  </button>
+									                </div>
+				                        		</form>
+				                        	</c:if>
+				                        	<form action="edit-product" method="POST">
+			                        			<div title="Edit this product's information">
+								                  <button type="submit" class="btn btn-sm btn-warning">
+								                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 								                  </button>
 								                </div>
 			                        		</form>
-			                        	</c:if>
-			                        	<c:if test="${prd.isSold() != false}">
-			                        		<span class="badge badge-warning">SOLD</span>
-			                        	</c:if>
+				                        	<form action="delete-product" method="POST">
+			                        			<div title="Delete this product">
+								                  <button type="submit" class="btn btn-sm btn-danger">
+								                    <i class="fa fa-trash" aria-hidden="true"></i>
+								                  </button>
+								                </div>
+			                        		</form>
+		                        		</div>
 			                        </td>
-			                        <td>
-		                        		<form action="delete-product" method="POST">
-		                        			<div>
-							                  <button type="submit" class="btn btn-sm btn-danger">
-							                    <i class="fa fa-trash" aria-hidden="true"></i>
-							                  </button>
-							                </div>
-		                        		</form>
-		                        	</td>
 		                        </c:if>
-		                        <c:if test="${sessionScope.user == null || user.getId() != sessionScope.user.getId()}">
-		                        	<td>
-			                        	<c:if test="${prd.isSold() == false}">
-			                        		<span class="badge badge-success">Available</span>
-			                        	</c:if>
-			                        	<c:if test="${prd.isSold() != false}">
-			                        		<span class="badge badge-danger">Sold</span>
-			                        	</c:if>
-		                        	</td>
-		                        </c:if>
+	                        	
 	                      	</tr>
 	                    </c:forEach>
                    </table>

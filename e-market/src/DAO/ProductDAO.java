@@ -360,4 +360,31 @@ public class ProductDAO {
 		return listProducts;
 	}
 	
+	public static boolean updateStatus(HttpServletRequest request, Connection conn, boolean status, int prdId) {
+		
+		int check = 0;
+		
+		String sql = "UPDATE san_pham SET is_sold = ? WHERE id_sp = ?";
+		
+		try {
+			PreparedStatement ptmt = conn.prepareStatement(sql);
+			
+			ptmt.setBoolean(1, status);
+			ptmt.setInt(2, prdId);
+			
+			check = ptmt.executeUpdate();
+			
+			if(check == 0) {
+				return false;
+			}else {
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			request.setAttribute("errMsg", e.getMessage());
+		}
+		
+		return false;
+	}
+	
 }

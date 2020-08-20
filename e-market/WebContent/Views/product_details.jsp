@@ -105,7 +105,9 @@
                       		<c:if test="${inUserWishlist == false}">
                       			<button type="submit" class="btn btn-template-outlined"><i class="fa fa-heart" aria-hidden="true"></i> Add to wishlist</button>
                       		</c:if>
-                      		
+                      	</c:if>
+                      	<c:if test="${product.isSold() == true}">
+                      		<button type="button" class="btn btn-danger">THIS PRODUCT IS SOLD</button>
                       	</c:if>
                       </p>
                     </form>
@@ -114,6 +116,7 @@
                     <button class="owl-thumb-item"><img src="productimages/${product.getId()}/1.jpg" alt="" class="img-fluid"></button>
                     <button class="owl-thumb-item"><img src="productimages/${product.getId()}/2.jpg" alt="" class="img-fluid"></button>
                     <button class="owl-thumb-item"><img src="productimages/${product.getId()}/3.jpg" alt="" class="img-fluid"></button>
+                    <button class="owl-thumb-item"><img src="productimages/${product.getId()}/4.jpg" alt="" class="img-fluid"></button>
                   </div>
                 </div>
               </div>
