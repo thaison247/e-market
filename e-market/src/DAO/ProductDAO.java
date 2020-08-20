@@ -278,7 +278,7 @@ public class ProductDAO {
 	public static List<PersonalProduct> getProductsByUserId(HttpServletRequest request, Connection conn, int userId){
 		List<PersonalProduct> listProducts = new ArrayList<>();
 		
-		String sql = "SELECT * FROM san_pham s WHERE s.nguoi_ban = " + userId;
+		String sql = "SELECT * FROM san_pham s WHERE s.nguoi_ban = " + userId + " AND s.is_deleted = 0";
 		
 		try {
 			PreparedStatement ptmt = conn.prepareStatement(sql);
@@ -383,6 +383,46 @@ public class ProductDAO {
 		} catch (SQLException e) {
 			request.setAttribute("errMsg", e.getMessage());
 		}
+		
+		return false;
+	}
+
+	public static boolean updateProduct(HttpServletRequest request, Connection conn, Product prd) throws SQLException {
+
+		int check = 0;
+		
+		String sql = "UPDATE san_pham SET ten_sp = ?, id_dm = ?, mo_ta_ngan = ?, mo_ta = ?, gia_sp = ? WHERE id_sp = ?";
+		
+		PreparedStatement ptmt = conn.prepareStatement(sql);
+		
+		ptmt.setString(1, prd.getName());
+		ptmt.setInt(2, prd.getCategoryId());
+		ptmt.setString(3, prd.getShortDesc());
+		ptmt.setString(4, prd.getDetailDesc());
+		ptmt.setInt(5, prd.getPrice());
+		ptmt.setInt(6, prd.getId());
+		
+		check = ptmt.executeUpdate();
+		
+		ptmt.close();
+		
+		if(check != 0) return true;
+		
+		return false;
+	}
+
+	public static boolean setAsDeleted(HttpServletRequest request, Connection conn, int productId) throws SQLException {
+		int check = 0;
+		
+		String sql = "UPDATE san_pham SET is_deleted = 1 WHERE id_sp = " + productId;
+		
+		PreparedStatement ptmt = conn.prepareStatement(sql);
+		
+		check = ptmt.executeUpdate();
+		
+		ptmt.close();
+		
+		if(check != 0) return true;
 		
 		return false;
 	}

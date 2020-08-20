@@ -193,4 +193,27 @@ public class CategoryDAO {
 		return result;
 		
 	}
+	
+	public static int getRootId(HttpServletRequest request, Connection conn, int catId) throws SQLException {
+		
+		int rootId = 0;
+		
+		String sql = "SELECT danh_muc_goc FROM danh_muc WHERE id_dm = "+catId;
+		
+		PreparedStatement ptmt = conn.prepareStatement(sql);
+		
+		ResultSet rs = ptmt.executeQuery();
+		
+		if(rs.isBeforeFirst()) {
+			
+			while(rs.next()) {
+				
+				rootId = rs.getInt("danh_muc_goc");
+			}
+			
+			rs.close();
+		}
+			
+		return rootId;
+	}
 }

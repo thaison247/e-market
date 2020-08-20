@@ -7,7 +7,7 @@
 <head>
 	<meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Post Yours Offer</title>
+  <title>Edit Product</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
@@ -49,13 +49,11 @@
         <div class="container">
           <div class="row justify-content-center align-items-center">
             <div id="checkout" class="col-lg-9">
-              <div class="box">
-                <form method="post" action="post-product-s2">
+              <div class="box" style="margin: 40px 0; background: aliceblue">
+                <form method="post" action="edit-product">
+                  <input type="hidden" value="${product.getId()}" name="product_id">
                   <ul class="nav nav-pills nav-fill">
-                    <li class="nav-item"><a href="shop-checkout2.html" class="nav-link disable"><i
-                        class="fa fa-truck"></i><br>CATEGORY LEVEL 1</a></li>
                   	<li class="nav-item"><a href="#" class="nav-link active"><i class="fa fa-money"></i><br>Product Information</a></li>
-                  	<li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-eye"></i><br>Upload Photos</a></li>
                   </ul>
                   
                   <h4>Provide some information</h4>
@@ -67,7 +65,12 @@
 										class="form-control" required style="width: 100%;">
 								<option value="" disabled selected hidden>Select category </option>
 								<c:forEach items="${listCategoriesLV2}" var="category">
-									<option value="${category.getId()}">${category.getName()}</option>
+									<c:if test="${category.getId() == product.getCategoryId()}">
+										<option value="${category.getId()}" selected>${category.getName()}</option>
+									</c:if>
+									<c:if test="${category.getId() != product.getCategoryId()}">
+										<option value="${category.getId()}">${category.getName()}</option>
+									</c:if>
 								</c:forEach>
 						  </select>
 	                    </div>
@@ -76,8 +79,8 @@
                   <div class="row">
 	                  <div class="col-md-12">
 	                    <div class="form-group">
-	                      <label for="password_old">Product title </label>
-	                      <input id="input_title" type="text" name="input_title" class="form-control">
+	                      <label for="input_title">Product title </label>
+	                      <input id="input_title" type="text" name="input_title" class="form-control" value="${product.getName()}">
 	                    </div>
 	                  </div>
                   </div>
@@ -87,7 +90,7 @@
 	                      <label for="input_price">Price</label>
 	                      </br>
 	                      <input type="number" min="0" step="1" id="input_price" name="input_price"
-										placeholder="Price" class="form-control">
+										value="${product.getPrice()}" class="form-control">
 	                    </div>
 	                  </div>
                   </div>
@@ -96,7 +99,7 @@
 	                    <div class="form-group">
 	                      <label for="input_shortDescription">Short
 									Description</label>
-	                      <textarea id="input_shortDescription" placeholder="Short Description" rows="3" name="input_shortDescription" class="form-control"></textarea>
+	                      <textarea id="input_shortDescription" rows="3" name="input_shortDescription" class="form-control">${product.getShortDesc()}</textarea>
 	                    </div>
 	                  </div>
                   </div>
@@ -105,7 +108,7 @@
 	                    <div class="form-group">
 	                      <label for="input_detailDescription">Detail
 									Description</label>
-	                      <textarea id="input_detailDescription" placeholder="Detail Description" rows="10" name="input_detailDescription" class="form-control"></textarea>
+	                      <textarea id="input_detailDescription" rows="10" name="input_detailDescription" class="form-control">${product.getDetailDesc()}</textarea>
 	                    </div>
 	                  </div>
                   </div>
@@ -114,7 +117,7 @@
 	                  <div class="col-md-12">
 	                    <div class="form-group">
 	                      <label for="seller_phone">Phone number </label>
-	                      <input id="seller_phone" type="text" name="seller_phone" value="0123456789" class="form-control" readonly>
+	                      <input id="seller_phone" type="text" name="seller_phone" value="${sessionScope.user.getPhone()}" class="form-control" readonly>
 	                    </div>
 	                  </div>
                   </div>
@@ -122,7 +125,7 @@
 	                  <div class="col-md-12">
 	                    <div class="form-group">
 	                      <label for="seller_email">Email</label>
-	                      <input id="seller_email" type="text" name="seller_email" value="nguyenthaison@gmail.com" class="form-control" readonly>
+	                      <input id="seller_email" type="text" name="seller_email" value="${sessionScope.user.getEmail()}" class="form-control" readonly>
 	                    </div>
 	                  </div>
                   </div>
@@ -130,7 +133,7 @@
 	                  <div class="col-md-12">
 	                    <div class="form-group">
 	                      <label for="seller_address">Address</label>
-	                      <input id="seller_address" type="text" name="seller_address" value="471A Cách mạng tháng 8, P13, Q10, TP.HCM" class="form-control" readonly>
+	                      <input id="seller_address" type="text" name="seller_address" value="${sessionScope.user.getAddress()}" class="form-control" readonly>
 	                    </div>
 	                  </div>
                   </div>
@@ -149,10 +152,10 @@
 				  </c:if>
                   
                   
-                  <div class="box-footer d-flex flex-wrap align-items-center justify-content-between">
+                  <div class="box-footer d-flex flex-wrap align-items-center justify-content-between" style="background: aliceblue;">
                   	<div class="left-col"></div>
                     <div class="right-col">
-                      <button type="submit" class="btn btn-template-main">Upload Images<i class="fa fa-chevron-right"></i></button>
+                      <button type="submit" class="btn btn-template-main">UPDATE<i class="fa fa-chevron-right"></i></button>
                     </div>
                   </div>
                 </form>

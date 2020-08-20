@@ -33,9 +33,6 @@ public class DeleteFromWishlistContrller extends HttpServlet {
 		int productId = Integer.parseInt(request.getParameter("product_id"));
 		int userId = Integer.parseInt(request.getParameter("user_id"));
 		
-		System.out.println("prdid: " + productId);
-		System.out.println("userId: " + userId);
-		
 		WishlistProduct prd = new WishlistProduct(productId, userId);
 		
 		try {

@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,11 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import DAO.ProductDAO;
 import DB.DBConnection;
 
-@WebServlet("/change-status")
-public class ChangeStatusController extends HttpServlet {
+@WebServlet("/delete-product")
+public class DeleteProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ChangeStatusController() {
+    public DeleteProductController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,28 +29,31 @@ public class ChangeStatusController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		int productId = Integer.parseInt(request.getParameter("product_id"));
-		int checkStatus = Integer.parseInt(request.getParameter("status"));
-		boolean status = checkStatus == 1? true:false;
 		
 		try {
 			Connection conn = DBConnection.createConnection();
 			
-			boolean isUpdated = ProductDAO.updateStatus(request, conn, status, productId);
+			boolean isDeleted = ProductDAO.setAsDeleted(request, conn, productId);
 			
-			if(isUpdated) {
+			if(isDeleted) {
 				response.sendRedirect(request.getHeader("referer"));
 				return;
 			}
+			else {
+				request.setAttribute("errMsg", "Cannot delete product");
+				RequestDispatcher rd = request.getRequestDispatcher("Views/error.jsp");
+				rd.forward(request, response);
+				return;
+			}
 			
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			request.setAttribute("errMsg", e.getMessage());
 			RequestDispatcher rd = request.getRequestDispatcher("Views/error.jsp");
 			rd.forward(request, response);
 			return;
 		}
-		
 	}
 
 }
