@@ -97,7 +97,15 @@
                       <input type="hidden" name="user_id" value="${sessionScope.user.getId()}">
                       <p>
                       	<c:if test="${sessionScope.isAuthenticated == true}">
-                      		<button type="submit" class="btn btn-template-outlined"><i class="fa fa-heart" aria-hidden="true"></i> Add to wishlist</button>
+                      		<c:if test="${inUserWishlist == true}">
+                      			<a href="wishlist?user_id=${sessionScope.user.getId()}">
+                      				<button  type="button" class="btn btn-warning"><i class="fa fa-heart" aria-hidden="true"></i> in your wishlist</button>
+                      			</a>
+                      		</c:if>
+                      		<c:if test="${inUserWishlist == false}">
+                      			<button type="submit" class="btn btn-template-outlined"><i class="fa fa-heart" aria-hidden="true"></i> Add to wishlist</button>
+                      		</c:if>
+                      		
                       	</c:if>
                       </p>
                     </form>

@@ -10,13 +10,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import BEAN.Comment;
 import BEAN.NormalUser;
 import BEAN.Product;
+import BEAN.WishlistProduct;
 import DAO.CommentDAO;
 import DAO.NormalUserDAO;
 import DAO.ProductDAO;
+import DAO.WishlistDAO;
 import DB.DBConnection;
 
 
@@ -37,11 +40,32 @@ public class ProductDetailController extends HttpServlet {
 		String productIdStr = request.getParameter("product_id");
 		int productId = Integer.parseInt(productIdStr);
 		
+		// check authenticate
+		HttpSession session = request.getSession();
+		NormalUser user = null;
+		
+		if(session.getAttribute("isAuthenticated") != null) { // user has logged in
+			user = (NormalUser)session.getAttribute("user");
+		}
+		
 		try {
 			Connection conn = DBConnection.createConnection();
 			
 			// lấy dữ liệu của sản phẩm từ DB
 			Product prd = ProductDAO.getProductById(request, conn, productId);
+			
+			// check if this product is in user's wishlist
+			if(user != null) { // is authenticated
+				
+				WishlistProduct wlPrd = new WishlistProduct(productId, user.getId()); 
+				
+				if(WishlistDAO.isExisted(request, conn, wlPrd)) {
+					request.setAttribute("inUserWishlist", true);
+				}
+				else {
+					request.setAttribute("inUserWishlist", false);
+				}
+			}
 			
 			// lấy thông tin người bán
 			NormalUser seller = NormalUserDAO.getUserById(request, conn, prd.getSellerId());

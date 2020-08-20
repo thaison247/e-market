@@ -73,7 +73,8 @@ public class WishlistDAO {
 	public static boolean isExisted(HttpServletRequest request, Connection conn, WishlistProduct prd) {
 		
 		
-		String sql = "SELECT COUNT(*) AS number FROM danhsach_quantam WHERE id_sp = " + prd.getProductId() + "id_ng = " + prd.getUserId();
+		String sql = "SELECT COUNT(*) AS number FROM danhsach_quantam WHERE id_sp = " + prd.getProductId() + " AND id_nd = " + prd.getUserId();
+
 		try {
 			PreparedStatement ptmt = conn.prepareStatement(sql);
 			
@@ -93,10 +94,6 @@ public class WishlistDAO {
 				
 				if (count == 1) return true; // 
 				return false;
-			}
-			else 
-			{
-				request.setAttribute("registerDaoMsg","Lỗi kiểm tra email tồn tại");
 			}
 			
 		} catch (SQLException e) {
