@@ -78,7 +78,7 @@
 	                    <li class="nav-item"><a href="personal-products?user_id=${user.getId()}" class="nav-link "><i class="fa fa-list"></i> Personal products</a></li>
 	                    <li class="nav-item"><a href="shop?user_id=${user.getId()}" class="nav-link "><i class="fa fa-list"></i> Shop</a></li>
 	                    <c:if test="${sessionScope.user.getId() ==  user.getId()}">
-		                    <li class="nav-item"><a href="my-wishlist" class="nav-link"><i class="fa fa-heart"></i> My wishlist</a></li>
+		                    <li class="nav-item"><a href="wishlist" class="nav-link"><i class="fa fa-heart"></i> My wishlist</a></li>
 		                    <li class="nav-item"><a href="logout?from=${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']}" class="nav-link"><i class="fa fa-sign-out"></i> Logout</a></li>
 	                    </c:if>
 	                  </ul>
@@ -87,7 +87,7 @@
 	            </div>
 	          
 	            <div class="col-lg-9">
-	              <div class="box mt-3">
+	              <div class="box mt-3" style="background: azure;">
 		              <div class="heading">
 		                <h3 class="text-uppercase">Basic Information</h3>
 		              </div>

@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,11 +45,12 @@ public class WishlistDAO {
 		return check;
 	}
 	
-	public static int removeProduct(HttpServletRequest request, Connection conn, int prdId) {
+	public static boolean removeProduct(HttpServletRequest request, Connection conn, WishlistProduct prd) {
 		
 		int check = 0;
 		
-		String sql = "DELETE FROM danhsach_quantam WHERE id_sp = " + prdId;
+		String sql = "DELETE FROM danhsach_quantam WHERE id_sp = " + prd.getProductId() + " AND id_nd = " + prd.getUserId();
+		
 		
 		try {
 			
@@ -57,7 +59,7 @@ public class WishlistDAO {
 			check = ptmt.executeUpdate();
 			
 			if(check == 0) {
-				throw new SQLException("Cannot delete product from wishlist");
+				return false;
 			}
 
 			ptmt.close();
@@ -67,7 +69,7 @@ public class WishlistDAO {
 			request.setAttribute("errMsg", e.getMessage());
 		}
 		
-		return check;
+		return true;
 	}
 	
 	public static boolean isExisted(HttpServletRequest request, Connection conn, WishlistProduct prd) {
@@ -109,10 +111,39 @@ public class WishlistDAO {
 		
 		List<Product> listProducts = new ArrayList<>();
 		
+		String sql = "SELECT * FROM danhsach_quantam JOIN san_pham USING(id_sp) WHERE id_nd = " + userId;
 		
+		try {
+			PreparedStatement ptmt = conn.prepareStatement(sql);
+			
+			ResultSet rs = ptmt.executeQuery();
+			
+			if(rs.isBeforeFirst()) {
+				
+				while(rs.next()) {
+					
+					int id = rs.getInt("id_sp");
+					String name = rs.getString("ten_sp");
+					Date date = rs.getDate("ngay_dang");
+					int price = rs.getInt("gia_sp");
+					String shortDesc = rs.getString("mo_ta_ngan");
+					String detailDesc = rs.getString("mo_ta");
+					boolean isSold = rs.getBoolean("is_sold");
+					int categoryId = rs.getInt("id_dm");
+					int sellerId = rs.getInt("nguoi_ban");
+
+					Product prd = new Product(id, name, date, price, shortDesc, detailDesc, isSold, categoryId, sellerId);
+					listProducts.add(prd);
+				}
+				
+				rs.close();
+			}
+			
+		}catch(SQLException e){
+			request.setAttribute("errMsg", e.getMessage());
+		}
 		
 		return listProducts;
-		
 	}
 	
 }

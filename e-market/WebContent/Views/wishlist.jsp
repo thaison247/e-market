@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>${user.getName()}</title>
+  <title>My Wishlist</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
@@ -72,10 +72,10 @@
                 <div class="panel-body">
                   <ul class="nav nav-pills flex-column text-sm">
                     	<li class="nav-item"><a href="profile?user_id=${user.getId()}" class="nav-link"><i class="fa fa-user fa-lg"></i> Profile</a></li>
-	                    <li class="nav-item"><a href="personal-products?user_id=${user.getId()}" class="nav-link active"><i class="fa fa-list"></i> Personal products</a></li>
+	                    <li class="nav-item"><a href="personal-products?user_id=${user.getId()}" class="nav-link "><i class="fa fa-list"></i> Personal products</a></li>
 	                    <li class="nav-item"><a href="shop?user_id=${user.getId()}" class="nav-link "><i class="fa fa-list"></i> Shop</a></li>
 	                    <c:if test="${sessionScope.user.getId() ==  user.getId()}">
-		                    <li class="nav-item"><a href="wishlist" class="nav-link"><i class="fa fa-heart"></i> My wishlist</a></li>
+		                    <li class="nav-item"><a href="wishlist" class="nav-link active"><i class="fa fa-heart"></i> My wishlist</a></li>
 		                    <li class="nav-item"><a href="logout?from=${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']}" class="nav-link"><i class="fa fa-sign-out"></i> Logout</a></li>
 	                    </c:if>
                   </ul>
@@ -105,41 +105,25 @@
 		                        <td>${prd.getDate()}</td>
 		                        <td>${prd.getPrice()}</td>
 		                        <%-- <td>${prd.getSellerId()}</td> --%>
-		                        <c:if test="${sessionScope.user != null && user.getId() == sessionScope.user.getId()}">
-		                        	<td>
-			                        	<c:if test="${prd.isSold() == false}">
-			                        		<form action="change-product-status" method="POST">
-			                        			<div title="Mark this product as sold">
-								                  <button type="submit" class="btn btn-sm btn-info">
-								                    <i class="fa fa-check"></i>
-								                  </button>
-								                </div>
-			                        		</form>
-			                        	</c:if>
-			                        	<c:if test="${prd.isSold() != false}">
-			                        		<span class="badge badge-warning">SOLD</span>
-			                        	</c:if>
-			                        </td>
-			                        <td>
-		                        		<form action="delete-product" method="POST">
-		                        			<div>
-							                  <button type="submit" class="btn btn-sm btn-danger">
-							                    <i class="fa fa-trash" aria-hidden="true"></i>
-							                  </button>
-							                </div>
-		                        		</form>
-		                        	</td>
-		                        </c:if>
-		                        <c:if test="${sessionScope.user == null || user.getId() != sessionScope.user.getId()}">
-		                        	<td>
-			                        	<c:if test="${prd.isSold() == false}">
-			                        		<span class="badge badge-success">Available</span>
-			                        	</c:if>
-			                        	<c:if test="${prd.isSold() != false}">
-			                        		<span class="badge badge-danger">Sold</span>
-			                        	</c:if>
-		                        	</td>
-		                        </c:if>
+	                        	<td>
+		                        	<c:if test="${prd.isSold() == false}">
+		                        		<span class="badge badge-success">Available</span>
+		                        	</c:if>
+		                        	<c:if test="${prd.isSold() != false}">
+		                        		<span class="badge badge-danger">Sold</span>
+		                        	</c:if>
+	                        	</td>
+	                        	<td>
+	                        		<form action="delete-from-wishlist" method="POST">
+	                        			<input name="product_id" type="hidden" value="${prd.getId()}">
+	                        			<input name="user_id"type="hidden" value="${sessionScope.user.getId()}">
+	                        			<div>
+						                  <button type="submit" class="btn btn-sm btn-danger">
+						                    <i class="fa fa-trash" aria-hidden="true"></i>
+						                  </button>
+						                </div>
+	                        		</form>
+	                        	</td>
 	                      	</tr>
 	                    </c:forEach>
                    </table>
