@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -142,6 +144,45 @@ public class NormalUserDAO extends UserDAO{
 		}
 		
 		return user;
+	}
+	
+	
+	public static List<NormalUser> getListUsers(HttpServletRequest request, Connection conn) throws SQLException{
+		
+		List<NormalUser> listUsers = new ArrayList<>();
+		
+		String sql = "SELECT * FROM nguoi_dung JOIN nguoidung_thongthuong USING (id_nd)";
+		
+		PreparedStatement ptmt = conn.prepareStatement(sql);
+		
+		ResultSet rs = ptmt.executeQuery();
+		
+		if(rs.isBeforeFirst()) {
+			
+			while(rs.next()){
+				
+				int id = rs.getInt("id_nd");
+				String name = rs.getString("ten_nd");
+				String email = rs.getString("email");
+				String address = rs.getString("dia_chi");
+				String phone = rs.getString("sdt");
+				
+				NormalUser user = new NormalUser();
+				
+				user.setEmail(email);
+				user.setId(id);
+				user.setName(name);
+				user.setAddress(address);
+				user.setPhone(phone);
+				
+				listUsers.add(user);
+			}
+		}
+		
+		rs.close();
+		ptmt.close();
+		
+		return listUsers;
 	}
 	
 }

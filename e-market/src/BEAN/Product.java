@@ -12,6 +12,7 @@ public class Product {
 	protected boolean isSold;
 	protected int categoryId;
 	protected int sellerId;
+	protected boolean isDeleted;
 	
 	public Product(int id, String name, Date date, int price, String shortDesc, String detailDesc, boolean isSold,
 			int categoryId, int sellerId) {
@@ -110,6 +111,14 @@ public class Product {
 	}
 	public void setSellerId(int sellerId) {
 		this.sellerId = sellerId;
+	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 	
 	
