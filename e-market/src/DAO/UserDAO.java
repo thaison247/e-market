@@ -174,4 +174,25 @@ public class UserDAO {
 		
 		return false;
 	}
+	
+	public static boolean isWaitingAdminAcceptance(HttpServletRequest request, Connection conn, int userId) throws SQLException {
+		
+		String sql = "SELECT COUNT(*) FROM phieu_dk WHERE id_nd = " + userId + " AND is_accepted = false";
+		
+		PreparedStatement ptmt = conn.prepareStatement(sql);
+		
+		ResultSet rs = ptmt.executeQuery();
+		
+		if(rs.isBeforeFirst()) {
+			while(rs.next()) {
+				int count = rs.getInt(1);
+				
+				if(count == 1) return true;
+				return false;
+			}
+		}
+		
+		return false;
+	}
+	
 }

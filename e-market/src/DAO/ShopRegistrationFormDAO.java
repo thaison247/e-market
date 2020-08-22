@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,5 +42,34 @@ public class ShopRegistrationFormDAO {
 		}
 		
 		return newId;
+	}
+	
+	public static ShopRegisterForm getFormByUserId(HttpServletRequest request, Connection conn, int userId) throws SQLException {
+		
+		ShopRegisterForm frm = new ShopRegisterForm();
+		
+		String sql = "SELECT ten_ch, id_dm, ngay_lap FROM phieu_dk WHERE id_nd = " + userId;
+		
+		PreparedStatement ptmt = conn.prepareStatement(sql);
+		
+		ResultSet rs = ptmt.executeQuery();
+		
+		if(rs.isBeforeFirst()) {
+			while(rs.next()) {
+				String name = rs.getString("ten_ch");
+				int categoryId = rs.getInt("id_dm");
+				Date date = rs.getDate("ngay_lap");
+				
+				frm.setName(name);
+				frm.setCategoryId(categoryId);
+				frm.setDate(date);
+			}
+		}
+		
+		rs.close();
+		ptmt.close();
+		
+		return frm;
+		
 	}
 }

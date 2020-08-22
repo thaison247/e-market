@@ -174,37 +174,69 @@
           <c:if test="${existedShop == false}">
           	<div class="col-lg-8 ">
           		<c:if test="${sessionScope.user.getId() ==  user.getId()}">
-	          		<div class="box" style="background: azure;margin: 20px 0;">
-		              <h2 class="text-uppercase">Open Shop</h2>
-		              <p class="lead">Open shop to sell unlimited number of products</p>
-		              <hr>
-		              <form action="shop" method="post">
-		              	<input name="owner_id" type="hidden" value="${sessionScope.user.getId()}">
-		                <div class="form-group">
-		                  <label for="shop_name">Shop name</label>
-		                  <input name="shop_name" id="shop_name" type="text" class="form-control" required>
-		                </div>
-		                <div class="form-group">
-	                      <label for="category">Choose category</label>
-	                      <select id="category" name="category_id"
-										class="form-control" required style="width: 100%;">
-								<option value="" disabled selected hidden>Select category </option>
-								<c:forEach items="${listCategoriesLv1}" var="category">
-									<option value="${category.getId()}">${category.getName()}</option>
-								</c:forEach>
-						  </select>
-	                    </div>
-		                <div class="text-center">
-		                  <button type="submit" class="btn btn-template-outlined"><i class="fa fa-paper-plane" aria-hidden="true"></i>
-		                    Submit</button>
-		                </div>
-		              </form>
-		            </div>
+          			<c:if test="${isWaiting == false}">
+		          		<div class="box" style="background: azure;margin: 20px 0;">
+			              <h2 class="text-uppercase">Open Shop</h2>
+			              <p class="lead">Open shop to sell unlimited number of products</p>
+			              <hr>
+			              <form action="shop" method="post">
+			              	<input name="owner_id" type="hidden" value="${sessionScope.user.getId()}">
+			                <div class="form-group">
+			                  <label for="shop_name">Shop name</label>
+			                  <input name="shop_name" id="shop_name" type="text" class="form-control" required>
+			                </div>
+			                <div class="form-group">
+		                      <label for="category">Choose category</label>
+		                      <select id="category" name="category_id"
+											class="form-control" required style="width: 100%;">
+									<option value="" disabled selected hidden>Select category </option>
+									<c:forEach items="${listCategoriesLv1}" var="category">
+										<option value="${category.getId()}">${category.getName()}</option>
+									</c:forEach>
+							  </select>
+		                    </div>
+			                <div class="text-center">
+			                  <button type="submit" class="btn btn-template-outlined"><i class="fa fa-paper-plane" aria-hidden="true"></i>
+			                    Submit</button>
+			                </div>
+			              </form>
+			            </div>
+		            </c:if>
+		            <c:if test="${isWaiting == true}">
+		            	<div class="box" style="background: azure;margin: 20px 0;">
+			              <h2 class="text-uppercase">You have sent a registration form to open shop</h2>
+			              <p class="lead">Please wait for administrator acceptance</p>
+			              <hr>
+			              <form action="shop" method="post">
+			              	<input name="owner_id" type="hidden" value="${sessionScope.user.getId()}">
+			              	<div class="form-group">
+			                  <label for="shop_owner">Shop Owner</label>
+			                  <input name="shop_owner" id="shop_owner" type="text" class="form-control" value="${user.getName()}" readonly>
+			                </div>
+			                <div class="form-group">
+			                  <label for="shop_name">Shop Name</label>
+			                  <input name="shop_name" id="shop_name" type="text" class="form-control" value="${frm.getName()}" readonly>
+			                </div>
+			                <div class="form-group">
+			                  <label for="category">Category</label>
+			                  <c:forEach items="${listCategoriesLv1}" var="cat">
+			                  	<c:if test="${cat.getId() == frm.getCategoryId()}">
+			                  		<input name="category" id="category" type="text" class="form-control" value="${cat.getName()}" readonly>
+			                  	</c:if>
+			                  </c:forEach>
+			                </div>
+			                <div class="form-group">
+			                  <label for="frm_date">Sent Date</label>
+			                  <input name="frm_date" id="frm_date" type="text" class="form-control" value="${frm.getDate()}" readonly>
+			                </div>
+			              </form>
+			            </div>
+		            </c:if>
 	            </c:if>
 	            <c:if test="${sessionScope.user.getId() !=  user.getId()}">
 	          		<div class="box" style="background: azure;margin: 20px 0;">
-		              <h2 class="text-uppercase">Open Shop Registration Form</h2>
-		              <p class="lead">Open shop to sell unlimited number of products</p>
+		              <h2 class="text-uppercase">This user does not own any shop</h2>
+		              
 		              <hr>
 		            </div>
 	            </c:if>

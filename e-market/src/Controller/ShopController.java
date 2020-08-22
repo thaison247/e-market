@@ -80,11 +80,26 @@ public class ShopController extends HttpServlet {
 				// GET USER
 				NormalUser user = NormalUserDAO.getUserById(request, conn, userId);
 				
+				if(UserDAO.isWaitingAdminAcceptance(request, conn, userId)) {// if user is waiting for admin acceptance
+					
+					request.setAttribute("isWaiting", true);
+					
+					// get form information
+					ShopRegisterForm frm = ShopRegistrationFormDAO.getFormByUserId(request, conn, user.getId());
+					
+					request.setAttribute("frm", frm);
+					
+				}
+				else {
+					
+					request.setAttribute("isWaiting", false);
+				}
+
 				// get list category lv 1
 				List<Category> listCategoriesLv1 = CategoryDAO.getAllCategoriesLV1(request, conn);
+				request.setAttribute("listCategoriesLv1", listCategoriesLv1);
 				
 				request.setAttribute("user", user);
-				request.setAttribute("listCategoriesLv1", listCategoriesLv1);
 				request.setAttribute("existedShop", false);
 				RequestDispatcher rd = request.getRequestDispatcher("Views/shop.jsp");
 				rd.forward(request, response);
