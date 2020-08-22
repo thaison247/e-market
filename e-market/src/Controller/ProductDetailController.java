@@ -40,6 +40,13 @@ public class ProductDetailController extends HttpServlet {
 		String productIdStr = request.getParameter("product_id");
 		int productId = Integer.parseInt(productIdStr);
 		
+		// get signal to open comment tab 
+		if(request.getParameter("showcomment") != null) {
+			request.setAttribute("showComment", true);
+		}else {
+			request.setAttribute("showComment", false);
+		}
+		
 		// check authenticate
 		HttpSession session = request.getSession();
 		NormalUser user = null;

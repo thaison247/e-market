@@ -72,7 +72,8 @@ public class CommentController extends HttpServlet {
 				return;
 			}
 			else {
-				response.sendRedirect("product-detail?product_id="+productId);
+				response.sendRedirect("product-detail?product_id="+productId+"&showcomment=1#details");
+//				response.sendRedirect(request.getHeader("referer"));
 				return;
 			}
 			

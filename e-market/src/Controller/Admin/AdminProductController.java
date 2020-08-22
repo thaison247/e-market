@@ -40,14 +40,16 @@ public class AdminProductController extends HttpServlet {
 			conn = DBConnection.createConnection();
 			
 			//PAGINATION: PHÂN TRANG
-			int totalPrdsInCat = ProductDAO.getNumberOfPrds(request, conn); // total number of products
+			int totalPrds = ProductDAO.getNumberOfPrds(request, conn); // total number of products
 			int noPrdsPerPage = HELPER.ConstNumbers.prdsPerPage; // number of products per page 
-			int noPages = totalPrdsInCat/noPrdsPerPage; // number of pages
+			int noPages = totalPrds/noPrdsPerPage; // number of pages
 			noPages = noPages==0 ? 1 : noPages; // number of pages
-			noPages = (totalPrdsInCat % noPages == 0) ? noPages : noPages++; // number of pages
-			
+			if(totalPrds % noPrdsPerPage != 0) {
+				noPages++;
+			}
 			if(pageNumber > noPages) pageNumber = noPages;
-
+			
+			
 			// limit and offset used for sql query
 			int limit = noPrdsPerPage;
 			int offset = (pageNumber - 1) * noPrdsPerPage;
@@ -61,6 +63,10 @@ public class AdminProductController extends HttpServlet {
 				pages.add(i);
 			}
 			
+			System.out.println("pages array: " + pages.size());
+			System.out.println("no pages: " + noPages);
+			System.out.println("curr: " + pageNumber);
+			
 			conn.close();
 			
 			int from = offset + 1;
@@ -68,7 +74,7 @@ public class AdminProductController extends HttpServlet {
 			
 			request.setAttribute("from", from);
 			request.setAttribute("to", to);
-			request.setAttribute("total", totalPrdsInCat);
+			request.setAttribute("total", totalPrds);
 			request.setAttribute("currPageNumber", pageNumber); // current page number 
 			request.setAttribute("pages", pages); // array pages' number
 			request.setAttribute("numberOfPages", noPages); // number of pages

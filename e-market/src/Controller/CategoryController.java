@@ -48,8 +48,11 @@ public class CategoryController extends HttpServlet {
 			int noPrdsPerPage = HELPER.ConstNumbers.prdsPerPage; // number of products per page 
 			int noPages = totalPrdsInCat/noPrdsPerPage; // number of pages
 			noPages = noPages==0 ? 1 : noPages; // number of pages
-			noPages = (totalPrdsInCat % noPages == 0) ? noPages : noPages++; // number of pages
-
+			if(totalPrdsInCat % noPrdsPerPage != 0) {
+				noPages++;
+			}
+			if(pageNumber > noPages) pageNumber = noPages;
+			
 			// limit and offset used for sql query
 			int limit = noPrdsPerPage;
 			int offset = (pageNumber - 1) * noPrdsPerPage;

@@ -52,12 +52,12 @@
       <div class="container">
         <div class="row d-flex align-items-center flex-wrap">
           <div class="col-md-7">
-            <h1 class="h2">Portfolio - 4 columns</h1>
+            <h1 class="h2">Product details</h1>
           </div>
           <div class="col-md-5">
             <ul class="breadcrumb d-flex justify-content-end">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item active">Portfolio - 4 columns</li>
+             <!--  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item active">Portfolio - 4 columns</li> -->
             </ul>
           </div>
         </div>
@@ -121,111 +121,238 @@
                 </div>
               </div>
 	            <ul id="pills-tab" role="tablist" class="nav nav-pills nav-justified">
-	              <li id="details" class="nav-item"><a id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-	                  aria-controls="pills-home" aria-selected="false" class="nav-link active">Detail Description</a></li>
+	              
+	              	<c:if test="${showComment == false}">
+	              		<li id="details" class="nav-item">
+			              	<a id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+			                  aria-controls="pills-home" aria-selected="false" class="nav-link active">Detail Description</a>
+			            </li>
+		                <li class="nav-item">
+		                	<a id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+		                    aria-controls="pills-profile" aria-selected="true" class="nav-link ">Comments</a>
+		                </li>
+	              	</c:if>
+	              	<c:if test="${showComment == true}">
+	              		<li id="details" class="nav-item">
+			              	<a id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+			                  aria-controls="pills-home" aria-selected="false" class="nav-link ">Detail Description</a>
+			            </li>
+		                <li class="nav-item">
+		                	<a id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+		                    aria-controls="pills-profile" aria-selected="true" class="nav-link active">Comments</a>
+		                </li>
+	              	</c:if>
+              	  <!-- <li id="details" class="nav-item">
+	              	<a id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+	                  aria-controls="pills-home" aria-selected="false" class="nav-link active">Detail Description</a>
+	              </li>
 	              <li class="nav-item"><a id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-	                  aria-controls="pills-profile" aria-selected="true" class="nav-link ">Comments</a></li>
+	                  aria-controls="pills-profile" aria-selected="true" class="nav-link ">Comments</a></li> -->
 	            </ul>
 	            <div id="pills-tabContent" style="background: azure;" class="tab-content">
-	              <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" class="tab-pane fade active show">
-	                <div id="details" class="box mb-4 mt-4">
-					    <p></p>
-					    <h4>Product details</h4>
-					    ${product.getDetailDesc()}
-					</div>
-	              </div>
-	              <div id="pills-profile" style="background: azure;" role="tabpanel" aria-labelledby="pills-profile-tab" class="tab-pane fade">
-	              
-		              <div id="comments">
-			              <h4 class="text-uppercase">${listComments.size()} comments</h4>
-			              <c:forEach items="${listComments}" var="cmt">
-			              	<c:if test="${cmt.rootId == 0}">
-			              		<div class="row comment">
-					                <div class="col-sm-1 col-md-1 col-1 text-center-xs">
-						                <c:if test="${cmt.getUser().getId() == product.getSellerId()}">
-						                	<p><img src="img/seller.jpg" alt="" class="img-fluid rounded-circle"></p>
-						                </c:if>
-						                <c:if test="${cmt.getUser().getId() != product.getSellerId()}">
-						                	<p><img src="img/user.png" alt="" class="img-fluid rounded-circle"></p>
-						                </c:if>
-					                </div>
-					                <div class="col-sm-11 col-md-11">
-					                  <h5 class="text-uppercase"style="margin-bottom: 0;"><a href="profile?user_id=${cmt.getUser().getId()}">${cmt.getUser().getName()}</a></h5>
-					                  <p class="posted" style="color: yellowgreen"><i class="fa fa-clock-o"></i> ${cmt.getTime()}</p>
-					                  <p style="border-bottom: black;border-width: thin; border-style: ridge;border-right: none;border-top: none;border-left: none;">${cmt.getContent()}</p>
-					                  
-					                  <c:forEach items="${listComments}" var="cmt2">
-					                  	
-					                  		<c:if test="${cmt2.rootId == cmt.getId()}">
-					                  		
-					                  			<div class="row comment mb-0">
-								                    <div class="col-sm-1 col-md-1 col-1 text-center-xs">
-								                      <c:if test="${cmt2.getUser().getId() == product.getSellerId()}">
-										                	<p><img src="img/seller.jpg" alt="" class="img-fluid rounded-circle"></p>
-										                </c:if>
-										                <c:if test="${cmt2.getUser().getId() != product.getSellerId()}">
-										                	<p><img src="img/user.png" alt="" class="img-fluid rounded-circle"></p>
-										                </c:if>
-								                    </div>
-								                    <div class="col-sm-11 col-md-11">
-								                      <h5 class="text-uppercase" style="margin-bottom: 0;"><a href="profile?user_id=${cmt2.getUser().getId()}">${cmt2.getUser().getName()}</a></h5>
-								                      <p class="posted" style="color: yellowgreen"><i class="fa fa-clock-o"></i>${cmt2.getTime()}</p>
-								                      <p style="border-bottom: black;border-width: thin; border-style: ridge;border-right: none;border-top: none;border-left: none;">${cmt2.getContent()}</p>
-							                    	</div>
-					                  			</div>
-					                  		
-					                  		</c:if>
-					                  
-					                  </c:forEach>
-					                  
-					                  <div id="comment-form">
-					                    <form action="comment" method="POST" name="inside-cmtfrm">
-					                    	<input name="user_id" type="hidden" value="${sessionScope.user.getId()}">
-		                      				<input name="root_id" type="hidden" value="${cmt.getId()}">
-		                      				<input name="product_id" type="hidden" value="${product.getId()}">
-					                      <div class="row">
-					                        <div class="col-sm-12">
-					                          <div class="form-group">
-					                            <textarea name="content" style="border-left:white;border-right:white;border-top:white;" rows="1" class="form-control" placeholder="Reply ${cmt.getUser().getName()}'s comment ..."></textarea>
-					                          </div>
-					                        </div>
+	            <c:if test="${showComment == false}">
+	            	<div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" class="tab-pane fade active show">
+		                <div id="details" class="box mb-4 mt-4">
+						    <p></p>
+						    <h4>Product details</h4>
+						    ${product.getDetailDesc()}
+						</div>
+		              </div>
+		              <div id="pills-profile" style="background: azure;" role="tabpanel" aria-labelledby="pills-profile-tab" class="tab-pane fade">
+			              <div id="comments">
+				              <h4 class="text-uppercase">${listComments.size()} comments</h4>
+				              <c:forEach items="${listComments}" var="cmt">
+				              	<c:if test="${cmt.rootId == 0}">
+				              		<div class="row comment">
+						                <div class="col-sm-1 col-md-1 col-1 text-center-xs">
+							                <c:if test="${cmt.getUser().getId() == product.getSellerId()}">
+							                	<p><img src="img/seller.jpg" alt="" class="img-fluid rounded-circle"></p>
+							                </c:if>
+							                <c:if test="${cmt.getUser().getId() != product.getSellerId()}">
+							                	<p><img src="img/user.png" alt="" class="img-fluid rounded-circle"></p>
+							                </c:if>
+						                </div>
+						                <div class="col-sm-11 col-md-11">
+						                  <h5 class="text-uppercase"style="margin-bottom: 0;"><a href="profile?user_id=${cmt.getUser().getId()}">${cmt.getUser().getName()}</a></h5>
+						                  <p class="posted" style="color: yellowgreen"><i class="fa fa-clock-o"></i> ${cmt.getTime()}</p>
+						                  <p style="border-bottom: #bec8dcborder-width: thin; border-style: ridge;border-right: none;border-top: none;border-left: none;">${cmt.getContent()}</p>
+						                  
+						                  <c:forEach items="${listComments}" var="cmt2">
+						                  	
+						                  		<c:if test="${cmt2.rootId == cmt.getId()}">
+						                  		
+						                  			<div class="row comment mb-0">
+									                    <div class="col-sm-1 col-md-1 col-1 text-center-xs">
+									                      <c:if test="${cmt2.getUser().getId() == product.getSellerId()}">
+											                	<p><img src="img/seller.jpg" alt="" class="img-fluid rounded-circle"></p>
+											                </c:if>
+											                <c:if test="${cmt2.getUser().getId() != product.getSellerId()}">
+											                	<p><img src="img/user.png" alt="" class="img-fluid rounded-circle"></p>
+											                </c:if>
+									                    </div>
+									                    <div class="col-sm-11 col-md-11">
+									                      <h5 class="text-uppercase" style="margin-bottom: 0;"><a href="profile?user_id=${cmt2.getUser().getId()}">${cmt2.getUser().getName()}</a></h5>
+									                      <p class="posted" style="color: yellowgreen"><i class="fa fa-clock-o"></i>${cmt2.getTime()}</p>
+									                      <p style="border-bottom: #bec8dcborder-width: thin; border-style: ridge;border-right: none;border-top: none;border-left: none;">${cmt2.getContent()}</p>
+								                    	</div>
+						                  			</div>
+						                  		
+						                  		</c:if>
+						                  
+						                  </c:forEach>
+						                  <c:if test="${sessionScope.user != null}">
+							                  <div id="comment-form">
+							                    <form action="comment" method="POST" name="inside-cmtfrm">
+							                    	<input name="user_id" type="hidden" value="${sessionScope.user.getId()}">
+				                      				<input name="root_id" type="hidden" value="${cmt.getId()}">
+				                      				<input name="product_id" type="hidden" value="${product.getId()}">
+							                      <div class="row">
+							                        <div class="col-sm-12">
+							                          <div class="form-group">
+							                            <textarea name="content" style="border-left:white;border-right:white;border-top:white;" rows="1" class="form-control" placeholder="Reply ${cmt.getUser().getName()}'s comment ..."></textarea>
+							                          </div>
+							                        </div>
+							                      </div>
+							                      <div class="row">
+							                        <div class="col-sm-12 text-right">
+							                          <button class="btn btn-sm btn-template-outlined" type="submit"><i class="fa fa-comment-o" ></i> Post
+							                            comment</button>
+							                        </div>
+							                      </div>
+							                    </form>
+							                  </div>
+						                  </c:if>
+				                		</div>
+				              		</div>
+				              	</c:if>
+				              </c:forEach>
+				              <c:if test="${sessionScope.user != null}">
+					              <div id="comment-form">
+					                <h4 class="text-uppercase">Leave a comment</h4>
+					                <form action="comment" method="POST" name="outside-cmtfrm">
+					                  <input name="user_id" type="hidden" value="${sessionScope.user.getId()}">
+				                      <input name="root_id" type="hidden" value="0">
+				                      <input name="product_id" type="hidden" value="${product.getId()}">
+					                  <div class="row">
+					                    <div class="col-sm-12">
+					                      <div class="form-group">
+					                        <label for="content">Your Comment<span class="required text-primary"></span></label>
+					                        <textarea id="content" name="content" rows="2" class="form-control" placeholder="Type your comment here ..."></textarea>
 					                      </div>
-					                      <div class="row">
-					                        <div class="col-sm-12 text-right">
-					                          <button class="btn btn-sm btn-template-outlined" type="submit"><i class="fa fa-comment-o" ></i> Post
-					                            comment</button>
-					                        </div>
-					                      </div>
-					                    </form>
+					                    </div>
 					                  </div>
-			                		</div>
-			              		</div>
-			              	</c:if>
-			              </c:forEach>
-			              <div id="comment-form">
-			                <h4 class="text-uppercase">Leave a comment</h4>
-			                <form action="comment" method="POST" name="outside-cmtfrm">
-			                  <input name="user_id" type="hidden" value="${sessionScope.user.getId()}">
-		                      <input name="root_id" type="hidden" value="0">
-		                      <input name="product_id" type="hidden" value="${product.getId()}">
-			                  <div class="row">
-			                    <div class="col-sm-12">
-			                      <div class="form-group">
-			                        <label for="content">Your Comment<span class="required text-primary"></span></label>
-			                        <textarea id="content" name="content" rows="2" class="form-control" placeholder="Type your comment here ..."></textarea>
-			                      </div>
-			                    </div>
-			                  </div>
-			                  <div class="row">
-			                    <div class="col-sm-12 text-right">
-			                      <button type="submit" class="btn btn-template-outlined"><i class="fa fa-comment-o"></i> Post comment</button>
-			                    </div>
-			                  </div>
-			                </form>
-			              </div>
-			          </div>
-	              
-	              </div>
+					                  <div class="row">
+					                    <div class="col-sm-12 text-right">
+					                      <button type="submit" class="btn btn-template-outlined"><i class="fa fa-comment-o"></i> Post comment</button>
+					                    </div>
+					                  </div>
+					                </form>
+					              </div>
+				              </c:if>
+				          </div>
+		              
+		              </div>
+	            </c:if>
+	            <c:if test="${showComment == true}">
+	            	<div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" class="tab-pane fade">
+		                <div id="details" class="box mb-4 mt-4">
+						    <p></p>
+						    <h4>Product details</h4>
+						    ${product.getDetailDesc()}
+						</div>
+		              </div>
+		              <div id="pills-profile" style="background: azure;" role="tabpanel" aria-labelledby="pills-profile-tab" class="tab-pane fade active show">
+			              <div id="comments">
+				              <h4 class="text-uppercase">${listComments.size()} comments</h4>
+				              <c:forEach items="${listComments}" var="cmt">
+				              	<c:if test="${cmt.rootId == 0}">
+				              		<div class="row comment">
+						                <div class="col-sm-1 col-md-1 col-1 text-center-xs">
+							                <c:if test="${cmt.getUser().getId() == product.getSellerId()}">
+							                	<p><img src="img/seller.jpg" alt="" class="img-fluid rounded-circle"></p>
+							                </c:if>
+							                <c:if test="${cmt.getUser().getId() != product.getSellerId()}">
+							                	<p><img src="img/user.png" alt="" class="img-fluid rounded-circle"></p>
+							                </c:if>
+						                </div>
+						                <div class="col-sm-11 col-md-11">
+						                  <h5 class="text-uppercase"style="margin-bottom: 0;"><a href="profile?user_id=${cmt.getUser().getId()}">${cmt.getUser().getName()}</a></h5>
+						                  <p class="posted" style="color: yellowgreen"><i class="fa fa-clock-o"></i> ${cmt.getTime()}</p>
+						                  <p style="border-bottom: #bec8dcborder-width: thin; border-style: ridge;border-right: none;border-top: none;border-left: none;">${cmt.getContent()}</p>
+						                  
+						                  <c:forEach items="${listComments}" var="cmt2">
+						                  	
+						                  		<c:if test="${cmt2.rootId == cmt.getId()}">
+						                  		
+						                  			<div class="row comment mb-0">
+									                    <div class="col-sm-1 col-md-1 col-1 text-center-xs">
+									                      <c:if test="${cmt2.getUser().getId() == product.getSellerId()}">
+											                	<p><img src="img/seller.jpg" alt="" class="img-fluid rounded-circle"></p>
+											                </c:if>
+											                <c:if test="${cmt2.getUser().getId() != product.getSellerId()}">
+											                	<p><img src="img/user.png" alt="" class="img-fluid rounded-circle"></p>
+											                </c:if>
+									                    </div>
+									                    <div class="col-sm-11 col-md-11">
+									                      <h5 class="text-uppercase" style="margin-bottom: 0;"><a href="profile?user_id=${cmt2.getUser().getId()}">${cmt2.getUser().getName()}</a></h5>
+									                      <p class="posted" style="color: yellowgreen"><i class="fa fa-clock-o"></i>${cmt2.getTime()}</p>
+									                      <p style="border-bottom: #bec8dcborder-width: thin; border-style: ridge;border-right: none;border-top: none;border-left: none;">${cmt2.getContent()}</p>
+								                    	</div>
+						                  			</div>
+						                  		
+						                  		</c:if>
+						                  
+						                  </c:forEach>
+						                  
+						                  <div id="comment-form">
+						                    <form action="comment" method="POST" name="inside-cmtfrm">
+						                    	<input name="user_id" type="hidden" value="${sessionScope.user.getId()}">
+			                      				<input name="root_id" type="hidden" value="${cmt.getId()}">
+			                      				<input name="product_id" type="hidden" value="${product.getId()}">
+						                      <div class="row">
+						                        <div class="col-sm-12">
+						                          <div class="form-group">
+						                            <textarea name="content" style="border-left:white;border-right:white;border-top:white;" rows="1" class="form-control" placeholder="Reply ${cmt.getUser().getName()}'s comment ..."></textarea>
+						                          </div>
+						                        </div>
+						                      </div>
+						                      <div class="row">
+						                        <div class="col-sm-12 text-right">
+						                          <button class="btn btn-sm btn-template-outlined" type="submit"><i class="fa fa-comment-o" ></i> Post
+						                            comment</button>
+						                        </div>
+						                      </div>
+						                    </form>
+						                  </div>
+				                		</div>
+				              		</div>
+				              	</c:if>
+				              </c:forEach>
+				              <div id="comment-form">
+				                <h4 class="text-uppercase">Leave a comment</h4>
+				                <form action="comment" method="POST" name="outside-cmtfrm">
+				                  <input name="user_id" type="hidden" value="${sessionScope.user.getId()}">
+			                      <input name="root_id" type="hidden" value="0">
+			                      <input name="product_id" type="hidden" value="${product.getId()}">
+				                  <div class="row">
+				                    <div class="col-sm-12">
+				                      <div class="form-group">
+				                        <label for="content">Your Comment<span class="required text-primary"></span></label>
+				                        <textarea id="content" name="content" rows="2" class="form-control" placeholder="Type your comment here ..."></textarea>
+				                      </div>
+				                    </div>
+				                  </div>
+				                  <div class="row">
+				                    <div class="col-sm-12 text-right">
+				                      <button type="submit" class="btn btn-template-outlined"><i class="fa fa-comment-o"></i> Post comment</button>
+				                    </div>
+				                  </div>
+				                </form>
+				              </div>
+				          </div>
+		              
+		              </div>
+	            </c:if>
 	            </div>
               
               <div id="product-social" class="box social text-center mb-5 mt-5">

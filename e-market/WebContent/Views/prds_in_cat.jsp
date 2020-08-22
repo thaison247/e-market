@@ -85,7 +85,8 @@
 	                </div>
 	            </div>
             </c:forEach>
-            <div class="pages">
+          </div>
+          <div class="pages">
               <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                 <ul class="pagination">
                 	<li class="page-item"><a href="category?cat_id=${cat.getId()}&page=${currPageNumber - 1}" class="page-link"> <i class="fa fa-angle-double-left"></i></a></li>
@@ -101,7 +102,6 @@
                 </ul>
               </nav>
             </div>
-          </div>
         </div>
       </div>
     </div>
