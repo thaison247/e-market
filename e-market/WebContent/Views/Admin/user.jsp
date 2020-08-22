@@ -47,19 +47,19 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Management</div>
-                        <a class="nav-link active" href="index.html">
+                        <a class="nav-link active" href="admin-user">
                             <div class="sb-nav-link-icon"><i class="fa fa-users" aria-hidden="true"></i></div>
                             User
                         </a>
-                        <a class="nav-link" href="charts.html">
+                        <a class="nav-link" href="admin-product">
                             <div class="sb-nav-link-icon"><i class="fa fa-list" aria-hidden="true"></i></div>
                             Product
                         </a>
-                        <a class="nav-link" href="tables.html">
+                        <a class="nav-link" href="admin-shop">
                             <div class="sb-nav-link-icon"><i class="fa fa-shopping-bag" aria-hidden="true"></i></div>
                             Shop
                         </a>
-                        <a class="nav-link" href="tables.html">
+                        <a class="nav-link" href="admin-category">
                             <div class="sb-nav-link-icon"><i class="fa fa-list-alt" aria-hidden="true"></i></div>
                             Category
                         </a>

@@ -16,7 +16,7 @@ import BEAN.NormalUser;
 import DAO.NormalUserDAO;
 import DB.DBConnection;
 
-@WebServlet("/admin")
+@WebServlet("/admin-user")
 public class AdminIndexController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

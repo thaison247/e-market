@@ -153,4 +153,25 @@ public class UserDAO {
 		
 		return user;
 	}
+	
+	public static boolean isShopOwner(HttpServletRequest request, Connection conn, int userId) throws SQLException {
+		
+		String sql = "SELECT COUNT(*) AS number FROM cua_hang WHERE chu_ch = " + userId;
+		
+		PreparedStatement ptmt = conn.prepareStatement(sql);
+		
+		ResultSet rs = ptmt.executeQuery();
+		
+		if(rs.isBeforeFirst()) {
+			while(rs.next()) {
+				
+				if(rs.getInt(1) == 1) {
+					return true;
+				}
+				
+			}
+		}
+		
+		return false;
+	}
 }

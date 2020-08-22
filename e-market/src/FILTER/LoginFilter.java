@@ -47,11 +47,11 @@ public class LoginFilter implements Filter {
 		}
 		else {
 			
-			if(req.getRequestURI().contains("PostProduct")) {
-				session.setAttribute("from", "/e-market/PostProductS1");
+			if(req.getRequestURI().contains("post-product")) {
+				request.setAttribute("from", "/e-market/post-product-s1");
 			}
-			else if(req.getRequestURI().contains("Profile")) {
-				session.setAttribute("from", "/e-market/Profile");
+			else if(req.getRequestURI().contains("profile")) {
+				request.setAttribute("from", "/e-market/profile");
 			}
 			
 			RequestDispatcher rd = request.getRequestDispatcher("Views/login.jsp");
