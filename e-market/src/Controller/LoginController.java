@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import BEAN.Admin;
 import BEAN.NormalUser;
+import DAO.AdminDAO;
 import DAO.NormalUserDAO;
 import DAO.UserDAO;
 import DB.DBConnection;
@@ -70,6 +72,21 @@ public class LoginController extends HttpServlet {
 				// nếu đúng password
 				if(checkPassword) {
 					
+
+					// kiem tra tai khoan admin
+					if(AdminDAO.checkAdminAccountByEmail(request, conn, email)) {
+						// set giá trị cho session
+						session.setAttribute("isAdminAuthenticated", true);
+						Admin ad = new Admin();
+						ad = AdminDAO.getAdminByEmail(request, conn, email); // get admin tu DB
+						session.setAttribute("ad", ad);
+						
+						conn.close();
+
+						response.sendRedirect("admin-user");
+						return;
+					}
+
 					// set giá trị cho session
 					session.setAttribute("isAuthenticated", true);
 					NormalUser user = new NormalUser();
@@ -103,6 +120,8 @@ public class LoginController extends HttpServlet {
 			
 			// nếu không tồn tại mail trong DB
 			else {
+				
+				
 				// dong ket noi DB
 				conn.close();
 				

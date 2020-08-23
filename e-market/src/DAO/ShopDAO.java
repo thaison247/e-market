@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -74,4 +76,39 @@ public class ShopDAO {
 		
 		return newId;		
 	}
+	
+public static Map<Shop, String> getAllShops(HttpServletRequest request, Connection conn) throws SQLException{
+		
+		Map<Shop, String> allShops = new HashMap<>();
+		
+		String sql = "SELECT id_ch, ngay_tao, ten_ch, chu_ch, id_dm, ten_dm FROM cua_hang JOIN danh_muc USING(id_dm)";
+		
+		PreparedStatement ptmt = conn.prepareStatement(sql);
+		
+		ResultSet rs = ptmt.executeQuery();
+		
+		if(rs.isBeforeFirst()) {
+			
+			while(rs.next()) {
+				
+				Shop shop = new Shop();
+				
+				shop.setId(rs.getInt("id_ch"));
+				shop.setName(rs.getString("ten_ch"));
+				shop.setBeginningDate(rs.getDate("ngay_tao"));
+				shop.setOwner(rs.getInt("chu_ch"));
+				shop.setCategoryId(rs.getInt("id_dm"));
+				
+				String categoryName = rs.getString("ten_dm");
+				
+				allShops.put(shop, categoryName);
+			}
+		}
+		
+		rs.close();
+		ptmt.close();
+		
+		return allShops;
+	}
+	
 }
