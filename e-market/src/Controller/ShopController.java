@@ -139,6 +139,24 @@ public class ShopController extends HttpServlet {
 			int check = ShopRegistrationFormDAO.insertForm(request, conn, frm);
 			
 			if(check != 0){
+				
+				// GET USER
+				NormalUser user = NormalUserDAO.getUserById(request, conn, ownerId);
+				
+				
+				request.setAttribute("isWaiting", true);
+				
+				// get form information
+				ShopRegisterForm form = ShopRegistrationFormDAO.getFormByUserId(request, conn, user.getId());
+				
+				request.setAttribute("frm", form);
+				// get list category lv 1
+				List<Category> listCategoriesLv1 = CategoryDAO.getAllCategoriesLV1(request, conn);
+				request.setAttribute("listCategoriesLv1", listCategoriesLv1);
+				
+				request.setAttribute("user", user);
+				request.setAttribute("existedShop", false);
+				
 				RequestDispatcher rd = request.getRequestDispatcher("Views/shop.jsp");
 				rd.forward(request, response);
 			}

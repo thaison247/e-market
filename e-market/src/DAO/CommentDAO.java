@@ -39,8 +39,6 @@ public class CommentDAO {
 				
 				
 				check = ptmt.executeUpdate();
-				
-				System.out.println("check 1: " + check);
 			}
 			else { // if this comment is a reply of a primary (root) comment
 				sql = "INSERT INTO binh_luan(thoi_gian, noi_dung, binh_luan_goc, id_nd, id_sp) VALUES(?,?,?,?,?)";
@@ -54,9 +52,6 @@ public class CommentDAO {
 				ptmt.setInt(5, cmt.getProductId());
 				
 				check = ptmt.executeUpdate();
-				
-				System.out.println("check 2: " + check);
-				
 			}
 			
 			

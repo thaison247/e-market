@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Product Management</title>
+    <title>Shop Management</title>
     <link href="css/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
         crossorigin="anonymous" />
@@ -47,7 +47,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Management</div>
-                        <a class="nav-link active" href="admin-user">
+                        <a class="nav-link " href="admin-user">
                             <div class="sb-nav-link-icon"><i class="fa fa-users" aria-hidden="true"></i></div>
                             User
                         </a>
@@ -55,10 +55,19 @@
                             <div class="sb-nav-link-icon"><i class="fa fa-list" aria-hidden="true"></i></div>
                             Product
                         </a>
-                        <a class="nav-link" href="admin-shop">
-                            <div class="sb-nav-link-icon"><i class="fa fa-shopping-bag" aria-hidden="true"></i></div>
+                        <a class="nav-link collapsed active" href="#" data-toggle="collapse" data-target="#collapseLayouts"
+                            aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Shop
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="admin-shop">Shop management</a>
+                                <a class="nav-link" href="admin-shop-request">Pending request</a>
+                            </nav>
+                        </div>
                         <a class="nav-link" href="admin-category">
                             <div class="sb-nav-link-icon"><i class="fa fa-list-alt" aria-hidden="true"></i></div>
                             Category

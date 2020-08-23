@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Product Management</title>
+    <title>Shop Management</title>
     <link href="css/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
         crossorigin="anonymous" />
@@ -47,7 +47,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Management</div>
-                        <a class="nav-link active" href="admin-user">
+                        <a class="nav-link " href="admin-user">
                             <div class="sb-nav-link-icon"><i class="fa fa-users" aria-hidden="true"></i></div>
                             User
                         </a>
@@ -55,10 +55,19 @@
                             <div class="sb-nav-link-icon"><i class="fa fa-list" aria-hidden="true"></i></div>
                             Product
                         </a>
-                        <a class="nav-link" href="admin-shop">
-                            <div class="sb-nav-link-icon"><i class="fa fa-shopping-bag" aria-hidden="true"></i></div>
+                        <a class="nav-link collapsed active" href="#" data-toggle="collapse" data-target="#collapseLayouts"
+                            aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Shop
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="admin-shop">Shop management</a>
+                                <a class="nav-link" href="admin-shop-request">Pending request</a>
+                            </nav>
+                        </div>
                         <a class="nav-link" href="admin-category">
                             <div class="sb-nav-link-icon"><i class="fa fa-list-alt" aria-hidden="true"></i></div>
                             Category
@@ -74,86 +83,45 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Product Mangement</h1>
-                    <form name="frm_user_search">
-		                <div class="input-group">
-		                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-		                    <div class="input-group-append">
-		                        <button class="btn btn-primary" type="button"><svg class="svg-inline--fa fa-search fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg><!-- <i class="fas fa-search"></i> --></button>
-		                    </div>
-		                </div>
-            		</form>
+                    <h1 class="mt-4">Pending Request</h1>
 					
 					<table class="table table-striped table-hover">
 					  <thead>
 					    <tr>
-					      <th scope="col" style="width: 10%">ID</th>
-					      <th scope="col" style="width: 50%">Name</th>
+					      <th scope="col" style="width: 6%">ID</th>
+					      <th scope="col" style="width: 20%">Shop Name</th>
+					      <th scope="col" style="width: 20%">Category</th>
 					      <th scope="col" style="width: 20%">Date</th>
-					      <th scope="col" style="width: 10%">Status</th>
-					      <th scope="col" style="width: 10%">Seller ID</th>
+					      <th scope="col" style="width: 14%">Seller ID</th>
+					      <th scope="col" style="width: 20%">Operator</th>
 					    </tr>
 					  </thead>
 					  <tbody>
-					  	<c:forEach items="${listProducts}" var="prd">
+					  	<c:forEach items="${allForms}" var="frm">
 					  		<tr>
-						      <th scope="row">${prd.getId()}</th>
-						      <td><a href="product-detail?product_id=${prd.getId()}" target="_blank">${prd.getName()}</a></td>
-						      <td>${prd.getDate()}</td>
-						      <c:if test="${prd.isDeleted() == false}">
-						      	<c:if test="${prd.isSold() == false }">
-							      	<td class="table-success">Available</td>
-							    </c:if>
-							    <c:if test="${prd.isSold() == true }">
-							      	<td class="table-warning">Sold</td>
-							    </c:if>
-						      </c:if>
-						      <c:if test="${prd.isDeleted() == true}">
-						      	<td class="table-danger">Deleted</td>
-						      </c:if>
-						      
-						      <td><a href="profile?user_id=${prd.getSellerId()}" target="_blank">${prd.getSellerId()}</a></td>
+						      <th scope="row">${frm.getKey().getId()}</th>
+						      <td>${frm.getKey().getName()}</td>
+						      <td>${frm.getValue()}</td>
+						      <td>${frm.getKey().getDate()}</td>
+						      <td><a href="profile?user_id=${frm.getKey().getOwnerId()}" target="_blank"></a>${frm.getKey().getOwnerId()}</td>
+						      <td>	
+						      	<form action="admin-shop-request" method="POST">
+						      		<input name="frm_id" type="hidden" value="${frm.getKey().getId()}">
+	                       			<input name="shop_name" type="hidden" value="${frm.getKey().getName()}">
+	                       			<input name="owner_id" type="hidden" value="${frm.getKey().getOwnerId()}">
+	                       			<input name="category_id" type="hidden" value="${frm.getKey().getCategoryId()}">
+	                       			<div title="Mark this product as available">
+					                  <button type="submit" class="btn btn-sm btn-success">
+					                    <i class="fa fa-check" aria-hidden="true"></i>Accept
+					                  </button>
+					                </div>
+	                       		</form>
+                    		  </td>
 						    </tr>
 					  	</c:forEach>
 					  </tbody>
 					</table>
                 
-                	<div class="row">
-                		<div class="col-sm-12 col-md-5">
-                			<div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing ${from} to ${to} of ${total} products</div>
-                		</div>
-                		<div class="col-sm-12 col-md-7">
-	                		<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-		                		<ul class="pagination" style="justify-content:flex-end;">
-		                			<c:if test="${currPageNumber <= 1}">
-		                				<li class="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-		                			</c:if>
-		                			<c:if test="${currPageNumber > 1}">
-		                				<li class="paginate_button page-item previous" id="dataTable_previous"><a href="admin-product?page=${page-1}" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-		                			</c:if>
-		                			<c:forEach items="${pages}" var="page">
-		                				<c:if test="${currPageNumber == page}">
-		                					<li class="paginate_button page-item active">
-		                						<a href="admin-product?page=${page}" aria-controls="dataTable" data-dt-idx="${page}" tabindex="0" class="page-link">${page}</a>
-		                					</li>
-		                				</c:if>
-		                				<c:if test="${currPageNumber != page}">
-		                					<li class="paginate_button page-item">
-		                						<a href="admin-product?page=${page}" aria-controls="dataTable" data-dt-idx="${page}" tabindex="0" class="page-link">${page}</a>
-		                					</li>
-		                				</c:if>
-		                			</c:forEach>
-		                			<c:if test="${currPageNumber >=  numberOfPages}">
-		                				<li class="paginate_button page-item next disabled" id="dataTable_next"><a href="admin-product?page=${page+1}" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
-		                			</c:if>
-		                			<c:if test="${currPageNumber <  numberOfPages}">
-		                				<li class="paginate_button page-item next" id="dataTable_next"><a href="admin-product?page=${page+1}" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
-		                			</c:if>
-									
-		                		</ul>
-	                		</div>
-                		</div>
-                	</div>
                 </div>
             </main>
             <footer class="py-4 bg-light mt-auto">

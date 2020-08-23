@@ -85,7 +85,7 @@ public class NormalUserDAO extends UserDAO{
 			}
 			
 			// INSERT INTO nguoidung_thongthuong TABLE
-			String sql2 = "INSERT INTO nguoi_dung(id_nd, dia_chi, sdt) VALUES(?,?,?)";
+			String sql2 = "INSERT INTO nguoidung_thongthuong(id_nd, dia_chi, sdt) VALUES(?,?,?)";
 			PreparedStatement ptmt2 = conn.prepareStatement(sql2);
 			
 			ptmt2.setInt(1, userId);

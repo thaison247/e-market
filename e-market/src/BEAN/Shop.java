@@ -7,7 +7,7 @@ public class Shop {
 	private String name;
 	private Date beginningDate;
 	private int categoryId;
-	private int owner;
+	private int ownerId;
 	private boolean status;
 	
 	public Shop(){
@@ -20,7 +20,7 @@ public class Shop {
 		this.name = name;
 		this.beginningDate = beginningDate;
 		this.categoryId = categoryId;
-		this.owner = owner;
+		this.ownerId = owner;
 		this.status = status;
 	}
 
@@ -49,10 +49,10 @@ public class Shop {
 		this.categoryId = categoryId;
 	}
 	public int getOwner() {
-		return owner;
+		return ownerId;
 	}
 	public void setOwner(int owner) {
-		this.owner = owner;
+		this.ownerId = owner;
 	}
 	public boolean isStatus() {
 		return status;
