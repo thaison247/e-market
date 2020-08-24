@@ -10,19 +10,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Shop Management</title>
+    <title>Category Management</title>
+     <!-- Font Awesome CSS-->
+  <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
     <link href="css/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
         crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous">
-    </script>
+<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous">
+    </script> -->
 </head>
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <a class="navbar-brand" href="admin-user">E-MARKET</a>
-        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
-                class="fas fa-bars"></i></button>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fa fa-bars" aria-hidden="true"></i></button>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
 
@@ -32,7 +33,7 @@
             <li style="color: white; margin-top: 5px">${sessionScope.ad.getName()}</li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="logout?from=${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']}">Logout</a>
@@ -54,20 +55,20 @@
                             <div class="sb-nav-link-icon"><i class="fa fa-list" aria-hidden="true"></i></div>
                             Product
                         </a>
-                        <a class="nav-link collapsed active" href="#" data-toggle="collapse" data-target="#collapseLayouts"
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts"
                             aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa fa-columns" aria-hidden="true"></i></div>
                             Shop
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            <div class="sb-sidenav-collapse-arrow"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
                         </a>
-                        <div class="collapse show" id="collapseLayouts" aria-labelledby="headingOne"
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="admin-shop">Shop management</a>
                                 <a class="nav-link" href="admin-shop-request">Pending request</a>
                             </nav>
                         </div>
-                        <a class="nav-link" href="admin-category">
+                        <a class="nav-link active" href="admin-category">
                             <div class="sb-nav-link-icon"><i class="fa fa-list-alt" aria-hidden="true"></i></div>
                             Category
                         </a>
@@ -82,34 +83,43 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Shop Management</h1>
-					
+                    <h1 class="mt-4">Category Management</h1>
+					<a href="admin-category-add"><button type="submit" class="btn btn-primary mt-3 mb-4">ADD CATEGORY</button></a>
 					<table class="table table-striped table-hover">
 					  <thead>
 					    <tr>
-					      <th scope="col" style="width: 6%">ID</th>
-					      <th scope="col" style="width: 20%">Shop Name</th>
-					      <th scope="col" style="width: 20%">Category</th>
-					      <th scope="col" style="width: 20%">Date</th>
-					      <th scope="col" style="width: 14%">Seller ID</th>
+					      <th scope="col" style="width: 10%">ID</th>
+					      <th scope="col" style="width: 25%">Category Name</th>
+					      <th scope="col" style="width: 25%">Root Category</th>
+					      <th scope="col" style="width: 20%">Quantity</th>
 					      <th scope="col" style="width: 20%">Operator</th>
 					    </tr>
 					  </thead>
 					  <tbody>
-					  	<c:forEach items="${allShops}" var="shop">
+					  	<c:forEach items="${listCategories}" var="cat">
 					  		<tr>
-						      <th scope="row">${shop.getKey().getId()}</th>
-						      <td><strong>${shop.getKey().getName()}</strong></td>
-						      <td>${shop.getValue()}</td>
-						      <td>${shop.getKey().getBeginningDate()}</td>
-						      <td><a href="profile?user_id=${shop.getKey().getOwner()}" target="_blank">${shop.getKey().getOwner()}</a></td>
-						      <td><a href = "shop?user_id=${shop.getKey().getOwner()}" target="_blank"><button class="btn btn-sm btn-success">
-					                    <i class="fas fa-eye"></i> View
-					                  </button></a></td>
+						      <th scope="row">${cat.getKey().getId()}</th>
+						      <td><strong>${cat.getKey().getName()}</strong></td>
+						      <td>${cat.getValue()}</td>
+						      <td>${cat.getKey().getQuantity()}</td>
+						      <td>	
+						      	<form action="admin-category-update" method="Get">
+						      		<input name="cat_id" type="hidden" value="${cat.getKey().getId()}">
+	                       			<input name="cat_name" type="hidden" value="${cat.getKey().getName()}">
+	                       			<input name="root_id" type="hidden" value="${cat.getKey().getRootId()}">
+	                       			<input name="root_name" type="hidden" value="${cat.getValue()}">
+	                       			<div title="Mark this product as available">
+					                  <button type="submit" class="btn btn-sm btn-success">
+					                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update
+					                  </button>
+					                </div>
+	                       		</form>
+                    		  </td>
 						    </tr>
 					  	</c:forEach>
 					  </tbody>
 					</table>
+                <a href="admin-category-add"><button type="submit" class="btn btn-primary mt-3 mb-4">ADD CATEGORY</button></a>
                 </div>
             </main>
             <footer class="py-4 bg-light mt-auto">

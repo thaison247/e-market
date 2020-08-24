@@ -20,7 +20,7 @@
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="index.html">E-MARKET</a>
+        <a class="navbar-brand" href="admin-user">E-MARKET</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
                 class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
@@ -29,14 +29,13 @@
         </form>
         <!-- Navbar-->
         <ul class="navbar-nav ml-auto ml-md-0">
+            <li style="color: white; margin-top: 5px">${sessionScope.ad.getName()}</li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <a class="dropdown-item" href="#">Activity Log</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="login.html">Logout</a>
+                    <a class="dropdown-item" href="logout?from=${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']}">Logout</a>
                 </div>
             </li>
         </ul>
@@ -47,11 +46,11 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Management</div>
-                        <a class="nav-link active" href="admin-user">
+                        <a class="nav-link " href="admin-user">
                             <div class="sb-nav-link-icon"><i class="fa fa-users" aria-hidden="true"></i></div>
                             User
                         </a>
-                        <a class="nav-link" href="admin-product">
+                        <a class="nav-link active" href="admin-product">
                             <div class="sb-nav-link-icon"><i class="fa fa-list" aria-hidden="true"></i></div>
                             Product
                         </a>
@@ -125,12 +124,12 @@
                 		<div class="col-sm-12 col-md-7">
 	                		<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
 		                		<ul class="pagination" style="justify-content:flex-end;">
-		                			<c:if test="${currPageNumber <= 1}">
+		                			<%-- <c:if test="${currPageNumber <= 1}">
 		                				<li class="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
 		                			</c:if>
 		                			<c:if test="${currPageNumber > 1}">
 		                				<li class="paginate_button page-item previous" id="dataTable_previous"><a href="admin-product?page=${page-1}" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-		                			</c:if>
+		                			</c:if> --%>
 		                			<c:forEach items="${pages}" var="page">
 		                				<c:if test="${currPageNumber == page}">
 		                					<li class="paginate_button page-item active">
@@ -143,12 +142,12 @@
 		                					</li>
 		                				</c:if>
 		                			</c:forEach>
-		                			<c:if test="${currPageNumber >=  numberOfPages}">
+		                			<%-- <c:if test="${currPageNumber >=  numberOfPages}">
 		                				<li class="paginate_button page-item next disabled" id="dataTable_next"><a href="admin-product?page=${page+1}" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
 		                			</c:if>
 		                			<c:if test="${currPageNumber <  numberOfPages}">
 		                				<li class="paginate_button page-item next" id="dataTable_next"><a href="admin-product?page=${page+1}" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
-		                			</c:if>
+		                			</c:if> --%>
 									
 		                		</ul>
 	                		</div>

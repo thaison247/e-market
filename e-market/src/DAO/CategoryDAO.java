@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -215,5 +218,101 @@ public class CategoryDAO {
 		}
 			
 		return rootId;
+	}
+	
+	public static Map<Category, String> listCategoryWithRootName(HttpServletRequest request, Connection conn) throws SQLException{
+		
+		Map<Category, String> listCategories = new HashMap<>();
+		
+		String sql = "SELECT d1.id_dm, d1.ten_dm, d1.danh_muc_goc, d2.ten_dm AS ten_dm_goc FROM danh_muc d1 LEFT JOIN danh_muc d2 ON d1.danh_muc_goc = d2.id_dm ORDER BY d1.id_dm ASC";
+		
+		PreparedStatement ptmt = conn.prepareStatement(sql);
+		
+		ResultSet rs = ptmt.executeQuery();
+		
+		if(rs.isBeforeFirst()) {
+			while(rs.next()) {
+				
+				Category cat = new Category();
+				
+				cat.setId(rs.getInt("id_dm"));
+				cat.setName(rs.getString("ten_dm"));
+				cat.setRootId(rs.getInt("danh_muc_goc"));
+				
+				int quantity = getQuantityById(request, conn, cat.getId());
+				cat.setQuantity(quantity);
+				
+				String rootCat = rs.getString("ten_dm_goc");
+				
+				listCategories.put(cat, rootCat);
+			}
+		}
+		
+		rs.close();
+		ptmt.close();
+		
+		return listCategories;
+	}
+	
+	
+	public static int updateCategory(HttpServletRequest request, Connection conn, Category cat) throws SQLException {
+		
+		String sql = "UPDATE danh_muc SET ten_dm = ?, danh_muc_goc = ? WHERE id_dm = ?";
+		
+		PreparedStatement ptmt = conn.prepareStatement(sql);
+		
+		ptmt.setString(1, cat.getName());
+		ptmt.setInt(2, cat.getRootId());
+		ptmt.setInt(3, cat.getId());
+		
+		int check = ptmt.executeUpdate();
+
+		return check;
+	}
+
+	public static int insertCategory(HttpServletRequest request, Connection conn, Category cat) throws SQLException {
+		
+		int newId = 0;
+		
+		String sql = "INSERT INTO danh_muc(ten_dm, danh_muc_goc) VALUES(?,?)";
+		
+		PreparedStatement ptmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		
+		ptmt.setString(1, cat.getName());
+		ptmt.setInt(2, cat.getRootId());
+		
+		int check = ptmt.executeUpdate();
+		
+		if(check == 0) {
+			throw new SQLException("Cannot insert category");
+		}
+		else {
+			
+			ResultSet rs = ptmt.getGeneratedKeys();
+			if (rs.next()) {
+			  newId = rs.getInt(1); // get this category id after inserted into DB		
+			}
+			ptmt.close();
+			
+		}
+		
+		return newId;		
+		
+	}
+
+	public static int incomingCatId(HttpServletRequest request, Connection conn) throws SQLException {
+		
+		String sql = "Select MAX(id_dm) FROM danh_muc";
+		
+		PreparedStatement ptmt = conn.prepareStatement(sql);
+		
+		ResultSet rs = ptmt.executeQuery();
+		
+		while(rs.next()) {
+			
+			return rs.getInt(1) + 1;
+		}
+		
+		return 0;
 	}
 }
