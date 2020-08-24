@@ -51,6 +51,7 @@
             <div id="checkout" class="col-lg-9">
               <div class="box">
                 <form method="post" action="post-product-s2">
+                	<input name="type" value="${type}" type="hidden">
                   <ul class="nav nav-pills nav-fill">
                     <li class="nav-item"><a href="shop-checkout2.html" class="nav-link disable"><i
                         class="fa fa-truck"></i><br>CATEGORY LEVEL 1</a></li>

@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 import BEAN.NormalUser;
 
 public class NormalUserDAO extends UserDAO{
@@ -183,6 +184,21 @@ public class NormalUserDAO extends UserDAO{
 		ptmt.close();
 		
 		return listUsers;
+	}
+
+	public static int getTotalPersonalPrd(HttpServletRequest request, Connection conn, int userId) throws SQLException {
+
+		String sql = "SELECT COUNT(*) FROM san_pham JOIN sanpham_canhan USING(id_sp) WHERE nguoi_ban = " + userId + " AND is_sold = false AND is_deleted = false";
+		
+		PreparedStatement ptmt = conn.prepareStatement(sql);
+		
+		ResultSet rs = ptmt.executeQuery();
+		
+		while(rs.next()) {
+			return rs.getInt(1);
+		}
+		
+		return 0;
 	}
 	
 }

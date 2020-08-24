@@ -30,6 +30,13 @@ public class PostProductS1Controller extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		//get type of product (shop or personal)
+		if(request.getParameter("type").equals("shop")) {
+			request.setAttribute("type", "shop");
+		}else {
+			request.setAttribute("type", "personal");
+		}
+		
 		Connection conn = null;
 		try {
 			conn = DBConnection.createConnection();
@@ -46,8 +53,10 @@ public class PostProductS1Controller extends HttpServlet {
 			return;
 			
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			request.setAttribute("errMsg", e.getMessage());
+			RequestDispatcher rd = request.getRequestDispatcher("Views/post_product_step1.jsp");
+			rd.forward(request, response);
+			return;
 		}
 	}
 

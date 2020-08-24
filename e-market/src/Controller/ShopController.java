@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import BEAN.Category;
 import BEAN.NormalUser;
-import BEAN.PersonalProduct;
 import BEAN.Shop;
+import BEAN.ShopProduct;
 import BEAN.ShopRegisterForm;
 import BEAN.User;
 import DAO.CategoryDAO;
@@ -65,7 +65,7 @@ public class ShopController extends HttpServlet {
 				Shop shop = ShopDAO.getShopByUserId(request, conn, userId);
 				
 				// get list product in shop
-				List<PersonalProduct> listProducts = ProductDAO.getProductsByUserId(request, conn, userId);
+				List<ShopProduct> listProducts = ProductDAO.getShopProductsByUserId(request, conn, userId);
 				
 				// send data to view
 				request.setAttribute("user", user);

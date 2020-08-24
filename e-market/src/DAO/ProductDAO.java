@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import BEAN.PersonalProduct;
 import BEAN.Product;
+import BEAN.ShopProduct;
 
 public class ProductDAO {
 	
-	public static int insertProduct(HttpServletRequest request, Connection conn, PersonalProduct prd) {
+	public static int insertProduct(HttpServletRequest request, Connection conn, Product prd) {
 		
 		int check = 0; // biến luưu id của product  khi đc insert vào DB
 		
@@ -81,6 +82,36 @@ public class ProductDAO {
 			
 			if(check == 0) {
 				throw new SQLException("Cannot insert personal product");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return prdId;
+		
+	}
+	
+public static int insertShopProduct(HttpServletRequest request, Connection conn, ShopProduct prd){
+		
+		int prdId = insertProduct(request, conn, prd);
+		
+		// insert id sản phẩm vào bảng sanpham_canhan
+		String sql = "INSERT INTO sanpham_banchuyen(id_sp, id_ch) VALUES(?, ?)";
+		
+		PreparedStatement ptmt;
+		try {
+			ptmt = conn.prepareStatement(sql);
+			
+			ptmt.setInt(1, prdId);
+			ptmt.setInt(2, prd.getShopId());
+			
+			int check = 0;
+			check = ptmt.executeUpdate();
+			
+			if(check == 0) {
+				throw new SQLException("Cannot insert shop product");
 			}
 			
 		} catch (SQLException e) {
@@ -278,7 +309,7 @@ public class ProductDAO {
 	public static List<PersonalProduct> getProductsByUserId(HttpServletRequest request, Connection conn, int userId){
 		List<PersonalProduct> listProducts = new ArrayList<>();
 		
-		String sql = "SELECT * FROM san_pham s WHERE s.nguoi_ban = " + userId + " AND s.is_deleted = 0";
+		String sql = "SELECT * FROM san_pham s JOIN sanpham_canhan c USING(id_sp) WHERE s.nguoi_ban = " + userId + " AND s.is_deleted = 0";
 		
 		try {
 			PreparedStatement ptmt = conn.prepareStatement(sql);
@@ -300,6 +331,48 @@ public class ProductDAO {
 					int sellerId = rs.getInt("nguoi_ban");
 
 					PersonalProduct prd = new PersonalProduct(id, name, date, price, shortDesc, detailDesc, isSold, categoryId, sellerId);
+					listProducts.add(prd);
+				}
+				
+				rs.close();
+			}
+			else {
+//				request.setAttribute("errMsg","không tìm thấy sản phẩm liên quan");
+			}
+			
+		}catch(SQLException e){
+			request.setAttribute("errMsg", e.getMessage());
+		}
+		
+		return listProducts;
+	}
+	
+	public static List<ShopProduct> getShopProductsByUserId(HttpServletRequest request, Connection conn, int userId){
+		List<ShopProduct> listProducts = new ArrayList<>();
+		
+		String sql = "SELECT * FROM san_pham s JOIN sanpham_banchuyen c USING(id_sp) WHERE s.nguoi_ban = " + userId + " AND s.is_deleted = 0";
+		
+		try {
+			PreparedStatement ptmt = conn.prepareStatement(sql);
+			
+			ResultSet rs = ptmt.executeQuery();
+			
+			if(rs.isBeforeFirst()) {
+				
+				while(rs.next()) {
+					
+					int id = rs.getInt("id_sp");
+					String name = rs.getString("ten_sp");
+					Date date = rs.getDate("ngay_dang");
+					int price = rs.getInt("gia_sp");
+					String shortDesc = rs.getString("mo_ta_ngan");
+					String detailDesc = rs.getString("mo_ta");
+					boolean isSold = rs.getBoolean("is_sold");
+					int categoryId = rs.getInt("id_dm");
+					int sellerId = rs.getInt("nguoi_ban");
+					int shopId = rs.getInt("id_ch");
+
+					ShopProduct prd = new ShopProduct(id, name, date, price, shortDesc, detailDesc, isSold, categoryId, sellerId, shopId);
 					listProducts.add(prd);
 				}
 				

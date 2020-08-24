@@ -15,9 +15,11 @@ import javax.servlet.http.HttpSession;
 
 import BEAN.Category;
 import BEAN.PersonalProduct;
+import BEAN.ShopProduct;
 import BEAN.User;
 import DAO.CategoryDAO;
 import DAO.ProductDAO;
+import DAO.ShopDAO;
 import DB.DBConnection;
 
 
@@ -33,6 +35,13 @@ public class PostProductS2Controller extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//get type of product (shop or personal)
+		if(request.getParameter("type").equals("shop")) {
+			request.setAttribute("type", "shop");
+		}else {
+			request.setAttribute("type", "personal");
+		}
 		
 		// lay id cua DANH MUC LV1 nguoi dung vua chon 
 		int categoryLv1 = Integer.parseInt(request.getParameter("category-lv1"));
@@ -65,6 +74,12 @@ public class PostProductS2Controller extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 		}
 		
+		//get type of product (shop or personal)
+		boolean isShopPrd = false;
+		if(request.getParameter("type").equals("shop")) {
+			isShopPrd = true;
+		}
+		
 		HttpSession session = request.getSession();
 		
 		// set cac truong lieu
@@ -79,15 +94,25 @@ public class PostProductS2Controller extends HttpServlet {
 		long millis=System.currentTimeMillis();  //lay thoi gian hien tai (milisecond)
 	    java.sql.Date date=new java.sql.Date(millis); // ngay dang san pham
 	    
-	    // khoi tao doi tuong Product
-		PersonalProduct prd = new PersonalProduct(name, date, price, shortDesc, detailDesc, isSold, categoryId, sellerId);
-		
 		// ghi xuong DB
 		try {
 			Connection conn = DBConnection.createConnection();
 			
-			int productId = ProductDAO.insertPersonalProduct(request, conn, prd);
-			conn.close();
+			int productId = 0;
+			
+			if(isShopPrd == true) {
+				int shopId = ShopDAO.getShopId(request, conn, sellerId);
+				ShopProduct sPrd = new ShopProduct(name, date, price, shortDesc, detailDesc, isSold, categoryId, sellerId, shopId);
+				
+				productId = ProductDAO.insertShopProduct(request, conn, sPrd);
+				conn.close();
+			}
+			else {
+				 // khoi tao doi tuong Product
+				PersonalProduct prd = new PersonalProduct(name, date, price, shortDesc, detailDesc, isSold, categoryId, sellerId);
+				productId = ProductDAO.insertPersonalProduct(request, conn, prd);
+				conn.close();
+			}
 			
 			if(productId > 0) {
 				session.setAttribute("productId", productId); // gui productId de dat ten cho thu muc luu hinh anh cua san pham

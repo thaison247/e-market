@@ -49,8 +49,7 @@
         <div class="row">
           <div id="checkout" class="col-lg-12">
             <div class="box">
-              <form method="get" action="post-product-s2">
-              	<input name="type" value="${type}" type="hidden">
+              <form method="get" action="post-product-s1">
                 <ul class="nav nav-pills nav-fill">
                   <li class="nav-item"><a href="shop-checkout2.html" class="nav-link active"><i
                         class="fa fa-truck"></i><br>CATEGORY LEVEL 1</a></li>
@@ -59,22 +58,58 @@
                 </ul>
                 <div class="content">
                   <div class="row">
-	                  <c:forEach items="${listCategoriesLV1}" var="category">
+                  	<c:if test="${isShopOwner == true}">
 	                  	<div class="col-sm-6">
 	                      <div class="box shipping-method">
-	                        <h4>${category.getName()}</h4>
+	                        <h4>Shop Product</h4>
 	                        <div class="box-footer text-center">
-	                          <input type="radio" name="category-lv1" value="${category.getId()}">
+	                          <input type="radio" name="type" value="shop">
 	                        </div>
 	                      </div>
-	                    </div>
-	                  </c:forEach>
+                    	</div>
+                    </c:if>
+                    <c:if test="${isShopOwner == false}">
+	                  	<div class="col-sm-6">
+	                      <div class="box shipping-method">
+	                        <h4>Shop Product</h4><small style="color: red;">You have not created your shop yet.</small>
+	                        <div class="box-footer text-center">
+	                          <input disabled type="radio" name="type" value="shop">
+	                        </div>
+	                      </div>
+                    	</div>
+                    </c:if>
+                    <c:if test="${overQuantity == false}">
+                    	<div class="col-sm-6">
+	                      <div class="box shipping-method">
+	                        <h4>Personal Product</h4>
+	                        <div class="box-footer text-center">
+	                          <input type="radio" name="type" value="personal">
+	                        </div>
+	                      </div>
+                    	</div>
+                    </c:if>
+                    <c:if test="${overQuantity == true}">
+                    	<div class="col-sm-6">
+	                      <div class="box shipping-method">
+	                        <h4>Personal Product</h4><small style="color: red;">You can not have more than 3 available personal products.</small>
+	                        <div class="box-footer text-center">
+	                          <input disabled type="radio" name="type" value="personal">
+	                        </div>
+	                      </div>
+                    	</div>
+                    </c:if>
                   </div>
                 </div>
                 <div class="box-footer d-flex flex-wrap align-items-center justify-content-between">
                   <div class="right-col">
-                    <button type="submit" class="btn btn-template-main">NEXT STEP<i
+                  <c:if test="${overQuantity == true && isShopOwner == false }">
+                  	<button disabled type="submit" class="btn btn-template-main">NEXT STEP<i
                         class="fa fa-chevron-right"></i></button>
+                  </c:if>
+                  <c:if test="${overQuantity == false || isShopOwner == true }">
+                  	<button  type="submit" class="btn btn-template-main">NEXT STEP<i
+                        class="fa fa-chevron-right"></i></button>
+                  </c:if>
                   </div>
                 </div>
               </form>
