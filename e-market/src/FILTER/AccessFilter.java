@@ -36,22 +36,18 @@ public class AccessFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession session = req.getSession();
 
-		if(session.getAttribute("allCategories") == null) {
+		if(true) {
 			
 			try {
-				// tạo kết nối database
 				Connection conn = DBConnection.createConnection();
 				// lay danh sach Category vao allCategories
 				ArrayList<Category> allCategories = CategoryDAO.getAllCategories(req, conn);
 				
-				// set attribute để truyền dữ liệu đi
 				session.setAttribute("allCategories", allCategories);
 				
-				// đóng kết nối database
 				conn.close();
 				
 			} catch (ClassNotFoundException | SQLException e) {
-				// thông báo lỗi ở trang error
 				req.setAttribute("errMsg", e.getMessage());
 				RequestDispatcher rd = req.getRequestDispatcher("Views/error.jsp");
 				rd.forward(req, response);

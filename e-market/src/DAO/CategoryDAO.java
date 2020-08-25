@@ -165,7 +165,7 @@ public class CategoryDAO {
 	public static int getQuantityById(HttpServletRequest request, Connection conn, int catId) {
 		int result = 0;
 		
-		String sql = "SELECT COUNT(*) AS so_luong FROM san_pham s WHERE s.id_dm = ? OR s.id_dm IN (SELECT d.id_dm FROM danh_muc d WHERE d.danh_muc_goc = ?)";
+		String sql = "SELECT COUNT(*) AS so_luong FROM san_pham s WHERE s.is_deleted = false AND (s.id_dm = ? OR s.id_dm IN (SELECT d.id_dm FROM danh_muc d WHERE d.danh_muc_goc = ?))";
 		
 		PreparedStatement ptmt;
 		try {

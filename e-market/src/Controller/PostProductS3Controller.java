@@ -74,10 +74,12 @@ public class PostProductS3Controller extends HttpServlet {
 				}
 				
 				// upload ảnh thành công
-				request.setAttribute("msg", "File uploaded successfully!");
-				RequestDispatcher rd = request.getRequestDispatcher("Views/message.jsp");
-				rd.forward(request, response);
-				return;
+				response.sendRedirect("product-detail?product_id=" + productId);
+				/*
+				 * request.setAttribute("msg", "File uploaded successfully!"); RequestDispatcher
+				 * rd = request.getRequestDispatcher("Views/message.jsp"); rd.forward(request,
+				 * response); return;
+				 */
 				
 			} catch (Exception e1) {
 				request.setAttribute("errMsg", e1.getMessage());
