@@ -82,6 +82,14 @@
 	                    <h3 class="h5"><a href="product-detail?product_id=${prd.getId()}">${prd.getName()}</a></h3>
 	                    <p class="price"><strong>$ </strong>${prd.getPrice()}</p>
 	                  </div>
+	                  <div class="ribbon-holder">
+	                  	<c:if test="${prd.isSold() == true}">
+	                  		<div class="ribbon sale" style="background-color: #ffc107; border-color: #ffc107;">SOLD</div>
+	                  	</c:if>
+                        <c:if test="${prd.getSellerId() == sessionScope.user.getId()}">
+	                  		<div class="ribbon new">Yours</div>
+	                  	</c:if>
+                      </div>
 	                </div>
 	            </div>
             </c:forEach>
@@ -90,12 +98,12 @@
               <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                 <ul class="pagination">
                 	<li class="page-item"><a href="category?cat_id=${cat.getId()}&page=${currPageNumber - 1}" class="page-link"> <i class="fa fa-angle-double-left"></i></a></li>
-	                <c:forEach items="${pages}" var="pageNumber">
-	                	<c:if test="${pageNumber == currPageNumber}">
-	                		<li class="page-item active"><a href="category?cat_id=${cat.getId()}&page=${pageNumber}" class="page-link">${pageNumber}</a></li>
+	                <c:forEach items="${pages}" var="page">
+	                	<c:if test="${page == currPageNumber}">
+	                		<li class="page-item active"><a href="category?cat_id=${cat.getId()}&page=${page}" class="page-link">${page}</a></li>
 	                	</c:if>
-	                	<c:if test="${pageNumber != currPageNumber}">
-	                		<li class="page-item"><a href="category?cat_id=${cat.getId()}&page=${pageNumber}" class="page-link">${pageNumber}</a></li>
+	                	<c:if test="${page != currPageNumber}">
+	                		<li class="page-item"><a href="category?cat_id=${cat.getId()}&page=${page}" class="page-link">${page}</a></li>
 	                	</c:if>
 	                </c:forEach>
                 	<li class="page-item"><a href="category?cat_id=${cat.getId()}&page=${currPageNumber + 1}" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>

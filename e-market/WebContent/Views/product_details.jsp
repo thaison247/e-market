@@ -70,7 +70,7 @@
             <div class="col-lg-12">
               <h4>${product.getName()}</h4>
               <p class="lead" style="margin-bottom: 10px;">${product.getShortDesc()}</p>
-              <p class="goToDescription" style="margin-bottom: 10px;"><a href="#details" class="scroll-to text-uppercase">Scroll to product details, material & care and sizing</a></p>
+              <p class="goToDescription" style="margin-bottom: 10px;"><a href="#details" class="scroll-to text-uppercase">Scroll to product details and comments</a></p>
               <div id="productMain" class="row">
                 <div class="col-sm-6">
                   <div data-slider-id="1" class="owl-carousel shop-detail-carousel">

@@ -83,7 +83,7 @@ public class ProductDetailController extends HttpServlet {
 			// lấy ds sản phẩm liên quan (sản phẩm cùng danh mục), số lượng = limit
 			int catId = prd.getCategoryId(); // id danh mục
 			int limit = 8;
-			List<Product> listRelativeProducts = ProductDAO.getRelativeProducts(request, conn, catId, limit);
+			List<Product> listRelativeProducts = ProductDAO.getRelativeProducts(request, conn, catId, prd.getId(), limit);
 			
 			request.setAttribute("product", prd);
 			request.setAttribute("seller", seller);

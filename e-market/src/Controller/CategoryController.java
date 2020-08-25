@@ -47,12 +47,12 @@ public class CategoryController extends HttpServlet {
 			int totalPrdsInCat = ProductDAO.getNumberOfPrdsInCat(request, conn, catId); // total number of products in a category
 			int noPrdsPerPage = HELPER.ConstNumbers.prdsPerPage; // number of products per page 
 			int noPages = totalPrdsInCat/noPrdsPerPage; // number of pages
-			noPages = noPages==0 ? 1 : noPages; // number of pages
+//			if(noPages == 0) noPages = 1; // number of pages
 			if(totalPrdsInCat % noPrdsPerPage != 0) {
 				noPages++;
 			}
 			if(pageNumber > noPages) pageNumber = noPages;
-			
+			if(pageNumber < 1) pageNumber = 1;
 			// limit and offset used for sql query
 			int limit = noPrdsPerPage;
 			int offset = (pageNumber - 1) * noPrdsPerPage;
@@ -64,6 +64,7 @@ public class CategoryController extends HttpServlet {
 			ArrayList<Integer> pages = new ArrayList<>();
 			for(int i = 1; i <= noPages; i++) {
 				pages.add(i);
+				System.out.println(i);
 			}
 			
 			// category information

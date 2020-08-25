@@ -175,10 +175,10 @@ public static int insertShopProduct(HttpServletRequest request, Connection conn,
 	
 	
 	/*get relative products by category id*/
-	public static List<Product> getRelativeProducts(HttpServletRequest request, Connection conn, int catId, int limit){
+	public static List<Product> getRelativeProducts(HttpServletRequest request, Connection conn, int catId, int prdId, int limit){
 		List<Product> listProducts = new ArrayList<>();
 		
-		String sql = "SELECT * FROM san_pham WHERE id_dm = ? LIMIT ?";
+		String sql = "SELECT * FROM san_pham WHERE id_dm = ? AND id_sp <> ? AND is_deleted = FALSE LIMIT ?";
 		
 		PreparedStatement ptmt;
 		try {
@@ -186,7 +186,8 @@ public static int insertShopProduct(HttpServletRequest request, Connection conn,
 			
 			// set gia tri ? cho cau truy van 
 			ptmt.setInt(1, catId);
-			ptmt.setInt(2, limit);
+			ptmt.setInt(2, prdId);
+			ptmt.setInt(3, limit);
 			
 			//thuc thi cau truy van -> luu vao RS
 			ResultSet rs = ptmt.executeQuery();
@@ -260,7 +261,7 @@ public static int insertShopProduct(HttpServletRequest request, Connection conn,
 		
 		List<Product> listProducts= new ArrayList<>();
 		
-		String sql = "SELECT * FROM san_pham s WHERE s.id_dm = ? OR s.id_dm IN (SELECT d.id_dm FROM danh_muc d WHERE d.danh_muc_goc = ?) LIMIT ? OFFSET ?";
+		String sql = "SELECT * FROM san_pham s WHERE s.is_deleted = false AND (s.id_dm = ? OR s.id_dm IN (SELECT d.id_dm FROM danh_muc d WHERE d.danh_muc_goc = ?)) LIMIT ? OFFSET ?";
 		
 		PreparedStatement ptmt;
 		try {
