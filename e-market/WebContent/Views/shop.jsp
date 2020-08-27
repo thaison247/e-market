@@ -73,7 +73,7 @@
                   <ul class="nav nav-pills flex-column text-sm">
                     	<li class="nav-item"><a href="profile?user_id=${user.getId()}" class="nav-link"><i class="fa fa-user fa-lg"></i> Profile</a></li>
 	                    <li class="nav-item"><a href="personal-products?user_id=${user.getId()}" class="nav-link "><i class="fa fa-list"></i> Personal products</a></li>
-	                    <li class="nav-item"><a href="shop?user_id=${user.getId()}" class="nav-link active"><i class="fa fa-list"></i> Shop</a></li>
+	                    <li class="nav-item"><a href="shop?user_id=${user.getId()}" class="nav-link active"><i class="fa fa-columns" aria-hidden="true"></i> Shop</a></li>
 	                    <c:if test="${sessionScope.user.getId() ==  user.getId()}">
 		                    <li class="nav-item"><a href="wishlist" class="nav-link"><i class="fa fa-heart"></i> My wishlist</a></li>
 		                    <li class="nav-item"><a href="logout?from=${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']}" class="nav-link"><i class="fa fa-sign-out"></i> Logout</a></li>
@@ -84,8 +84,17 @@
             </div>
           <c:if test="${existedShop == true}">
 	          <div id="customer-order" class="col-lg-9">
+	          		<h2>${shop.getName()}</h2>
+	          		<p class="lead" style="margin-bottom: 10px;">${catName}</p>
 	               <div class="box" style="margin-top: 20px; background: azure">
 	                <div class="table-responsive">
+	                	<c:if test="${sessionScope.user.getId() == user.getId()}">
+		                	<div class="left-col">
+		                		<a href="post-product-s1?type=shop">
+		                			<button type="submit" class="btn btn-template-main">ADD PRODUCT <i class="fa fa-plus" aria-hidden="true"></i></button>
+		                		</a>
+	                  		</div>
+                  		</c:if>
 	                  <table class="table">
 	                    <thead>
 	                      <tr>

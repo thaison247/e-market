@@ -80,7 +80,7 @@
                           					<!-- For each danh mục cấp 2 -->
 					                            <c:forEach items="${sessionScope.allCategories}" var="cat2">
 					                                <c:if test="${cat2.getRootId() == cat.getId()}">
-					                                    <li class="nav-item"><a href="category?cat_id=${cat.getId()}" class="nav-link">${cat2.getName()}</a></li>
+					                                    <li class="nav-item"><a href="category?cat_id=${cat2.getId()}" class="nav-link">${cat2.getName()}</a></li>
 					                                </c:if>
 					                            </c:forEach>
                           					</ul>
@@ -99,8 +99,9 @@
 	                  <ul class="dropdown-menu">
 	                  	<li class="dropdown-item"><a href="profile?user_id=${sessionScope.user.getId()}" class="nav-link"><i class="fa fa-user"></i> Profile</a></li>
 	                    <li class="dropdown-item"><a href="personal-products?user_id=${sessionScope.user.getId()}" class="nav-link"><i class="fa fa-list"></i> My Products</a></li>
+	                    <li class="dropdown-item"><a href="shop?user_id=${sessionScope.user.getId()}" class="nav-link"><i class="fa fa-columns" aria-hidden="true"></i> My Shop</a></li>
 	                    <li class="dropdown-item"><a href="wishlist" class="nav-link"><i class="fa fa-heart"></i> My Wishlist</a></li>
-	                    <li class="dropdown-item"><a href="logout" class="nav-link"><i class="fa fa-sign-out"></i> Logout</a></li>
+	                    <li class="dropdown-item"><a href="logout?from=${requestScope['javax.servlet.forward.request_uri']}?${requestScope['javax.servlet.forward.query_string']}" class="nav-link"><i class="fa fa-sign-out"></i> Logout</a></li>
 	                  </ul>
 	                </li>
                 </c:if>

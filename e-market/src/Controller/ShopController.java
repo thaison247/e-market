@@ -64,12 +64,16 @@ public class ShopController extends HttpServlet {
 				// get shop information
 				Shop shop = ShopDAO.getShopByUserId(request, conn, userId);
 				
+				// get shop'category name
+				String catName = CategoryDAO.getCategoryNameById(request, conn, shop.getCategoryId());
+				
 				// get list product in shop
 				List<ShopProduct> listProducts = ProductDAO.getShopProductsByUserId(request, conn, userId);
 				
 				// send data to view
 				request.setAttribute("user", user);
 				request.setAttribute("shop", shop);
+				request.setAttribute("catName", catName);
 				request.setAttribute("listProducts", listProducts);
 				RequestDispatcher rd = request.getRequestDispatcher("Views/shop.jsp");
 				rd.forward(request, response);

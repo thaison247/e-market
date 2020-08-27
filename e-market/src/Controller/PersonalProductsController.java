@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import BEAN.PersonalProduct;
 import BEAN.User;
+import DAO.NormalUserDAO;
 import DAO.ProductDAO;
 import DAO.UserDAO;
 import DB.DBConnection;
@@ -49,6 +51,16 @@ public class PersonalProductsController extends HttpServlet {
 			// get products
 			List<PersonalProduct> listProducts = ProductDAO.getProductsByUserId(request, conn, userId);
 			
+			// check if total number of user's personal product is more than 3 
+			int totalPersonalPrd = NormalUserDAO.getTotalPersonalPrd(request, conn, user.getId());
+			
+			if(totalPersonalPrd >= 3) {
+				request.setAttribute("overQuantity", true);
+			}
+			else {
+				request.setAttribute("overQuantity", false);
+			}
+			
 			// send data to view
 			request.setAttribute("user", user);
 			request.setAttribute("listProducts", listProducts);
@@ -56,7 +68,7 @@ public class PersonalProductsController extends HttpServlet {
 			rd.forward(request, response);
 			return;
 			
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			request.setAttribute("errMsg", e.getMessage());
 			RequestDispatcher rd = request.getRequestDispatcher("Views/error.jsp");
 			rd.forward(request, response);

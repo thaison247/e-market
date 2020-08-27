@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 import BEAN.Category;
 
 public class CategoryDAO {
@@ -314,5 +315,25 @@ public class CategoryDAO {
 		}
 		
 		return 0;
+	}
+
+	public static String getCategoryNameById(HttpServletRequest request, Connection conn, int categoryId) throws SQLException {
+
+		String catName = null;
+		
+		String sql = "SELECT ten_dm FROM danh_muc WHERE id_dm = " + categoryId;
+		
+		PreparedStatement ptmt = conn.prepareStatement(sql);
+		
+		ResultSet rs = ptmt.executeQuery();
+		
+		while(rs.next()) {
+			catName = rs.getString(1);
+		}
+		
+		rs.close();
+		ptmt.close();
+		
+		return catName;
 	}
 }
