@@ -136,5 +136,22 @@ public static Map<Shop, String> getAllShops(HttpServletRequest request, Connecti
 		
 		return shopId;
 	}
+	
+	public static int getShopCatId(HttpServletRequest request, Connection conn, int userId) throws SQLException {
+		int catId = 0;
+		
+		String sql = "SELECT id_dm FROM cua_hang WHERE chu_ch = "+userId;
+		
+		PreparedStatement ptmt = conn.prepareStatement(sql);
+		
+		ResultSet rs = ptmt.executeQuery();
+		
+		while(rs.next()) {
+			catId = rs.getInt(1);
+		}
+		
+		return catId;
+		
+	}
 
 }

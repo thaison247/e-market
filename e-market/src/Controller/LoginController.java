@@ -96,6 +96,8 @@ public class LoginController extends HttpServlet {
 					user = NormalUserDAO.getUserByEmail(request, conn, email); // get User tu DB
 					session.setAttribute("user", user);
 					
+					System.out.println("llllllllllll"+ user.getEmail());
+					
 					conn.close();
 					
 					String prevUrlLogin = null;
