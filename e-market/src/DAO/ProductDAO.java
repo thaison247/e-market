@@ -230,8 +230,8 @@ public static int insertShopProduct(HttpServletRequest request, Connection conn,
 		int result = 0;
 		
 		String sql = "SELECT COUNT(*) AS count FROM san_pham s"
-					+" WHERE s.id_dm = " + catId + " OR s.id_dm IN "
-					+ "(SELECT d.id_dm FROM danh_muc d WHERE d.danh_muc_goc = " + catId + ")";
+					+" WHERE s.is_deleted = false AND (s.id_dm = " + catId + " OR s.id_dm IN "
+					+ "(SELECT d.id_dm FROM danh_muc d WHERE d.danh_muc_goc = " + catId + "))";
 		
 		try {
 			PreparedStatement ptmt = conn.prepareStatement(sql);
