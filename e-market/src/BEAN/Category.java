@@ -1,6 +1,6 @@
 package BEAN;
 
-public class Category {
+public class Category implements Comparable<Category> {
 	private int id;  // id danh mục
 	private String name; // tên danh mục
 	private int rootId; // id danh mục gốc (danh mục cha)
@@ -50,4 +50,12 @@ public class Category {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+
+	@Override
+	public int compareTo(Category c) {
+		if(this.id > c.id) return 1;
+		if(this.id < c.id) return -1;
+		return 0;
+	}
+
 }

@@ -2,7 +2,7 @@ package BEAN;
 
 import java.sql.Date;
 
-public class Shop {
+public class Shop implements Comparable<Shop> {
 	private int id;
 	private String name;
 	private Date beginningDate;
@@ -59,6 +59,13 @@ public class Shop {
 	}
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	@Override
+	public int compareTo(Shop o) {
+		if(this.id > o.id) return 1;
+		if(this.id < o.id) return -1;
+		return 0;
 	}
 	
 	

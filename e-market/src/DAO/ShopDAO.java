@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -108,7 +109,10 @@ public static Map<Shop, String> getAllShops(HttpServletRequest request, Connecti
 		rs.close();
 		ptmt.close();
 		
-		return allShops;
+		TreeMap<Shop, String> map = new TreeMap<>();
+		map.putAll(allShops);
+		
+		return map;
 	}
 	
 	public static int getShopId(HttpServletRequest request, Connection conn, int userId) throws SQLException {

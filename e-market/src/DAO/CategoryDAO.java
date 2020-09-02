@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -249,10 +250,13 @@ public class CategoryDAO {
 			}
 		}
 		
+		TreeMap<Category, String> map = new TreeMap<>();
+		map.putAll(listCategories);
+		
 		rs.close();
 		ptmt.close();
 		
-		return listCategories;
+		return map;
 	}
 	
 	

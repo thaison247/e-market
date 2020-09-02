@@ -33,6 +33,7 @@ public class AdminCategoryController extends HttpServlet {
 			// get all categories
 			Map<Category, String> listCategories = CategoryDAO.listCategoryWithRootName(request, conn);
 			
+			
 			conn.close();
 			
 			request.setAttribute("listCategories", listCategories);
