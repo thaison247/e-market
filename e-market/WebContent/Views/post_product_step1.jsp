@@ -52,8 +52,9 @@
               <form method="get" action="post-product-s2">
               	<input name="type" value="${type}" type="hidden">
                 <ul class="nav nav-pills nav-fill">
+                  <li class="nav-item"><a href="shop-checkout2.html" class="nav-link"><i class="fa fa-question-circle-o" aria-hidden="true"></i><br>Type of product</a></li>
                   <li class="nav-item"><a href="shop-checkout2.html" class="nav-link active"><i
-                        class="fa fa-truck"></i><br>CATEGORY LEVEL 1</a></li>
+                        class="fa fa-truck"></i><br>Category level 1</a></li>
                   <li class="nav-item"><a href="#" class="nav-link disabled"><i class="fa fa-money"></i><br>Product Information</a></li>
                   <li class="nav-item"><a href="#" class="nav-link disabled"><i class="fa fa-eye"></i><br>Upload Photos</a></li>
                 </ul>
@@ -72,6 +73,7 @@
                   </div>
                 </div>
                 <div class="box-footer d-flex flex-wrap align-items-center justify-content-between">
+                  <div class="left-col"></div>
                   <div class="right-col">
                     <button type="submit" class="btn btn-template-main">NEXT STEP<i
                         class="fa fa-chevron-right"></i></button>

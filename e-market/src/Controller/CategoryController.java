@@ -64,7 +64,6 @@ public class CategoryController extends HttpServlet {
 			ArrayList<Integer> pages = new ArrayList<>();
 			for(int i = 1; i <= noPages; i++) {
 				pages.add(i);
-				System.out.println(i);
 			}
 			
 			// category information
